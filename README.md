@@ -13,8 +13,9 @@ pie showData
     title Project Commits
     "Muhammad Fouad" : 34
     "Mohamed Haitham" : 7
-    "GitHub Action" : 4
+    "GitHub Action" : 5
     "Abdelhamid Ahmed" : 2
+    "Ali" : 1
 ```
 <!-- STATS_END -->
 
