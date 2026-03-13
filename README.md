@@ -21,8 +21,8 @@ A premium, modern library management platform.
 ```mermaid
 pie showData
     title Project Commits
-    "Muhammad Fouad" : 21 commits
-    "Abdelhamid Ahmed" : 2 commits
+    "Muhammad Fouad" : 28
+    "Abdelhamid Ahmed" : 2
 ```
 
 ---
