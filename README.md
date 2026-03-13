@@ -33,6 +33,3 @@ pie showData
     <img src="https://contrib.rocks/image?repo=Abdelhamid-El-rashidy">
   </a>
 </p>
-
----
-*✨ Crafted with precision for the ultimate library experience.*
