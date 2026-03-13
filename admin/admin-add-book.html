@@ -20,7 +20,44 @@
 
   <main>
     <h1>Add New Book</h1>
+
+    <form action="#" method="post">
+      <fieldset>
+        <legend>Book Details</legend>
+
+        <p>
+          <label for="title">Title <em>(required)</em></label><br>
+          <input type="text" id="title" name="title" required>
+        </p>
+
+        <p>
+          <label for="author">Author <em>(required)</em></label><br>
+          <input type="text" id="author" name="author" required>
+        </p>
+
+        <p>
+          <label for="isbn">ISBN <em>(required)</em></label><br>
+          <input type="text" id="isbn" name="isbn" required>
+        </p>
+
+        <p>
+          <label for="publisher">Publisher</label><br>
+          <input type="text" id="publisher" name="publisher">
+        </p>
+
+        <p>
+          <label for="publication_year">Publication Year</label><br>
+          <input type="number" id="publication_year" name="publication_year" min="1000" max="2099">
+        </p>
+      </fieldset>
+
+      <p>
+        <button type="submit">Add Book</button>
+        <button type="reset">Clear Form</button>
+      </p>
+    </form>
   </main>
+
 </body>
 
 </html>
