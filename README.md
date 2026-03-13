@@ -1,6 +1,6 @@
 # 📚 Library System
 
-A premium, modern library management platform featuring a high-contrast **Amber & Onyx** interface.
+A premium, modern library management platform.
 
 ---
 
