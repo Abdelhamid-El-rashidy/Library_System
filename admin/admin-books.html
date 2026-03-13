@@ -4,91 +4,113 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - Edit Book</title>
+    <title>Admin - Books Library</title>
 </head>
 
-<body>
-    <header>
+<body
+    style="background-color: #F9FAFB; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    <header style="background-color: #111827; border-bottom: 1px solid #1F2937;">
         <nav>
-            <table bgcolor="#F8F9FA" width="100%">
-                <tr align="center">
-                    <td width="25%"><a href="#">
-                            <font color="#4A6FA5" face="Arial">Dashboard</font>
-                        </a></td>
-                    <td width="25%"><a href="admin-books.html">
-                            <font color="#1E3A8A" face="Arial"><strong>Books</strong></font>
-                        </a></td>
-                    <td width="25%"><a href="admin-add-book.html">
-                            <font color="#4A6FA5" face="Arial">Add Book</font>
-                        </a></td>
-                    <td width="25%"><a href="admin-edit-book.html">
-                            <font color="#4A6FA5" face="Arial">Edit Book</font>
-                        </a></td>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="text-align: center;">
+                    <td style="width: 25%; padding: 16px;">
+                        <a href="#"
+                            style="color: #9CA3AF; text-decoration: none; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Dashboard</a>
+                    </td>
+                    <td style="width: 25%; padding: 16px; border-bottom: 3px solid #F59E0B;">
+                        <a href="admin-books.html"
+                            style="color: #F59E0B; text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Books</a>
+                    </td>
+                    <td style="width: 25%; padding: 16px;">
+                        <a href="admin-add-book.html"
+                            style="color: #9CA3AF; text-decoration: none; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Add
+                            Book</a>
+                    </td>
+                    <td style="width: 25%; padding: 16px;">
+                        <a href="admin-edit-book.html"
+                            style="color: #9CA3AF; text-decoration: none; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Edit
+                            Book</a>
+                    </td>
                 </tr>
             </table>
         </nav>
     </header>
 
     <main>
-        <h1>Edit Book</h1>
+        <br><br>
+        <table width="90%" align="center" border="0" cellpadding="0" cellspacing="0"
+            style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+            <tr>
+                <td style="padding: 40px;">
+                    <h1
+                        style="color: #111827; margin-top: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em;">
+                        Books Library</h1>
+                    <h2 style="color: #4B5563; font-size: 16px; font-weight: 500;">Step 1 — Select a Book to Edit</h2>
+                    <p style="color: #6B7280; font-size: 14px;">Manage your collection by selecting a record below.</p>
+                    <hr style="border: 0; border-top: 1px solid #F3F4F6; margin: 32px 0;">
 
-
-        <h2>Step 1 — Select a Book to Edit</h2>
-
-        <table border="1" cellpadding="6" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>ISBN</th>
-                    <th>Category</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>To Kill a Mockingbird</td>
-                    <td>Harper Lee</td>
-                    <td>978-0-06-112008-4</td>
-                    <td>Fiction</td>
-                    <td><a href="admin-edit-book.html">Edit</a></td>
-                </tr>
-                <tr>
-                    <td>A Brief History of Time</td>
-                    <td>Stephen Hawking</td>
-                    <td>978-0-553-10953-5</td>
-                    <td>Science</td>
-                    <td><a href="admin-edit-book.html">Edit</a></td>
-                </tr>
-                <tr>
-                    <td>The Republic</td>
-                    <td>Plato</td>
-                    <td>978-0-14-044914-3</td>
-                    <td>Philosophy</td>
-                    <td><a href="admin-edit-book.html">Edit</a></td>
-                </tr>
-                <tr>
-                    <td>Clean Code</td>
-                    <td>Robert C. Martin</td>
-                    <td>978-0-13-235088-4</td>
-                    <td>Technology</td>
-                    <td><a href="admin-edit-book.html">Edit</a></td>
-                </tr>
-                <tr>
-                    <td>Sapiens: A Brief History of Humankind</td>
-                    <td>Yuval Noah Harari</td>
-                    <td>978-0-06-231609-7</td>
-                    <td>History</td>
-                    <td><a href="admin-edit-book.html">Edit</a></td>
-                </tr>
-            </tbody>
+                    <table border="0" cellspacing="0" cellpadding="12" width="100%" style="border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: #FFF7ED;">
+                                <th align="left"
+                                    style="color: #92400E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #FED7AA; padding: 14px;">
+                                    Title</th>
+                                <th align="left"
+                                    style="color: #92400E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #FED7AA; padding: 14px;">
+                                    Author</th>
+                                <th align="left"
+                                    style="color: #92400E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #FED7AA; padding: 14px;">
+                                    ISBN</th>
+                                <th align="left"
+                                    style="color: #92400E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #FED7AA; padding: 14px;">
+                                    Category</th>
+                                <th align="center"
+                                    style="color: #92400E; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 2px solid #FED7AA; padding: 14px;">
+                                    Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #F3F4F6;">
+                                <td style="font-size: 14px; color: #374151;">To Kill a Mockingbird</td>
+                                <td style="font-size: 14px; color: #374151;">Harper Lee</td>
+                                <td style="font-size: 14px; color: #6B7280;">978-0-06-112008-4</td>
+                                <td style="font-size: 14px;"><span
+                                        style="color: #B45309; background-color: #FFF7ED; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; border: 1px solid #FFEDD5;">Fiction</span>
+                                </td>
+                                <td align="center"><a href="admin-edit-book.html"
+                                        style="color: #D97706; font-size: 14px; text-decoration: none; font-weight: 700;">Edit
+                                        &rarr;</a>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #F3F4F6;">
+                                <td style="font-size: 14px; color: #374151; padding: 16px;">A Brief History of Time</td>
+                                <td style="font-size: 14px; color: #374151; padding: 16px;">Stephen Hawking</td>
+                                <td style="font-size: 14px; color: #6B7280; padding: 16px;">978-0-553-10953-5</td>
+                                <td style="font-size: 14px;"><span
+                                        style="color: #B45309; background-color: #FFF7ED; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; border: 1px solid #FFEDD5;">Science</span>
+                                </td>
+                                <td align="center"><a href="admin-edit-book.html"
+                                        style="color: #D97706; font-size: 14px; text-decoration: none; font-weight: 700;">Edit
+                                        &rarr;</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </table>
     </main>
 
 
-    <footer>
-        <hr>
-        <p>&copy; 2025 Library System — Admin Edit Book - By Muhammad Fouad</p>
+    <br><br>
+    <footer style="padding: 48px 0; background-color: #111827;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr align="center">
+                <td>
+                    <font color="#9CA3AF" size="2">&copy; 2025 Library System — Amber & Onyx Admin Platform</font>
+                </td>
+            </tr>
+        </table>
     </footer>
 </body>
 
