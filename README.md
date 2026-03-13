@@ -24,22 +24,12 @@ pie title Project Commits
     "Abdelhamid Ahmed" : 2
 ```
 
-### ⚡ Repository Activity
-![Activity](https://img.shields.io/badge/Activity-Vibrant-F59E0B?style=flat-square&logo=github)
-![Build](https://img.shields.io/badge/Main_Ready-Success-111827?style=flat-square&logo=git)
-![Contributions](https://img.shields.io/badge/Contributors-3-D97706?style=flat-square&logo=person)
-
-### 🛠️ Global Repository Stats
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Abdelhamid-El-rashidy&repo=Library_System&theme=tokyonight&border_color=F59E0B" alt="Repo Stats" />
-</p>
-
 ---
 
-## 👥 Meet the Team
+## 👥 The Team
 <p align="left">
-  <a href="https://github.com/Abdelhamid-El-rashidy/Library_System/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=Abdelhamid-El-rashidy/Library_System&columns=12&max=30" />
+  <a href="https://github.com/Abdelhamid-El-rashidy">
+    <img src="https://contrib.rocks/image?repo=Abdelhamid-El-rashidy">
   </a>
 </p>
 
