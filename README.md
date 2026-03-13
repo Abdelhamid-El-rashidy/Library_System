@@ -19,9 +19,10 @@ A premium, modern library management platform.
 
 ### 📈 Contribution Breakdown
 ```mermaid
-pie title Project Commits
-    "Muhammad Fouad" : 21
-    "Abdelhamid Ahmed" : 2
+pie showData
+    title Project Commits
+    "Muhammad Fouad (21)" : 21
+    "Abdelhamid Ahmed (2)" : 2
 ```
 
 ---
