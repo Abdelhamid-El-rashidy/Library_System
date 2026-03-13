@@ -7,17 +7,20 @@ A premium, modern library management platform.
 ## 📊 Analytics & Insights
 
 ### 📈 Contribution Breakdown
+<!-- STATS_START -->
 ```mermaid
 pie showData
     title Project Commits
-    "Muhammad Fouad" : 28
+    "Muhammad Fouad" : 32
     "Abdelhamid Ahmed" : 2
 ```
+<!-- STATS_END -->
 
 ---
 
 ## 👥 The Team
-
-<a href="https://github.com/Abdelhamid-El-rashidy/Library_System/graphs/contributors">
+<p align="left">
+  <a href="https://github.com/Abdelhamid-El-rashidy/Library_System/graphs/contributors">
     <img src="https://contrib.rocks/image?repo=Abdelhamid-El-rashidy/Library_System" />
-</a>
+  </a>
+</p>
