@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bookify - Search</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="Search for books in our library" />
+    </head>
+    <body>
+        <!-- name page -->
+        <h1>Bookify</h1>
+        <!-- navigation bar -->
+        <nav>
+            <a title="Home Page" href="index.html">Home</a> |
+            <a title="Available Books" href="books.html">Books</a> |
+            <a title="Search" href="search.html">Search</a> |
+            <a title="Favourite Books" href="favorites.html">Favorites</a> |
+            <a title="Borrowed books" href="borrowed.html">Borrowed</a> |
+            <a title="Log Out" href="index.html">Logout</a>
+        </nav>
+
+        <h2>Search Books</h2>
+
+        <p><b>Looking for a specific book?</b><br>
+        You can search by book name, author name, or category.<br>
+        Enter your search term below and select the search type.</p>
+
+        <hr>
+
+        <!-- Search Form -->
+        <form>
+            <label for="searchInput">Search:</label>
+            <input type="text" id="searchInput" name="searchInput" placeholder="Enter search term..." required>
+
+            <label for="searchBy">Search By:</label>
+            <select id="searchBy" name="searchBy">
+                <option value="Book">Book</option>
+                <option value="Author">Author</option>
+                <option value="Category">Category</option>
+            </select>
+
+            <button type="submit">Search</button>
+            <button type="reset">Clear</button>
+        </form>
+
+        <br>
+        <hr>
+
+        <!-- Results Section -->
+        <h3>Search Results</h3>
+        <table>
+            <caption><strong>Our Books</strong></caption>
+            <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Availability</th>
+            </tr>
+            <tr>
+                <td>The Great Gatsby</td>
+                <td>F. Scott Fitzgerald</td>
+                <td>Fiction</td>
+                <td>$10.99 </td>
+                <td>Available</td>
+            </tr>
+            <tr>
+                <td>To Kill a Mockingbird</td>
+                <td>Harper Lee</td>
+                <td>Fiction</td>
+                <td>$12.99</td>
+                <td>Borrowed</td>
+            </tr>
+            <tr>
+                <td>1984</td>
+                <td>George Orwell</td>
+                <td>Dystopian</td>
+                <td>$15.99</td>
+                <td>Available</td>
+            </tr>
+             <tr>
+                <td>The Catcher in the Rye</td>
+                <td>J.D. Salinger</td>
+                <td>Fiction</td>
+                <td>$14.99</td>
+                <td>Available</td>
+            </tr>
+             <tr>
+                <td>The Hobbit</td>
+                <td>J.R.R. Tolkien</td>
+                <td>Fantasy</td>
+                <td>$16.99</td>
+                <td>Borrowed</td>
+            </tr>
+            <tr>
+                <td>Pride and Prejudice</td>
+                <td>Jane Austen</td>
+                <td>Romance</td>
+                <td>$13.99
+                <td>Available
+                </td>
+            </tr>
+            <tr>
+                <td>The Lord of the Rings</td>
+                <td>J.R.R. Tolkien</td>
+                <td>Fantasy</td>
+                <td>$18.99</td>
+                <td>Available</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <hr>
+        <!-- footer -->
+        <footer>
+            <p>© 2026 Bookify. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
