@@ -1,66 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Bookify</title>
-        <meta name="description" content="This is my library Store" />
-    </head>
-    <body>
-        <!-- name page -->
-        <h1>Library Store</h1>
-        <!-- navigation bar -->
-        <nav>
-            <a title= "Home Page" href="index.html">Home</a> |
-            <a title= "Available Books" href="books.html">Books</a> |
-            <a title= "Search" href="search.html">Search</a> |
-            <a title= "Favourite Books" href="favorites.html">Favorites</a> |
-            <a title= "Borrowed books" href="borrowed.html">Borrowed</a> |
-            <a title= "Log In" href="LogIn.html">Log In</a> 
-        </nav>
-        <!-- header -->
-        <h1>Sign Up</h1>
-        <form action="books.html" method="post">
-            <!-- username -->
-            <div class = "username">
-                <label for = "us" >User Name</label>
-                <input id = "us" type="text" name="username" required placeholder="username" autofocus>
-            </div>
-            <br>
-            <!-- password -->
-            <div class = "password">
-                <Label for = "pw">Password</Label>
-                <input id = "pw" type="password" name="password" required placeholder="password">
-            </div>
-            <br>
-            <!-- confirm password -->
-            <div class = "confirm password">
-                <Label for = "cpw">Confirm Password</Label>
-                <input id = "cpw" type="password" name="confirm password" required placeholder="confirm password">
-            </div>
-            <br>
-            <!-- email -->
-            <div class = "email">
-                <label for = "e" >Email</label>
-                <input id = "e" type="email" name="email" required placeholder="email">
-            </div>
-            <br>
-            <!-- is admin ? -->
-            <div class = "IS_ADMIN">
-                <input id = "ia" type="radio" name = "ia" value="IS_ADMIN">
-                <label for = "ia">IS_ADMIN</label>
-            </div>
-            <br>
-            <!-- submit -->
-            <div class = "submit">
-                <input type="submit">
-                <input type="reset">
-            </div>
-            <br>
-        </form>
-        <hr>
-        <!-- footer -->
-        <footer>
-            <p>© 2026 Bookify. All rights reserved.</p>
-        </footer>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bookify</title>
+    <meta name="description" content="This is my library Store" />
+  </head>
+  <body>
+    <!-- name page -->
+    <h1>Library Store</h1>
+    <!-- navigation bar -->
+    <nav>
+      <a title="Home Page" href="index.html">Home</a> |
+      <a title="Available Books" href="books.html">Books</a> |
+      <a title="Search" href="search.html">Search</a> |
+      <a title="Favourite Books" href="favorites.html">Favorites</a> |
+      <a title="Borrowed books" href="borrowed.html">Borrowed</a> |
+      <a title="Log In" href="LogIn.html">Log In</a>
+    </nav>
+    <!-- header -->
+    <h1>Sign Up</h1>
+    <form action="books.html" method="post">
+      <!-- username -->
+      <div class="username">
+        <label for="us">User Name</label>
+        <input
+          id="us"
+          type="text"
+          name="username"
+          required
+          placeholder="username"
+          autofocus
+        />
+      </div>
+      <br />
+      <!-- password -->
+      <div class="password">
+        <label for="pw">Password</label>
+        <input
+          id="pw"
+          type="password"
+          name="password"
+          required
+          placeholder="password"
+        />
+      </div>
+      <br />
+      <!-- confirm password -->
+      <div class="confirm password">
+        <label for="cpw">Confirm Password</label>
+        <input
+          id="cpw"
+          type="password"
+          name="confirm password"
+          required
+          placeholder="confirm password"
+        />
+      </div>
+      <br />
+      <!-- email -->
+      <div class="email">
+        <label for="e">Email</label>
+        <input id="e" type="email" name="email" required placeholder="email" />
+      </div>
+      <br />
+      <!-- is admin ? -->
+      <div class="IS_ADMIN">
+        <input id="ia" type="radio" name="ia" value="IS_ADMIN" />
+        <label for="ia">IS_ADMIN</label>
+      </div>
+      <br />
+      <!-- submit -->
+      <div class="submit">
+        <input type="submit" />
+        <input type="reset" />
+      </div>
+      <br />
+    </form>
+    <hr />
+    <!-- footer -->
+    <footer>
+      <p>© 2026 Bookify. All rights reserved.</p>
+    </footer>
+  </body>
 </html>
