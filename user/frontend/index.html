@@ -3,6 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>Bookify</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .user-section, .admin-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .user-section {
+            background-color: #f9f9f9;
+        }
+        .admin-section {
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+        .admin-section h2 {
+            color: #856404;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-admin {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .btn-admin:hover {
+            background-color: #e0a800;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -12,14 +88,27 @@
         <a href="favorites.html">Favorites</a>
         <a href="borrowed.html">Borrowed</a>
     </nav>
-    <center>
+
+    <div class="container">
         <h1>Bookify</h1>
         <p>Welcome to Bookify</p>
         <p>Your online library for discovering amazing books.</p>
         <p>Find the best books for learning, reading, and inspiration.</p>
-        <a href="SignUp.html">Sign Up</a>
-        <a href="LogIn.html">Login</a>
-    </center>
+
+        <div class="user-section">
+            <h2>User Access</h2>
+            <p>Access your personal library account to browse, borrow, and manage your books.</p>
+            <a href="SignUp.html" class="btn">Sign Up</a>
+            <a href="LogIn.html" class="btn">Login</a>
+        </div>
+
+        <div class="admin-section">
+            <h2>Administrator Access</h2>
+            <p>Manage the library collection - add, edit, and delete books. Administrative privileges required.</p>
+            <a href="admin-login.html" class="btn btn-admin">Admin Login</a>
+            <a href="admin-signup.html" class="btn btn-admin">Admin Sign Up</a>
+        </div>
+    </div>
 
     <footer>
       <p>© 2026 Bookify. All rights reserved.</p>

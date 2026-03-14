@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Book Management</title>
+    <style>
+      body {
+        background-color: #f9fafb;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      .tab-button {
+        background-color: #111827;
+        color: #9ca3af;
+        border: none;
+        padding: 16px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        width: 25%;
+      }
+      .tab-button.active {
+        color: #d97706;
+        border-bottom: 3px solid #f59e0b;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .form-section {
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        margin: 20px auto;
+        width: 90%;
+        padding: 40px;
+      }
+      .table-section {
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        margin: 20px auto;
+        width: 90%;
+        padding: 40px;
+      }
+      input, select, textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #111827;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+      }
+      label {
+        display: block;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .required {
+        color: #ef4444;
+      }
+      .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+      }
+      .btn-primary {
+        background-color: #d97706;
+        color: #ffffff;
+      }
+      .btn-secondary {
+        background-color: #ffffff;
+        color: #6b7280;
+        border: 1px solid #d1d5db;
+      }
+      .btn-danger {
+        background-color: #dc2626;
+        color: #ffffff;
+      }
+      .action-links {
+        color: #d97706;
+        font-size: 14px;
+        text-decoration: none;
+        font-weight: 700;
+        margin-right: 10px;
+      }
+      .category-badge {
+        color: #b45309;
+        background-color: #fff7ed;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        border: 1px solid #ffedd5;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 14px;
+        text-align: left;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      th {
+        background-color: #fff7ed;
+        color: #92400e;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-bottom: 2px solid #fed7aa;
+      }
+      footer {
+        padding: 48px 0;
+        background-color: #111827;
+        color: #9ca3af;
+        text-align: center;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header style="background-color: #111827; border-bottom: 1px solid #1f2937">
+      <nav>
+        <table style="width: 100%; border-collapse: collapse">
+          <tr style="text-align: center">
+            <td style="width: 20%; padding: 16px">
+              <button class="tab-button active" onclick="showTab('books')">Books</button>
+            </td>
+            <td style="width: 20%; padding: 16px">
+              <button class="tab-button" onclick="showTab('add')">Add Book</button>
+            </td>
+            <td style="width: 20%; padding: 16px">
+              <button class="tab-button" onclick="showTab('edit')">Edit Book</button>
+            </td>
+            <td style="width: 20%; padding: 16px">
+              <button class="tab-button" onclick="showTab('delete')">Delete Book</button>
+            </td>
+            <td style="width: 20%; padding: 16px">
+              <a href="../user/frontend/index.html" style="color: #9ca3af; text-decoration: none; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">← Back to User</a>
+            </td>
+          </tr>
+        </table>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Books List Tab -->
+      <div id="books" class="tab-content active">
+        <div class="table-section">
+          <h1 style="color: #111827; margin-top: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em;">🔐 Admin - Books Library</h1>
+          <h2 style="color: #4b5563; font-size: 16px; font-weight: 500">Manage your collection by selecting a record below.</h2>
+          <p style="color: #6b7280; font-size: 14px">Use the tabs above to add, edit, or delete books.</p>
+          <hr style="border: 0; border-top: 1px solid #f3f4f6; margin: 32px 0" />
+
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Category</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-size: 14px; color: #374151">Head First Java</td>
+                <td style="font-size: 14px; color: #374151">Kathy Sierra</td>
+                <td style="font-size: 14px; color: #6b7280">978-0-596-52068-7</td>
+                <td><span class="category-badge">Programming</span></td>
+                <td>
+                  <a href="#" class="action-links" onclick="editBook('Head First Java', 'Kathy Sierra', '978-0-596-52068-7', 'Programming')">Edit</a>
+                  <a href="#" class="action-links" onclick="deleteBook('978-0-596-52068-7', 'Head First Java')" style="color: #dc2626">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-size: 14px; color: #374151">Clean Code</td>
+                <td style="font-size: 14px; color: #374151">Robert C. Martin</td>
+                <td style="font-size: 14px; color: #6b7280">978-0-13-235088-4</td>
+                <td><span class="category-badge">Programming</span></td>
+                <td>
+                  <a href="#" class="action-links" onclick="editBook('Clean Code', 'Robert C. Martin', '978-0-13-235088-4', 'Programming')">Edit</a>
+                  <a href="#" class="action-links" onclick="deleteBook('978-0-13-235088-4', 'Clean Code')" style="color: #dc2626">Delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-size: 14px; color: #374151">To Kill a Mockingbird</td>
+                <td style="font-size: 14px; color: #374151">Harper Lee</td>
+                <td style="font-size: 14px; color: #6b7280">978-0-06-112008-4</td>
+                <td><span class="category-badge">Fiction</span></td>
+                <td>
+                  <a href="#" class="action-links" onclick="editBook('To Kill a Mockingbird', 'Harper Lee', '978-0-06-112008-4', 'Fiction')">Edit</a>
+                  <a href="#" class="action-links" onclick="deleteBook('978-0-06-112008-4', 'To Kill a Mockingbird')" style="color: #dc2626">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add Book Tab -->
+      <div id="add" class="tab-content">
+        <div class="form-section">
+          <h1 style="color: #111827; margin-top: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em;">Add New Book</h1>
+          <hr style="border: 0; border-top: 1px solid #f3f4f6; margin: 32px 0" />
+
+          <form action="#" method="post" onsubmit="return addBook()">
+            <legend style="font-size: 18px; color: #111827; font-weight: 600; margin-bottom: 24px;">Book Details</legend>
+
+            <label for="add-title">Title <em class="required">(required)</em></label>
+            <input type="text" id="add-title" name="title" required />
+
+            <label for="add-author">Author <em class="required">(required)</em></label>
+            <input type="text" id="add-author" name="author" required />
+
+            <label for="add-isbn">ISBN <em class="required">(required)</em></label>
+            <input type="text" id="add-isbn" name="isbn" required />
+
+            <label for="add-publisher">Publisher</label>
+            <input type="text" id="add-publisher" name="publisher" />
+
+            <label for="add-year">Publication Year</label>
+            <input type="number" id="add-year" name="publication_year" min="1000" max="2099" />
+
+            <legend style="font-size: 18px; color: #111827; font-weight: 600; margin-bottom: 24px;">Additional Information</legend>
+
+            <label for="add-category">Category / Genre</label>
+            <select id="add-category" name="category">
+              <option value="" selected>-- Select --</option>
+              <option value="fiction">Fiction</option>
+              <option value="non-fiction">Non-Fiction</option>
+              <option value="science">Science</option>
+              <option value="history">History</option>
+              <option value="technology">Technology</option>
+              <option value="programming">Programming</option>
+              <option value="philosophy">Philosophy</option>
+              <option value="biography">Biography</option>
+              <option value="other">Other</option>
+            </select>
+
+            <label for="add-language">Language</label>
+            <select id="add-language" name="language">
+              <option value="english" selected>English</option>
+              <option value="arabic">Arabic</option>
+              <option value="french">French</option>
+              <option value="other">Other</option>
+            </select>
+
+            <label for="add-pages">Number of Pages</label>
+            <input type="number" id="add-pages" name="pages" min="1" />
+
+            <label for="add-copies">Number of Copies <em class="required">(required)</em></label>
+            <input type="number" id="add-copies" name="copies" min="1" required />
+
+            <legend style="font-size: 18px; color: #111827; font-weight: 600; margin-bottom: 24px;">Description & Media</legend>
+
+            <label for="add-description">Description / Summary</label>
+            <textarea id="add-description" name="description" rows="5"></textarea>
+
+            <label for="add-cover">Cover Image URL</label>
+            <input type="url" id="add-cover" name="cover_image_url" placeholder="https://example.com/cover.jpg" />
+
+            <br />
+            <table width="100%">
+              <tr>
+                <td align="right">
+                  <button type="button" class="btn btn-secondary" onclick="showTab('books')">Cancel</button>
+                  &nbsp;
+                  <button type="submit" class="btn btn-primary">Add Book</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+
+      <!-- Edit Book Tab -->
+      <div id="edit" class="tab-content">
+        <div class="form-section">
+          <h1 style="color: #111827; margin-top: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em;">Edit Book Details</h1>
+          <p style="color: #6b7280; font-size: 14px">Update the information for this record below.</p>
+          <hr style="border: 0; border-top: 1px solid #f3f4f6; margin: 32px 0" />
+
+          <form action="#" method="post" onsubmit="return updateBook()">
+            <legend style="font-size: 18px; color: #111827; font-weight: 600; margin-bottom: 24px;">Book Details</legend>
+
+            <label for="edit-title">Title <em class="required">(required)</em></label>
+            <input type="text" id="edit-title" name="title" required />
+
+            <label for="edit-author">Author <em class="required">(required)</em></label>
+            <input type="text" id="edit-author" name="author" required />
+
+            <label for="edit-isbn">ISBN <em class="required">(required)</em></label>
+            <input type="text" id="edit-isbn" name="isbn" required readonly />
+
+            <label for="edit-publisher">Publisher</label>
+            <input type="text" id="edit-publisher" name="publisher" />
+
+            <label for="edit-year">Publication Year</label>
+            <input type="number" id="edit-year" name="publication_year" min="1000" max="2099" />
+
+            <legend style="font-size: 18px; color: #111827; font-weight: 600; margin-bottom: 24px;">Additional Information</legend>
+
+            <label for="edit-category">Category / Genre</label>
+            <select id="edit-category" name="category">
+              <option value="" selected>-- Select --</option>
+              <option value="fiction">Fiction</option>
+              <option value="non-fiction">Non-Fiction</option>
+              <option value="science">Science</option>
+              <option value="history">History</option>
+              <option value="technology">Technology</option>
+              <option value="programming">Programming</option>
+              <option value="philosophy">Philosophy</option>
+              <option value="biography">Biography</option>
+              <option value="other">Other</option>
+            </select>
+
+            <label for="edit-language">Language</label>
+            <select id="edit-language" name="language">
+              <option value="english" selected>English</option>
+              <option value="arabic">Arabic</option>
+              <option value="french">French</option>
+              <option value="other">Other</option>
+            </select>
+
+            <label for="edit-pages">Number of Pages</label>
+            <input type="number" id="edit-pages" name="pages" min="1" />
+
+            <label for="edit-copies">Number of Copies <em class="required">(required)</em></label>
+            <input type="number" id="edit-copies" name="copies" min="1" required />
+
+            <legend style="font-size: 18px; color: #111827; font-weight: 600; margin-bottom: 24px;">Description & Media</legend>
+
+            <label for="edit-description">Description / Summary</label>
+            <textarea id="edit-description" name="description" rows="5"></textarea>
+
+            <label for="edit-cover">Cover Image URL</label>
+            <input type="url" id="edit-cover" name="cover_image_url" placeholder="https://example.com/cover.jpg" />
+
+            <br />
+            <table width="100%">
+              <tr>
+                <td align="right">
+                  <button type="button" class="btn btn-secondary" onclick="showTab('books')">Cancel</button>
+                  &nbsp;
+                  <button type="submit" class="btn btn-primary">Update Book</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+
+      <!-- Delete Book Tab -->
+      <div id="delete" class="tab-content">
+        <div class="form-section">
+          <h1 style="color: #111827; margin-top: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.025em;">Delete Book</h1>
+          <p style="color: #6b7280; font-size: 14px">Select a book from the list to delete it permanently.</p>
+          <hr style="border: 0; border-top: 1px solid #f3f4f6; margin: 32px 0" />
+
+          <p style="color: #dc2626; font-weight: 600;">Warning: This action cannot be undone!</p>
+
+          <label for="delete-isbn">Select Book to Delete</label>
+          <select id="delete-isbn" name="isbn" onchange="populateDeleteDetails()">
+            <option value="" selected>-- Select a book --</option>
+            <option value="978-0-596-52068-7">Head First Java - Kathy Sierra</option>
+            <option value="978-0-13-235088-4">Clean Code - Robert C. Martin</option>
+            <option value="978-0-06-112008-4">To Kill a Mockingbird - Harper Lee</option>
+          </select>
+
+          <div id="delete-details" style="display: none; background-color: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; padding: 16px; margin-top: 16px;">
+            <h3 style="color: #dc2626; margin-top: 0;">Book Details</h3>
+            <p><strong>Title:</strong> <span id="delete-title"></span></p>
+            <p><strong>Author:</strong> <span id="delete-author"></span></p>
+            <p><strong>ISBN:</strong> <span id="delete-isbn-display"></span></p>
+            <p><strong>Category:</strong> <span id="delete-category"></span></p>
+          </div>
+
+          <br />
+          <table width="100%">
+            <tr>
+              <td align="right">
+                <button type="button" class="btn btn-secondary" onclick="showTab('books')">Cancel</button>
+                &nbsp;
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()" id="delete-btn" disabled>Delete Book</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy;2026 Bookify. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function showTab(tabName) {
+        // Hide all tab contents
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll('.tab-button');
+        buttons.forEach(button => button.classList.remove('active'));
+
+        // Show selected tab
+        document.getElementById(tabName).classList.add('active');
+
+        // Add active class to clicked button
+        event.target.classList.add('active');
+      }
+
+      function editBook(title, author, isbn, category) {
+        // Populate edit form with book details
+        document.getElementById('edit-title').value = title;
+        document.getElementById('edit-author').value = author;
+        document.getElementById('edit-isbn').value = isbn;
+        document.getElementById('edit-category').value = category.toLowerCase();
+
+        // Switch to edit tab
+        showTab('edit');
+      }
+
+      function deleteBook(isbn, title) {
+        // Populate delete form
+        document.getElementById('delete-isbn').value = isbn;
+        populateDeleteDetails();
+
+        // Switch to delete tab
+        showTab('delete');
+      }
+
+      function populateDeleteDetails() {
+        const select = document.getElementById('delete-isbn');
+        const selectedOption = select.options[select.selectedIndex];
+        const deleteBtn = document.getElementById('delete-btn');
+        const detailsDiv = document.getElementById('delete-details');
+
+        if (selectedOption.value) {
+          // Parse book details from option text
+          const text = selectedOption.text;
+          const parts = text.split(' - ');
+          const title = parts[0];
+          const author = parts[1];
+
+          // Mock category lookup (in real app, this would come from data)
+          let category = 'Unknown';
+          if (title === 'Head First Java' || title === 'Clean Code') {
+            category = 'Programming';
+          } else if (title === 'To Kill a Mockingbird') {
+            category = 'Fiction';
+          }
+
+          document.getElementById('delete-title').textContent = title;
+          document.getElementById('delete-author').textContent = author;
+          document.getElementById('delete-isbn-display').textContent = selectedOption.value;
+          document.getElementById('delete-category').textContent = category;
+
+          detailsDiv.style.display = 'block';
+          deleteBtn.disabled = false;
+        } else {
+          detailsDiv.style.display = 'none';
+          deleteBtn.disabled = true;
+        }
+      }
+
+      function addBook() {
+        // In a real application, this would submit to a backend
+        alert('Book added successfully! (This is a demo - no actual data is saved)');
+        showTab('books');
+        return false; // Prevent form submission
+      }
+
+      function updateBook() {
+        // In a real application, this would submit to a backend
+        alert('Book updated successfully! (This is a demo - no actual data is saved)');
+        showTab('books');
+        return false; // Prevent form submission
+      }
+
+      function confirmDelete() {
+        const title = document.getElementById('delete-title').textContent;
+        if (confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
+          // In a real application, this would submit to a backend
+          alert('Book deleted successfully! (This is a demo - no actual data is modified)');
+          showTab('books');
+        }
+      }
+    </script>
+  </body>
+</html></content>
+<parameter name="filePath">/home/abdelhamid/Library_System/admin/frontend/admin-book-management.html

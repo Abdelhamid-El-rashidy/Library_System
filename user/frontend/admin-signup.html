@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bookify - Admin Sign Up</title>
+    <meta name="description" content="Admin registration for Bookify library management" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .admin-header {
+            text-align: center;
+            color: #856404;
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            border: 1px solid #ffeeba;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .password-match {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .admin-badge {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #856404;
+            font-weight: bold;
+        }
+        .submit-section {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .btn-primary:hover {
+            background-color: #e0a800;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <nav>
+      <a title="Home Page" href="index.html">Home</a> |
+      <a title="Available Books" href="books.html">Books</a> |
+      <a title="Search" href="search.html">Search</a> |
+      <a title="Favourite Books" href="favorites.html">Favorites</a> |
+      <a title="Borrowed books" href="borrowed.html">Borrowed</a>
+    </nav>
+
+    <div class="container">
+        <div class="admin-header">
+            <h1>👑 Admin Registration</h1>
+            <p>Create an administrator account for library management</p>
+        </div>
+
+        <div class="admin-badge">
+            🔐 ADMINISTRATOR PRIVILEGES<br>
+            <small>This account will have full access to add, edit, and delete books</small>
+        </div>
+
+        <form action="admin-login.html" method="post" onsubmit="return validateAdminSignup()">
+            <!-- username -->
+            <div class="username">
+                <label for="us">Admin Username</label>
+                <input
+                    id="us"
+                    type="text"
+                    name="username"
+                    required
+                    placeholder="Choose admin username"
+                    autofocus
+                />
+            </div>
+
+            <!-- password -->
+            <div class="password">
+                <label for="pw">Admin Password</label>
+                <input
+                    id="pw"
+                    type="password"
+                    name="password"
+                    required
+                    placeholder="Create strong password"
+                />
+            </div>
+
+            <!-- confirm password -->
+            <div class="confirm-password">
+                <label for="cpw">Confirm Admin Password</label>
+                <input
+                    id="cpw"
+                    type="password"
+                    name="confirm_password"
+                    required
+                    placeholder="Confirm your password"
+                />
+                <div id="password-match" class="password-match">Passwords do not match!</div>
+            </div>
+
+            <!-- email -->
+            <div class="email">
+                <label for="e">Admin Email</label>
+                <input
+                    id="e"
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="admin@bookify.com"
+                />
+            </div>
+
+            <!-- admin role confirmation -->
+            <div class="admin-confirmation">
+                <input id="admin-confirm" type="checkbox" name="admin_confirm" required />
+                <label for="admin-confirm">I confirm I need administrator privileges to manage the library</label>
+            </div>
+
+            <!-- submit -->
+            <div class="submit-section">
+                <button type="submit" class="btn btn-primary">Create Admin Account</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html">← Back to Home</a> | <a href="admin-login.html">Already have an admin account? Login</a>
+        </div>
+    </div>
+
+    <footer>
+      <p>© 2026 Bookify. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Password confirmation validation
+        document.getElementById('cpw').addEventListener('input', function() {
+            const password = document.getElementById('pw').value;
+            const confirmPassword = this.value;
+            const matchDiv = document.getElementById('password-match');
+
+            if (confirmPassword && password !== confirmPassword) {
+                matchDiv.style.display = 'block';
+            } else {
+                matchDiv.style.display = 'none';
+            }
+        });
+
+        function validateAdminSignup() {
+            const username = document.getElementById('us').value;
+            const password = document.getElementById('pw').value;
+            const confirmPassword = document.getElementById('cpw').value;
+            const email = document.getElementById('e').value;
+            const adminConfirm = document.getElementById('admin-confirm').checked;
+
+            if (username.length < 3) {
+                alert('Username must be at least 3 characters long');
+                return false;
+            }
+
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return false;
+            }
+
+            if (!adminConfirm) {
+                alert('Please confirm that you need administrator privileges');
+                return false;
+            }
+
+            // For demo purposes, accept the registration
+            alert('Admin account created successfully! You can now login as an administrator.');
+            return true;
+        }
+    </script>
+  </body>
+</html>
