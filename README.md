@@ -12,10 +12,10 @@ A premium, modern library management platform.
 pie showData
     title Project Commits
     "Muhammad Fouad" : 34
-    "GitHub Action" : 15
+    "GitHub Action" : 16
     "Mohamed Haitham" : 10
+    "Ziad Gabriel" : 9
     "Ali" : 9
-    "Ziad Gabriel" : 3
     "Saifeddine29" : 2
     "Abdelhamid Ahmed" : 2
 ```
