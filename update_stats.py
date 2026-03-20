@@ -13,6 +13,9 @@ def get_git_stats():
         if "Abdelhamid" in author:
             author = "Abdelhamid Ahmed"
         
+        if author == "GitHub Action":
+            continue
+            
         stats[author] = stats.get(author, 0) + 1
     
     # Sort by commit count descending
