@@ -10,7 +10,7 @@ pie showData
     "Ali" : 12
     "Ziad Gabriel" : 10
     "Mohamed Haitham" : 10
-    "Abdelhamid Ahmed" : 5
+    "Abdelhamid Ahmed" : 6
     "Saifeddine29" : 3
 ```
 <!-- STATS_END -->
