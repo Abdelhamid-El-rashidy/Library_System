@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - Add New Book</title>
-    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="../../css/admin.css" />
   </head>
 
   <body>
@@ -13,7 +13,7 @@
         <table>
           <tr>
             <td class="nav-cell">
-              <a href="#" class="nav-link">Dashboard</a>
+              <a href="admin-books.html" class="nav-link">Dashboard</a>
             </td>
             <td class="nav-cell">
               <a href="admin-books.html" class="nav-link">Books</a>
@@ -24,9 +24,13 @@
             <td class="nav-cell--active">
               <a href="admin-add-book.html" class="nav-link--active">Add Book</a>
             </td>
+            <td class="nav-cell">
+              <a class="nav-link" href="../../user/frontend/index.html">Logout</a>
+            </td>
           </tr>
         </table>
       </nav>
+        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
     </header>
 
     <main>
@@ -163,5 +167,6 @@
     <footer>
       <p>&copy;2026 Bookify. All rights reserved.</p>
     </footer>
+    <script src="../../js/admin.js"></script>
   </body>
 </html>
