@@ -1,118 +1,132 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bookify - Search</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="Search for books in our library" />
-    </head>
-    <body>
-        <!-- name page -->
-        <h1>Bookify</h1>
-        <!-- navigation bar -->
+
+<head>
+    <title>Bookify - Search</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../admin/frontend/admin.css" />
+    <meta name="description" content="Search for books in our library" />
+</head>
+
+<body>
+    <header>
         <nav>
-            <a title="Home Page" href="index.html">Home</a> |
-            <a title="Available Books" href="books.html">Books</a> |
-            <a title="Search" href="search.html">Search</a> |
-            <!-- <a hidden title="Favourite Books" href="favorites.html">Favorites</a> | -->
-            <a title="Borrowed books" href="borrowed.html">Borrowed</a> |
-            <a title="Log Out" href="index.html">Logout</a>
+            <table>
+                <tr>
+                    <td class="nav-cell"><a class="nav-link" title="Home Page" href="index.html">Home</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Available Books" href="books.html">Books</a></td>
+                    <td class="nav-cell nav-cell--active"><a class="nav-link nav-link--active" title="Search"
+                            href="search.html">Search</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="borrowed.html">Borrowed</a>
+                    </td>
+                    <td class="nav-cell"><a class="nav-link" title="Log Out" href="index.html">Logout</a></td>
+                </tr>
+            </table>
         </nav>
+    </header>
 
-        <h2>Search Books</h2>
+    <main class="content-card">
+        <h1 class="page-title">Bookify</h1>
+        <h2 class="page-subtitle">Search Books</h2>
 
-        <p><b>Looking for a specific book?</b><br>
-        You can search by book name, author name, or category.<br>
-        Enter your search term below and select the search type.</p>
+        <p class="page-description">
+            <b>Looking for a specific book?</b><br>
+            You can search by book name, author name, or category.<br>
+            Enter your search term below and select the search type.
+        </p>
 
-        <hr>
+        <hr class="divider">
 
-        <!-- Search Form -->
         <form>
-            <label for="searchInput">Search:</label>
+            <span class="form-legend">Filter Collection</span>
+
+            <label for="searchInput">Search <span class="required">*</span></label>
             <input type="text" id="searchInput" name="searchInput" placeholder="Enter search term..." required>
 
             <label for="searchBy">Search By:</label>
             <select id="searchBy" name="searchBy">
-                <option value="Book">Book</option>
+                <option value="Book">Book Name</option>
                 <option value="Author">Author</option>
                 <option value="Category">Category</option>
             </select>
 
-            <button type="submit">Search</button>
-            <button type="reset">Clear</button>
+            <div style="margin-top: 10px;">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="reset" class="btn btn-secondary">Clear</button>
+            </div>
         </form>
 
-        <br>
-        <hr>
+        <hr class="divider">
 
-        <!-- Results Section -->
-        <h3>Search Results</h3>
-        <table>
+        <h3 class="page-subtitle">Search Results</h3>
+        <table class="data-table">
             <caption><strong>Our Books</strong></caption>
-            <tr>
-                <th>Book Name</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Availability</th>
-            </tr>
-            <tr>
-                <td>The Great Gatsby</td>
-                <td>F. Scott Fitzgerald</td>
-                <td>Fiction</td>
-                <td>$10.99 </td>
-                <td>Available</td>
-            </tr>
-            <tr>
-                <td>To Kill a Mockingbird</td>
-                <td>Harper Lee</td>
-                <td>Fiction</td>
-                <td>$12.99</td>
-                <td>Borrowed</td>
-            </tr>
-            <tr>
-                <td>1984</td>
-                <td>George Orwell</td>
-                <td>Dystopian</td>
-                <td>$15.99</td>
-                <td>Available</td>
-            </tr>
-             <tr>
-                <td>The Catcher in the Rye</td>
-                <td>J.D. Salinger</td>
-                <td>Fiction</td>
-                <td>$14.99</td>
-                <td>Available</td>
-            </tr>
-             <tr>
-                <td>The Hobbit</td>
-                <td>J.R.R. Tolkien</td>
-                <td>Fantasy</td>
-                <td>$16.99</td>
-                <td>Borrowed</td>
-            </tr>
-            <tr>
-                <td>Pride and Prejudice</td>
-                <td>Jane Austen</td>
-                <td>Romance</td>
-                <td>$13.99
-                <td>Available
-                </td>
-            </tr>
-            <tr>
-                <td>The Lord of the Rings</td>
-                <td>J.R.R. Tolkien</td>
-                <td>Fantasy</td>
-                <td>$18.99</td>
-                <td>Available</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-primary">The Great Gatsby</td>
+                    <td class="td-muted">F. Scott Fitzgerald</td>
+                    <td><span class="category-badge">Fiction</span></td>
+                    <td class="td-primary">$10.99</td>
+                    <td class="td-primary">Available</td>
+                </tr>
+                <tr>
+                    <td class="td-primary">To Kill a Mockingbird</td>
+                    <td class="td-muted">Harper Lee</td>
+                    <td><span class="category-badge">Fiction</span></td>
+                    <td class="td-primary">$12.99</td>
+                    <td class="warning-text">Borrowed</td>
+                </tr>
+                <tr>
+                    <td class="td-primary">1984</td>
+                    <td class="td-muted">George Orwell</td>
+                    <td><span class="category-badge">Dystopian</span></td>
+                    <td class="td-primary">$15.99</td>
+                    <td class="td-primary">Available</td>
+                </tr>
+                <tr>
+                    <td class="td-primary">The Catcher in the Rye</td>
+                    <td class="td-muted">J.D. Salinger</td>
+                    <td><span class="category-badge">Fiction</span></td>
+                    <td class="td-primary">$14.99</td>
+                    <td class="td-primary">Available</td>
+                </tr>
+                <tr>
+                    <td class="td-primary">The Hobbit</td>
+                    <td class="td-muted">J.R.R. Tolkien</td>
+                    <td><span class="category-badge">Fantasy</span></td>
+                    <td class="td-primary">$16.99</td>
+                    <td class="warning-text">Borrowed</td>
+                </tr>
+                <tr>
+                    <td class="td-primary">Pride and Prejudice</td>
+                    <td class="td-muted">Jane Austen</td>
+                    <td><span class="category-badge">Romance</span></td>
+                    <td class="td-primary">$13.99</td>
+                    <td class="td-primary">Available</td>
+                </tr>
+                <tr>
+                    <td class="td-primary">The Lord of the Rings</td>
+                    <td class="td-muted">J.R.R. Tolkien</td>
+                    <td><span class="category-badge">Fantasy</span></td>
+                    <td class="td-primary">$18.99</td>
+                    <td class="td-primary">Available</td>
+                </tr>
+            </tbody>
         </table>
-        <br>
-        <br>
-        <hr>
-        <!-- footer -->
-        <footer>
-            <p>© 2026 Bookify. All rights reserved.</p>
-        </footer>
-    </body>
+    </main>
+
+    <footer>
+        <p>© 2026 Bookify. All rights reserved.</p>
+    </footer>
+</body>
+
 </html>

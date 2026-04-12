@@ -2,25 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bookify</title>
+    <title>Bookify - Home</title>
+    <link rel="stylesheet" href="../../admin/frontend/admin.css" />
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a> |
-        <a href="books.html">Books</a> |
-        <a href="search.html">Search</a> |
-        <!-- <a hidden href="favorites.html">Favorites</a> | -->
-        <a href="borrowed.html">Borrowed</a>
-    </nav>
-    <center>
-        <h1>Bookify</h1>
-        <p>Welcome to Bookify</p>
-        <p>Your online library for discovering amazing books.</p>
-        <p>Find the best books for learning, reading, and inspiration.</p>
-        <a href="SignUp.html">Sign Up</a> |
-        <a href="LogIn.html">Login</a>
-    </center>
-    <hr>
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td class="nav-cell nav-cell--active"><a class="nav-link nav-link--active" title="Home Page" href="index.html">Home</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Available Books" href="books.html">Books</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Search" href="search.html">Search</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="borrowed.html">Borrowed</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Log Out" href="index.html">Logout</a></td>
+                </tr>
+            </table>
+        </nav>
+    </header>
+
+    <main class="content-card text-center">
+        <h1 class="page-title">Bookify</h1>
+        <h2 class="page-subtitle">Welcome to Bookify</h2>
+        
+        <p class="page-description">
+            Your online library for discovering amazing books.<br>
+            Find the best books for learning, reading, and inspiration.
+        </p>
+
+        <hr class="divider">
+
+        <div style="margin-top: 20px;">
+            <a href="SignUp.html" class="btn btn-primary" style="text-decoration: none; display: inline-block; margin-right: 10px;">Sign Up</a>
+            <a href="LogIn.html" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">Login</a>
+        </div>
+    </main>
+
     <footer>
       <p>© 2026 Bookify. All rights reserved.</p>
     </footer>

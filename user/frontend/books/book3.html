@@ -2,36 +2,48 @@
 <html>
   <head>
     <title>Book Details</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../../../admin/frontend/admin.css" />
   </head>
 
   <body>
-    <nav>
-      <a title="Home Page" href="../home.html">Home</a> |
-      <a title="Available Books" href="../books.html">Books</a> |
-      <a title="Search" href="../search.html">Search</a> |
-      <a title="Favourite Books" href="../favorites.html">Favorites</a> |
-      <a title="Borrowed books" href="../borrowed.html">Borrowed</a> |
-      <a title="Log Out" href="../home.html">Logout</a>
-    </nav>
+    <header>
+      <nav>
+        <table>
+          <tr>
+            <td class="nav-cell"><a class="nav-link" title="Home Page" href="../index.html">Home</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Available Books" href="../books.html">Books</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Search" href="../search.html">Search</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="../borrowed.html">Borrowed</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Log Out" href="../index.html">Logout</a></td>
+          </tr>
+        </table>
+      </nav>
+    </header>
 
     <h1>Book Details</h1>
 
-    <div>
-      <h2>1984</h2>
+    <div class="book-info-section">
+        <h2 class="form-legend">1984</h2>
 
-      <p><strong>Author:</strong> George Orwell</p>
-      <p><strong>Category:</strong> Dystopian</p>
-      <p><strong>Status:</strong> Available</p>
+        <p><strong class="td-primary">Author:</strong> <span class="td-muted">George Orwell</span></p>
+        <p><strong class="td-primary">Category:</strong> <span class="category-badge">Dystopian</span></p>
+        <p><strong class="td-primary">Status:</strong> <span class="warning-text">Available</span></p>
 
-      <p>
-        Nineteen Eighty-Four is a dystopian speculative fiction novel by the
-        English writer George Orwell. It was published on 8 June 1949 by Secker
-        & Warburg as Orwell's ninth and final completed book. Thematically, it
-        centres on totalitarianism, mass surveillance and repressive
-        regimentation of people and behaviours.
-      </p>
-    </div>
-    <button>Borrow Book</button>
+        <hr class="divider">
+
+        <p class="page-description">
+          Nineteen Eighty-Four is a dystopian speculative fiction novel by the
+          English writer George Orwell. It was published on 8 June 1949 by Secker
+          & Warburg as Orwell's ninth and final completed book. Thematically, it
+          centres on totalitarianism, mass surveillance and repressive
+          regimentation of people and behaviours.
+        </p>
+      </div>
+    
+    <div style="margin-top: 24px;">
+        <button class="btn btn-primary" disabled>Borrow Book</button>
+      </div>
   </body>
   <hr>
     <footer>

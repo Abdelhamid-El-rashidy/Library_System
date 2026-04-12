@@ -2,64 +2,78 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Bookify</title>
-    <meta name="description" content="This is my library Store" />
+    <title>Bookify - Log In</title>
+    <meta name="description" content="Log in to your Bookify account" />
+    <link rel="stylesheet" href="../../admin/frontend/admin.css" />
   </head>
   <body>
-    <!-- name page -->
-    <h1>Bookify</h1>
-    <!-- navigation bar -->
-    <nav>
-      <a title="Home Page" href="index.html">Home</a> |
-      <a title="Available Books" href="books.html">Books</a> |
-      <a title="Search" href="search.html">Search</a> |
-      <!-- <a hidden title="Favourite Books" href="favorites.html">Favorites</a> | -->
-      <a title="Borrowed books" href="borrowed.html">Borrowed</a> |
-      <a title="Sign Up" href="SignUp.html">Sign Up</a>
-    </nav>
-    <!-- header -->
-    <h1>Log In</h1>
-    <form action="admin-books.html" method="post">
-      <!-- username -->
-      <div class="username">
-        <label for="us">User Name</label>
-        <input
-          id="us"
-          type="text"
-          name="username"
-          required
-          placeholder="username"
-          autofocus
-        />
-      </div>
-      <br />
-      <!-- password -->
-      <div class="password">
-        <label for="pw">Password</label>
-        <input
-          id="pw"
-          type="password"
-          name="password"
-          required
-          placeholder="password"
-        />
-      </div>
-      <br />
-      <!-- email -->
-      <div class="email">
-        <label for="e">Email</label>
-        <input id="e" type="email" name="email" required placeholder="email" />
-      </div>
-      <br />
-      <!-- submit -->
-      <div class="submit">
-        <input type="submit" />
-        <input type="reset" />
-      </div>
-      <br />
-    </form>
-    <hr />
-    <!-- footer -->
+    <header>
+      <nav>
+        <table>
+          <tr>
+            <td class="nav-cell"><a class="nav-link" title="Home Page" href="index.html">Home</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Available Books" href="books.html">Books</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Search" href="search.html">Search</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="borrowed.html">Borrowed</a></td>
+            <td class="nav-cell nav-cell--active"><a class="nav-link nav-link--active" title="Sign Up" href="SignUp.html">Sign Up</a></td>
+          </tr>
+        </table>
+      </nav>
+    </header>
+
+    <main class="content-card">
+      <h1 class="page-title">Bookify</h1>
+      <h2 class="page-subtitle">Account Login</h2>
+      <p class="page-description">Enter your credentials below to access your library account.</p>
+      
+      <hr class="divider" />
+
+      <form action="admin-books.html" method="post">
+        <span class="form-legend">Login Details</span>
+
+        <div class="form-group">
+          <label for="us">User Name <span class="required">*</span></label>
+          <input
+            id="us"
+            type="text"
+            name="username"
+            required
+            placeholder="Enter your username"
+            autofocus
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="pw">Password <span class="required">*</span></label>
+          <input
+            id="pw"
+            type="password"
+            name="password"
+            required
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="e">Email <span class="required">*</span></label>
+          <input 
+            id="e" 
+            type="email" 
+            name="email" 
+            required 
+            placeholder="email@example.com" 
+          />
+        </div>
+
+        <br />
+
+        <div class="submit-actions">
+          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+      </form>
+    </main>
+
     <footer>
       <p>© 2026 Bookify. All rights reserved.</p>
     </footer>

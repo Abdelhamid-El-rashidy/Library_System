@@ -3,47 +3,67 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>
-        Borrowed book
-    </title>
+    <title>Borrowed books- Bookify</title>
+    <link rel="stylesheet" href="../../admin/frontend/admin.css" />
 </head>
 
 <body>
-    <h1>Bookify</h1>
-    <nav>
-        <a title="Home Page" href="index.html">Home</a> |
-        <a title="Available Books" href="books.html">Books</a> |
-        <a title="Search" href="search.html">Search</a> |
-        <!-- <a hidden title="Favourite Books" href="favorites.html">Favorites</a> | -->
-        <a title="Borrowed books" href="borrowed.html">Borrowed</a> |
-        <a title="Log Out" href="index.html">Logout</a>
-    </nav>
-    <h1>Borrowed books</h1>
-    <hr>
-    <table>
-        <caption>List Of Your Books</caption>
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Availability</th>
-        </tr>
-        <tr>
-            <td><a href="books/book2.html">To Kill a Mockingbird</a></td>
-            <td>Harper Lee</td>
-            <td>Fiction</td>
-            <td>Borrowed</td>
-        </tr>
-        <tr>
-            <td><a href="books/book5.html">The Hobbit</a></td>
-            <td>J.R.R. Tolkien</td>
-            <td>Fantasy</td>
-            <td>Borrowed</td>
-        </tr>
-    </table>
-    <hr>
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td class="nav-cell"><a class="nav-link" title="Home Page" href="index.html">Home</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Available Books" href="books.html">Books</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Search" href="search.html">Search</a></td>
+                    <td class="nav-cell"><a class="nav-link nav-link--active" title="Borrowed books" href="borrowed.html">Borrowed</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Log Out" href="index.html">Logout</a></td>
+                </tr>
+            </table>
+        </nav>
+    </header>
+
+    <main class="content-card">
+        <h1 class="page-title">Bookify</h1>
+        <h2 class="page-subtitle">Borrowed books</h2>
+        <p class="page-description">ist Of Your Books<</p>
+        
+        <hr class="divider">
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Availability</th>
+                 
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="td-primary">
+                        <a href="books/book2.html" class="action-link">To Kill a Mockingbird</a>
+                    </td>
+                    <td class="td-muted">Harper Lee</td>
+                    <td><span class="category-badge">Fiction</span></td>
+                    <td class="warning-text">Borrowed</td>
+                 
+                </tr>
+                <tr>
+                    <td class="td-primary">
+                        <a href="books/book5.html" class="action-link">The Hobbit</a>
+                    </td>
+                    <td class="td-muted">J.R.R. Tolkien</td>
+                    <td><span class="category-badge">Fantasy</span></td>
+                    <td class="warning-text">Borrowed</td>
+                  
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
     <footer>
-      <p>© 2026 Bookify. All rights reserved.</p>
+        <p>© 2026 Bookify. All rights reserved.</p>
     </footer>
 </body>
 
