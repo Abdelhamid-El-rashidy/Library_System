@@ -34,7 +34,7 @@ nav tr {
 
 /* Generic nav cell */
 .nav-cell {
-
+  padding: 20px 24px;
 }
 
 /* Active nav cell gets the amber underline */
@@ -50,6 +50,7 @@ nav tr {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  display: inline-block;
 }
 
 /* nav link — active page */
@@ -60,6 +61,7 @@ nav tr {
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  display: inline-block;
 }
 
 /* ---------- Tab Navigation (admin-book-management) ---------- */
