@@ -21,10 +21,18 @@ function renderEmptyRow(colspan, message) {
     );
 }
 
-function renderBookRow(book, showCover) {
+function renderBookRow(book, showCover, currentUser) {
     var cover = showCover
         ? '<td style="vertical-align:middle">' + renderCoverThumb(book.coverUrl, book.title) + '</td>'
         : '';
+    var isAdmin = currentUser && currentUser.isAdmin;
+    var action = book.available
+        ? isAdmin
+            ? '<span class="td-primary">Available</span>'
+            : '<span class="td-primary">Available</span> <button onclick="borrowBook(' +
+              book.id +
+              ')" class="btn btn-primary btn-sm">Borrow</button>'
+        : '<span class="warning-text">Borrowed</span>';
     return (
         '<tr>' +
         cover +
@@ -40,11 +48,7 @@ function renderBookRow(book, showCover) {
         book.category +
         '</span></td>' +
         '<td>' +
-        (book.available
-            ? '<span class="td-primary">Available</span> <button onclick="borrowBook(' +
-              book.id +
-              ')" class="btn btn-primary btn-sm">Borrow</button>'
-            : '<span class="warning-text">Borrowed</span>') +
+        action +
         '</td></tr>'
     );
 }
@@ -59,6 +63,10 @@ function borrowBook(bookId) {
     if (!user) {
         showAlert('Please log in to borrow books.');
         window.location.href = getLoginPath();
+        return;
+    }
+    if (user.isAdmin) {
+        showAlert('Admins cannot borrow books.');
         return;
     }
     apiFetch('/books/' + bookId + '/borrow/', { method: 'POST' })
@@ -95,6 +103,10 @@ function returnBook(bookId) {
         window.location.href = getLoginPath();
         return;
     }
+    if (user.isAdmin) {
+        showAlert('Admins cannot manage book borrows.');
+        return;
+    }
     showConfirm('Return this book?', function () {
         apiFetch('/books/' + bookId + '/return/', { method: 'POST' })
             .then(function () {
@@ -123,6 +135,7 @@ var catalogPage = 1;
 
 function loadBooks(page) {
     if (page) catalogPage = page;
+    var user = getCurrentUser();
     var books = JSON.parse(localStorage.getItem('books'));
     var tbody = document.querySelector('.data-table tbody');
     var paginationEl = document.getElementById('catalog-pagination');
@@ -139,7 +152,7 @@ function loadBooks(page) {
     var pageItems = paginate(books, catalogPage);
     tbody.innerHTML = '';
     pageItems.forEach(function (book) {
-        tbody.innerHTML += renderBookRow(book, true);
+        tbody.innerHTML += renderBookRow(book, true, user);
     });
     if (paginationEl) paginationEl.innerHTML = renderPagination(catalogPage, totalPages, 'loadBooks');
 }
@@ -148,6 +161,11 @@ function loadBorrowedBooks() {
     var user = getCurrentUser();
     if (!user) {
         window.location.href = getLoginPath();
+        return;
+    }
+    if (user.isAdmin) {
+        var tbody = document.querySelector('.data-table tbody');
+        if (tbody) tbody.innerHTML = renderEmptyRow(6, 'Admins have no borrowed books.');
         return;
     }
     var books = JSON.parse(localStorage.getItem('books'));
@@ -195,7 +213,7 @@ function daysRemaining(dueDate) {
     return Math.ceil((due - now) / 86400000);
 }
 
-function renderCard(book, isBorrowed) {
+function renderCard(book, isBorrowed, isAdmin) {
     var imgSrc = book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book';
     var statusBadge = isBorrowed
         ? '<span class="card-status-badge card-status-badge--borrowed">Borrowed</span>'
@@ -203,13 +221,21 @@ function renderCard(book, isBorrowed) {
     var details = '<p class="card-meta">' + book.author + '<span class="sep">&middot;</span><span class="category-badge">' + book.category + '</span></p>';
     var actionHtml;
     if (isBorrowed) {
-        var days = daysRemaining(book.dueDate);
-        var dueClass = days <= 3 ? 'card-due--urgent' : 'card-due--normal';
-        var dueText = days > 0 ? days + ' day' + (days > 1 ? 's' : '') + ' left' : 'Overdue';
-        details += '<span class="card-due ' + dueClass + '">Due: ' + book.dueDate + ' &middot; ' + dueText + '</span>';
-        actionHtml = '<button onclick="returnBook(' + book.id + ')" class="btn btn-primary btn-sm">Return</button>';
+        if (isAdmin) {
+            actionHtml = '';
+        } else {
+            var days = daysRemaining(book.dueDate);
+            var dueClass = days <= 3 ? 'card-due--urgent' : 'card-due--normal';
+            var dueText = days > 0 ? days + ' day' + (days > 1 ? 's' : '') + ' left' : 'Overdue';
+            details += '<span class="card-due ' + dueClass + '">Due: ' + book.dueDate + ' &middot; ' + dueText + '</span>';
+            actionHtml = '<button onclick="returnBook(' + book.id + ')" class="btn btn-primary btn-sm">Return</button>';
+        }
     } else {
-        actionHtml = '<button onclick="borrowBook(' + book.id + ')" class="btn btn-primary btn-sm">Borrow</button>';
+        if (isAdmin) {
+            actionHtml = '<a href="detail.html?id=' + book.id + '" class="btn btn-secondary btn-sm" style="text-decoration:none">View</a>';
+        } else {
+            actionHtml = '<button onclick="borrowBook(' + book.id + ')" class="btn btn-primary btn-sm">Borrow</button>';
+        }
     }
     return (
         '<div class="book-card"><div class="book-card-img-wrap"><img src="' +
@@ -224,15 +250,19 @@ function renderCard(book, isBorrowed) {
         book.title +
         '</a></h3>' +
         details +
-        '</div><div class="book-card-actions">' +
-        actionHtml +
-        '</div></div>'
+        '</div>' +
+        (actionHtml ? '<div class="book-card-actions">' + actionHtml + '</div>' : '') +
+        '</div>'
     );
 }
 
 function loadDashboard() {
     var user = getCurrentUser();
     if (!user) return;
+    if (user.isAdmin) {
+        window.location.href = '../admin/catalog.html';
+        return;
+    }
     var books = JSON.parse(localStorage.getItem('books'));
     var borrowed = books.filter(function (b) {
         return b.borrowedBy == user.id;
@@ -251,13 +281,13 @@ function loadDashboard() {
     if (borrowedCount) borrowedCount.textContent = borrowed.length;
     if (availableCount) availableCount.textContent = available.length;
     if (borrowed.length) {
-        borrowedGrid.innerHTML = borrowed.map(function (b) { return renderCard(b, true); }).join('');
+        borrowedGrid.innerHTML = borrowed.map(function (b) { return renderCard(b, true, false); }).join('');
     } else {
         borrowedGrid.innerHTML =
             '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:48px 16px;font-size:14px">No borrowed books yet. <a href="catalog.html" style="color:var(--accent-dark);font-weight:600">Browse the catalog</a> to borrow!</p>';
     }
     if (available.length) {
-        availableGrid.innerHTML = available.map(function (b) { return renderCard(b, false); }).join('');
+        availableGrid.innerHTML = available.map(function (b) { return renderCard(b, false, false); }).join('');
     } else {
         availableGrid.innerHTML =
             '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:48px 16px;font-size:14px">No books available right now.</p>';
@@ -313,13 +343,20 @@ function loadBookDetails(bookId) {
     }
     var borrowBtn = document.getElementById('borrow-btn');
     if (borrowBtn) {
-        borrowBtn.disabled = !book.available;
-        borrowBtn.textContent = book.available ? 'Borrow Book' : 'Book Not Available';
-        borrowBtn.className = book.available ? 'btn btn-primary' : 'btn btn-secondary';
-        if (book.available)
-            borrowBtn.onclick = function () {
-                borrowBook(bookId);
-            };
+        var user = getCurrentUser();
+        if (user && user.isAdmin) {
+            borrowBtn.disabled = true;
+            borrowBtn.textContent = 'Admins cannot borrow';
+            borrowBtn.className = 'btn btn-secondary';
+        } else {
+            borrowBtn.disabled = !book.available;
+            borrowBtn.textContent = book.available ? 'Borrow Book' : 'Book Not Available';
+            borrowBtn.className = book.available ? 'btn btn-primary' : 'btn btn-secondary';
+            if (book.available)
+                borrowBtn.onclick = function () {
+                    borrowBook(bookId);
+                };
+        }
         var sk = borrowBtn.querySelector('.skeleton');
         if (sk) sk.style.display = 'none';
     }
