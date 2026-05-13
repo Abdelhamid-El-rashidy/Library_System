@@ -9,28 +9,14 @@
 
   <body>
     <header>
-      <nav>
-        <table>
-          <tr>
-            <td class="nav-cell">
-              <a href="books.html" class="nav-link">Dashboard</a>
-            </td>
-            <td class="nav-cell--active">
-              <a href="books.html" class="nav-link--active">Books</a>
-            </td>
-            <td class="nav-cell">
-              <a href="book-edit.html" class="nav-link">Edit Book</a>
-            </td>
-            <td class="nav-cell">
-              <a href="book-add.html" class="nav-link">Add Book</a>
-            </td>
-            <td class="nav-cell">
-              <a class="nav-link" href="../user/login.html">Logout</a>
-            </td>
-          </tr>
-        </table>
-      </nav>
-        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
+        <nav class="nav-island">
+            <a href="books.html" class="nav-item active">Books</a>
+            <a href="book-edit.html" class="nav-item">Edit</a>
+            <a href="book-add.html" class="nav-item">Add</a>
+            <a href="book-management.html" class="nav-item">Manage</a>
+            <span id="user-nav-info" style="border-left:1px solid rgba(255,255,255,.1);padding:0 12px;margin-left:8px"></span>
+            <a href="../user/login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
+        </nav>
     </header>
 
     <main>
@@ -47,31 +33,12 @@
             <tr>
               <th>Title</th>
               <th>Author</th>
-              <th>ISBN</th>
+              <th>ID</th>
               <th>Category</th>
-              <th class="text-center">Action</th>
+              <th class="text-center">Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="td-primary">Head First Java</td>
-              <td class="td-primary">Kathy Sierra</td>
-              <td class="td-muted">978-0-596-52068-7</td>
-              <td><span class="category-badge">Programming</span></td>
-              <td class="text-center">
-                <a href="book-edit.html" class="action-link">Edit &rarr;</a>
-              </td>
-            </tr>
-            <tr>
-              <td class="td-primary">Clean Code</td>
-              <td class="td-primary">Robert C. Martin</td>
-              <td class="td-muted">978-0-13-235088-4</td>
-              <td><span class="category-badge">Programming</span></td>
-              <td class="text-center">
-                <a href="book-edit.html" class="action-link">Edit &rarr;</a>
-              </td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </main>
