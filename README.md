@@ -119,8 +119,15 @@ docs: update API documentation
 ## Contributors
 
 <!-- STATS_START -->
-```
-Coming soon...
+```mermaid
+pie showData
+    title Project Commits
+    "Muhammad Fouad" : 58
+    "Ali" : 12
+    "Mohamed Haitham" : 11
+    "Ziad Gabriel" : 10
+    "Abdelhamid Ahmed" : 6
+    "Saifeddine29" : 4
 ```
 <!-- STATS_END -->
 
