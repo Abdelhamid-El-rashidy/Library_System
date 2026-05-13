@@ -1,72 +1,42 @@
 <!doctype html>
-
-
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Borrowed books- Bookify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowed Books - Bookify</title>
     <link rel="stylesheet" href="../css/admin.css" />
 </head>
-
 <body>
     <header>
-        <nav>
-            <table>
-                <tr>
-                    <td class="nav-cell"><a class="nav-link" title="Home Page" href="index.html">Home</a></td>
-                    <td class="nav-cell"><a class="nav-link" title="Available Books" href="books.html">Books</a></td>
-                    <td class="nav-cell"><a class="nav-link" title="Search" href="search.html">Search</a></td>
-                    <td class="nav-cell"><a class="nav-link nav-link--active" title="Borrowed books" href="borrowed.html">Borrowed</a></td>
-                    <td class="nav-cell"><a class="nav-link" title="Log Out" href="index.html">Logout</a></td>
-                </tr>
-            </table>
+        <nav class="nav-island">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="borrowed.html" class="nav-item active">Borrowed</a>
+            <a href="search.html" class="nav-item">Search</a>
+            <span id="user-nav-info"></span>
+            <a href="login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
         </nav>
-        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
     </header>
 
     <main class="content-card">
         <h1 class="page-title">Bookify</h1>
-        <h2 class="page-subtitle">Borrowed books</h2>
-        <p class="page-description">ist Of Your Books<</p>
-        
-        <hr class="divider">
-
+        <h2 class="page-subtitle">Borrowed Books</h2>
+        <p class="page-description">List of your currently borrowed books.</p>
+        <hr class="divider" />
         <table class="data-table">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Author</th>
                     <th>Category</th>
-                    <th>Availability</th>
-                 
+                    <th>Due Date</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td class="td-primary">
-                        <a href="books/book2.html" class="action-link">To Kill a Mockingbird</a>
-                    </td>
-                    <td class="td-muted">Harper Lee</td>
-                    <td><span class="category-badge">Fiction</span></td>
-                    <td class="warning-text">Borrowed</td>
-                 
-                </tr>
-                <tr>
-                    <td class="td-primary">
-                        <a href="books/book5.html" class="action-link">The Hobbit</a>
-                    </td>
-                    <td class="td-muted">J.R.R. Tolkien</td>
-                    <td><span class="category-badge">Fantasy</span></td>
-                    <td class="warning-text">Borrowed</td>
-                  
-                </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
     </main>
-
     <footer>
-        <p>© 2026 Bookify. All rights reserved.</p>
+        <p>&copy; 2026 Bookify. All rights reserved.</p>
     </footer>
     <script src="../js/user.js"></script>
 </body>
-
 </html>

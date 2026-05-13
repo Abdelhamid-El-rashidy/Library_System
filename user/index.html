@@ -1,47 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bookify - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookify - Dashboard</title>
     <link rel="stylesheet" href="../css/admin.css" />
 </head>
 <body>
     <header>
-        <nav>
-            <table>
-                <tr>
-                    <td class="nav-cell nav-cell--active"><a class="nav-link nav-link--active" title="Home Page" href="index.html">Home</a></td>
-                    <td class="nav-cell"><a class="nav-link" title="Available Books" href="books.html">Books</a></td>
-                    <td class="nav-cell"><a class="nav-link" title="Search" href="search.html">Search</a></td>
-                    <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="borrowed.html">Borrowed</a></td>
-                    <td class="nav-cell"><a class="nav-link" title="Log Out" href="login.html">Logout</a></td>
-                </tr>
-            </table>
+        <nav class="nav-island">
+            <a href="index.html" class="nav-item active">Home</a>
+            <a href="borrowed.html" class="nav-item">Borrowed</a>
+            <a href="search.html" class="nav-item">Search</a>
+            <span id="user-nav-info"></span>
+            <a href="login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
         </nav>
-        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
     </header>
 
-    <main class="content-card text-center">
-        <h1 class="page-title">Bookify</h1>
-        <h2 class="page-subtitle">Welcome to Bookify</h2>
-        
-        <p class="page-description">
-            Your online library for discovering amazing books.<br>
-            Find the best books for learning, reading, and inspiration.
-        </p>
+    <main class="content-card">
+        <h2 class="section-title"><span>My Borrowed Books</span> <span class="count" id="borrowed-count">0</span></h2>
+        <div id="borrowed-grid" class="book-grid"></div>
 
-        <hr class="divider">
+        <hr class="divider" />
 
-        <div style="margin-top: 20px;">
-            <a href="signup.html" class="btn btn-primary" style="text-decoration: none; display: inline-block; margin-right: 10px;">Sign Up</a>
-            <a href="login.html" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">Login</a>
-        </div>
+        <h2 class="section-title"><span>Available Books</span> <span class="count" id="available-count">0</span></h2>
+        <div id="available-grid" class="book-grid"></div>
     </main>
 
     <footer>
-      <p>© 2026 Bookify. All rights reserved.</p>
+        <p>&copy; 2026 Bookify. All rights reserved.</p>
     </footer>
-
     <script src="../js/user.js"></script>
 </body>
 </html>
