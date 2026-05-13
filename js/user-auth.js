@@ -37,6 +37,7 @@ function validateSignup(e) {
     var password = document.getElementById('pw').value.trim();
     var confirmPassword = document.getElementById('cpw').value.trim();
     var email = document.getElementById('e').value.trim();
+    var isAdmin = document.getElementById('is_admin') && document.getElementById('is_admin').checked;
     if (!username || !password || !confirmPassword || !email) {
         alert('All fields are required.');
         return false;
@@ -45,21 +46,23 @@ function validateSignup(e) {
         alert('Passwords do not match.');
         return false;
     }
+    var body = {
+        username: username,
+        password: password,
+        password_confirm: confirmPassword,
+        email: email
+    };
+    if (isAdmin) body.is_admin = true;
     apiFetch('/auth/signup/', {
         method: 'POST',
-        body: JSON.stringify({
-            username: username,
-            password: password,
-            password_confirm: confirmPassword,
-            email: email
-        })
+        body: JSON.stringify(body)
     })
         .then(function (data) {
             localStorage.setItem('accessToken', data.access);
             localStorage.setItem('refreshToken', data.refresh);
             localStorage.setItem('currentUser', data.user.id);
             localStorage.setItem('currentUserData', JSON.stringify(data.user));
-            window.location.href = 'dashboard.html';
+            window.location.href = data.user.is_admin ? '../admin/catalog.html' : 'dashboard.html';
         })
         .catch(function () {
             var users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -76,14 +79,14 @@ function validateSignup(e) {
                 username: username,
                 password: password,
                 email: email,
-                isAdmin: false,
-                isSuperuser: false,
-                borrowedBooks: []
+                isAdmin: !!isAdmin,
+                isSuperuser: false
             };
             users.push(newUser);
             localStorage.setItem('users', JSON.stringify(users));
             localStorage.setItem('currentUser', newUser.id);
-            window.location.href = 'dashboard.html';
+            localStorage.setItem('currentUserData', JSON.stringify(newUser));
+            window.location.href = newUser.isAdmin ? '../admin/catalog.html' : 'dashboard.html';
         });
     return false;
 }

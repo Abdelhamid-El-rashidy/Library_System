@@ -32,10 +32,11 @@ class UserSerializer(serializers.ModelSerializer):
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=4)
     password_confirm = serializers.CharField(write_only=True, min_length=4)
+    is_admin = serializers.BooleanField(default=False, write_only=True)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'password_confirm']
+        fields = ['username', 'email', 'password', 'password_confirm', 'is_admin']
 
     def validate(self, data):
         if data['password'] != data['password_confirm']:
@@ -47,10 +48,14 @@ class SignupSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
+        is_admin = validated_data.pop('is_admin', False)
         validated_data.pop('password_confirm')
         user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data.get('email', ''),
             password=validated_data['password'],
         )
+        if is_admin:
+            user.is_staff = True
+            user.save()
         return user
