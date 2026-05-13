@@ -39,9 +39,6 @@ function renderBookRow(book, showCover) {
         '<td><span class="category-badge">' +
         book.category +
         '</span></td>' +
-        '<td class="td-primary">$' +
-        parseFloat(book.price).toFixed(2) +
-        '</td>' +
         '<td>' +
         (book.available
             ? '<span class="td-primary">Available</span> <button onclick="borrowBook(' +
@@ -80,18 +77,7 @@ function borrowBook(bookId) {
             book.available = false;
             book.borrowedBy = user.id;
             book.dueDate = dueDate.toISOString().split('T')[0];
-            if (!user.borrowedBooks) user.borrowedBooks = [];
-            user.borrowedBooks.push(bookId);
             localStorage.setItem('books', JSON.stringify(books));
-            var users = JSON.parse(localStorage.getItem('users') || '[]');
-            var userIndex = users.findIndex(function (u) {
-                return u.id == user.id;
-            });
-            if (userIndex !== -1) {
-                users[userIndex].borrowedBooks = user.borrowedBooks;
-                localStorage.setItem('users', JSON.stringify(users));
-            }
-            localStorage.setItem('currentUserData', JSON.stringify(user));
             alert('Book borrowed successfully. Due: ' + book.dueDate);
             location.reload();
         });
@@ -108,7 +94,7 @@ function loadBooks(page) {
     if (!tbody) return;
     if (count) count.textContent = books.length;
     if (!books.length) {
-        tbody.innerHTML = renderEmptyRow(6, 'No books in the library yet.');
+        tbody.innerHTML = renderEmptyRow(5, 'No books in the library yet.');
         if (paginationEl) paginationEl.innerHTML = '';
         return;
     }
@@ -130,7 +116,7 @@ function loadBorrowedBooks() {
     }
     var books = JSON.parse(localStorage.getItem('books'));
     var borrowedBooks = books.filter(function (b) {
-        return b.borrowed_by == user.id || (user.borrowedBooks && user.borrowedBooks.indexOf(b.id) !== -1);
+        return b.borrowedBy == user.id;
     });
     var tbody = document.querySelector('.data-table tbody');
     if (!tbody) return;
@@ -156,7 +142,7 @@ function loadBorrowedBooks() {
             book.category +
             '</span></td>' +
             '<td class="warning-text">' +
-            (book.due_date || book.dueDate ? 'Due: ' + (book.due_date || book.dueDate) : 'Borrowed') +
+            (book.dueDate ? 'Due: ' + book.dueDate : 'Borrowed') +
             '</td></tr>';
     });
 }
@@ -166,10 +152,13 @@ function loadDashboard() {
     if (!user) return;
     var books = JSON.parse(localStorage.getItem('books'));
     var borrowed = books.filter(function (b) {
-        return b.borrowed_by == user.id || (user.borrowedBooks && user.borrowedBooks.indexOf(b.id) !== -1);
+        return b.borrowedBy == user.id;
+    });
+    var borrowedIds = borrowed.map(function (b) {
+        return b.id;
     });
     var available = books.filter(function (b) {
-        return b.available;
+        return borrowedIds.indexOf(b.id) === -1 && b.available;
     });
     var borrowedGrid = document.getElementById('borrowed-grid');
     var availableGrid = document.getElementById('available-grid');
@@ -193,7 +182,7 @@ function loadDashboard() {
                     '</a></h3><p class="td-muted">' +
                     book.author +
                     '</p><span class="due-badge">Due: ' +
-                    (book.due_date || book.dueDate || 'N/A') +
+                    (book.dueDate || 'N/A') +
                     '</span></div></div>'
                 );
             })

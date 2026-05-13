@@ -50,6 +50,7 @@ async function apiFetch(url, opts) {
         logout();
         throw new Error('Session expired. Please log in again.');
     }
+    if (res.status === 204) return null;
     var data = await res.json().catch(function () {
         return {};
     });
@@ -86,85 +87,72 @@ function initializeData() {
                 title: 'The Great Gatsby',
                 author: 'F. Scott Fitzgerald',
                 category: 'Fiction',
-                price: 10.99,
                 available: true,
                 borrowedBy: null,
                 coverUrl: 'https://placehold.co/150x200/fff7ed/b45309?text=Great+Gatsby',
-                description:
-                    "The Great Gatsby is a 1925 tragedy novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the novel depicts first-person narrator Nick Carraway's interactions with Jay Gatsby, a mysterious millionaire obsessed with reuniting with his former lover, Daisy Buchanan."
+                description: "A tragic novel set in the Jazz Age about Jay Gatsby's obsession with Daisy Buchanan."
             },
             {
                 id: 2,
                 title: 'To Kill a Mockingbird',
                 author: 'Harper Lee',
                 category: 'Fiction',
-                price: 12.99,
                 available: false,
-                borrowedBy: 1,
-                dueDate: '2026-05-20',
+                borrowedBy: 2,
+                dueDate: new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0],
                 coverUrl: 'https://placehold.co/150x200/fff7ed/b45309?text=Mockingbird',
-                description:
-                    'To Kill a Mockingbird is a novel by Harper Lee published in 1960. It was immediately successful, winning the Pulitzer Prize, and has become a classic of modern American literature.'
+                description: 'A novel about racial injustice and moral growth in a small Alabama town.'
             },
             {
                 id: 3,
                 title: '1984',
                 author: 'George Orwell',
                 category: 'Dystopian',
-                price: 15.99,
                 available: true,
                 borrowedBy: null,
                 coverUrl: 'https://placehold.co/150x200/fff7ed/b45309?text=1984',
-                description:
-                    '1984 is a dystopian social science fiction novel and cautionary tale written by English writer George Orwell.'
+                description: 'A dystopian novel set in a totalitarian society under constant surveillance.'
             },
             {
                 id: 4,
                 title: 'The Catcher in the Rye',
                 author: 'J.D. Salinger',
                 category: 'Fiction',
-                price: 14.99,
                 available: true,
                 borrowedBy: null,
                 coverUrl: 'https://placehold.co/150x200/fff7ed/b45309?text=Catcher+Rye',
-                description:
-                    'The Catcher in the Rye is a novel by J. D. Salinger that was partially published in serial form in 1945-1946 and as a novel in 1951.'
+                description: 'A story about teenage alienation and rebellion.'
             },
             {
                 id: 5,
                 title: 'The Hobbit',
                 author: 'J.R.R. Tolkien',
                 category: 'Fantasy',
-                price: 16.99,
                 available: false,
-                borrowedBy: 1,
-                dueDate: '2026-05-22',
+                borrowedBy: 2,
+                dueDate: new Date(Date.now() + 9 * 86400000).toISOString().split('T')[0],
                 coverUrl: 'https://placehold.co/150x200/fff7ed/b45309?text=The+Hobbit',
-                description:
-                    "The Hobbit, or There and Back Again is a children's fantasy novel by English author J. R. R. Tolkien."
+                description: 'A fantasy novel about Bilbo Baggins on an unexpected journey.'
             },
             {
                 id: 6,
                 title: 'Pride and Prejudice',
                 author: 'Jane Austen',
                 category: 'Romance',
-                price: 13.99,
                 available: true,
                 borrowedBy: null,
                 coverUrl: 'https://placehold.co/150x200/fff7ed/b45309?text=Pride+Prejudice',
-                description: 'Pride and Prejudice is an 1813 romantic novel of manners written by Jane Austen.'
+                description: 'A romantic novel about manners and marriage in Georgian England.'
             },
             {
                 id: 7,
                 title: 'The Lord of the Rings',
                 author: 'J.R.R. Tolkien',
                 category: 'Fantasy',
-                price: 18.99,
                 available: true,
                 borrowedBy: null,
                 coverUrl: 'https://placehold.co/150x200/fff7ed/b45309?text=LOTR',
-                description:
-                    'The Lord of the Rings is an epic high-fantasy novel written by English author and scholar J. R. R. Tolkien.'
+                description: 'An epic high-fantasy novel about the quest to destroy the One Ring.'
             }
         ];
         localStorage.setItem('books', JSON.stringify(books));
@@ -177,8 +165,7 @@ function initializeData() {
                 password: 'admin123',
                 email: 'admin@bookify.com',
                 isAdmin: true,
-                isSuperuser: true,
-                borrowedBooks: []
+                isSuperuser: true
             },
             {
                 id: 2,
@@ -186,8 +173,7 @@ function initializeData() {
                 password: 'pass1',
                 email: 'user1@example.com',
                 isAdmin: false,
-                isSuperuser: false,
-                borrowedBooks: [2, 5]
+                isSuperuser: false
             }
         ];
         localStorage.setItem('users', JSON.stringify(users));
@@ -204,8 +190,7 @@ function initializeData() {
                 password: 'admin123',
                 email: 'admin@bookify.com',
                 isAdmin: true,
-                isSuperuser: true,
-                borrowedBooks: []
+                isSuperuser: true
             });
             localStorage.setItem('users', JSON.stringify(existingUsers));
         }
