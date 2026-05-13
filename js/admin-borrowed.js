@@ -62,7 +62,7 @@ function renderBorrowedTable(books) {
             '</td>' +
             '<td><button onclick="adminReturnBook(' +
             book.id +
-            ')" class="btn btn-primary" style="padding:6px 14px;font-size:11px">Mark Returned</button></td>' +
+            ')" class="btn btn-primary btn-sm">Mark Returned</button></td>' +
             '</tr>';
     });
     if (paginationEl) paginationEl.innerHTML = renderPagination(borrowedPage, totalPages, 'loadBorrowed');

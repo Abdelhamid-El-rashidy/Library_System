@@ -38,9 +38,9 @@ function loadAdminBooks(page) {
             (book.available ? 'td-primary' : 'warning-text') +
             '" style="font-size:12px;margin-left:6px">' +
             (book.available ? 'Available' : 'Borrowed') +
-            '</span></p><div style="display:flex;gap:6px"><a href="book-edit.html?id=' +
+            '</span></p><div class="book-card-actions"><a href="book-edit.html?id=' +
             book.id +
-            '" class="btn btn-primary" style="padding:6px 14px;font-size:11px;flex:1;justify-content:center">Edit</a><a href="#" class="btn btn-danger" style="padding:6px 14px;font-size:11px;flex:1;justify-content:center" onclick="deleteBook(' +
+            '" class="btn btn-primary btn-sm">Edit</a><a href="#" class="btn btn-danger btn-sm" onclick="deleteBook(' +
             book.id +
             ')">Delete</a></div></div>';
         grid.appendChild(card);
