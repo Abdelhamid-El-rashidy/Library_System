@@ -6,7 +6,7 @@ A premium, modern library management platform.
 ```mermaid
 pie showData
     title Project Commits
-    "Muhammad Fouad" : 43
+    "Muhammad Fouad" : 55
     "Ali" : 12
     "Mohamed Haitham" : 11
     "Ziad Gabriel" : 10
