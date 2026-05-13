@@ -81,7 +81,6 @@ function validateAddBook(e) {
     var title = document.getElementById('title').value.trim();
     var author = document.getElementById('author').value.trim();
     var category = document.getElementById('category').value;
-    var price = document.getElementById('price').value.trim();
     var description = document.getElementById('description').value.trim();
     if (!title || !author || !category) {
         alert('Title, author, and category are required.');
@@ -96,7 +95,6 @@ function validateAddBook(e) {
         title: title,
         author: author,
         category: category,
-        price: price ? parseFloat(price) : 0,
         description: description || '',
         cover_url: coverUrl
     });
@@ -122,9 +120,7 @@ function validateAddBook(e) {
                 title: title,
                 author: author,
                 category: category,
-                price: price ? parseFloat(price) : 0,
                 available: true,
-                borrowedBy: null,
                 description: description || '',
                 coverUrl: coverUrl
             };
@@ -150,7 +146,6 @@ function loadEditBookData() {
         document.getElementById('isbn').value = book.id;
         document.getElementById('category').value = book.category;
         document.getElementById('description').value = book.description || '';
-        document.getElementById('price').value = book.price || 0;
         var preview = document.getElementById('cover-preview');
         if (preview) {
             if (book.coverUrl && !book.coverUrl.includes('placehold.co')) {
@@ -174,7 +169,6 @@ function validateEditBook(e) {
     var author = document.getElementById('author').value.trim();
     var category = document.getElementById('category').value;
     var description = document.getElementById('description').value.trim();
-    var price = document.getElementById('price').value.trim();
     if (!title || !author || !category) {
         alert('Title, author, and category are required.');
         return false;
@@ -184,8 +178,7 @@ function validateEditBook(e) {
         title: title,
         author: author,
         category: category,
-        description: description || '',
-        price: price ? parseFloat(price) : 0
+        description: description || ''
     });
     apiFetch('/books/' + id + '/', { method: 'PUT', body: body })
         .then(function (data) {
@@ -214,7 +207,6 @@ function validateEditBook(e) {
                 books[bookIndex].author = author;
                 books[bookIndex].category = category;
                 books[bookIndex].description = description || '';
-                books[bookIndex].price = price ? parseFloat(price) : 0;
                 if (coverData && coverData.value) books[bookIndex].coverUrl = coverData.value;
                 localStorage.setItem('books', JSON.stringify(books));
                 alert('Book updated successfully.');
