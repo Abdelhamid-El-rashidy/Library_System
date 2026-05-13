@@ -23,18 +23,38 @@
         <p class="page-description">Enter your search term below and select the search type.</p>
         <hr class="divider">
         <form>
-            <span class="form-legend">Filter Collection</span>
-            <label for="searchInput">Search <span class="required">*</span></label>
-            <input type="text" id="searchInput" name="searchInput" placeholder="Enter search term..." required autofocus>
-            <label for="searchBy">Search By:</label>
-            <select id="searchBy" name="searchBy">
-                <option value="Book">Book Name</option>
-                <option value="Author">Author</option>
-                <option value="Category">Category</option>
-            </select>
-            <div class="submit-actions" style="margin-top:10px">
-                <button type="submit" class="btn btn-primary">Search</button>
-                <button type="reset" class="btn btn-secondary">Clear</button>
+            <div class="form-section">
+                <h3 class="form-section-title">Filter Collection</h3>
+
+                <div class="form-field">
+                    <label for="searchInput">Search <span class="required">*</span></label>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Enter search term..." required autofocus>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="searchBy">Search By:</label>
+                        <select id="searchBy" name="searchBy">
+                            <option value="All">All Fields</option>
+                            <option value="Book">Book Name</option>
+                            <option value="Author">Author</option>
+                            <option value="Category">Category</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="filterAvailability">Availability:</label>
+                        <select id="filterAvailability" name="availability">
+                            <option value="all">All Books</option>
+                            <option value="available">Available Only</option>
+                            <option value="borrowed">Borrowed Only</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:10px;margin-top:8px">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </div>
             </div>
         </form>
         <hr class="divider">
@@ -42,6 +62,7 @@
         <table class="data-table">
             <thead>
                 <tr>
+                    <th style="width:50px">Cover</th>
                     <th>Book Name</th>
                     <th>Author</th>
                     <th>Category</th>
@@ -50,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr><td colspan="5" style="text-align:center;color:var(--text3);padding:24px">Use the search form above to find books.</td></tr>
+                <tr><td colspan="6" style="text-align:center;color:var(--text3);padding:24px;font-size:14px">Use the search form above to find books.</td></tr>
             </tbody>
         </table>
     </main>

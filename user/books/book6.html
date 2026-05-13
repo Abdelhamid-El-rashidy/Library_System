@@ -19,16 +19,21 @@
 
     <main class="content-card">
         <h1 class="page-title">Book Details</h1>
-        <div class="book-info-section">
-            <h2 class="form-legend">Pride and Prejudice</h2>
-            <p><strong class="td-primary">Author:</strong> <span class="td-muted">Jane Austen</span></p>
-            <p><strong class="td-primary">Category:</strong> <span class="category-badge">Romance</span></p>
-            <p><strong class="td-primary">Status:</strong> <span class="warning-text">Available</span></p>
-            <hr class="divider">
-            <p class="page-description">Pride and Prejudice is the second published novel by English author Jane Austen, written when she was aged 20-21, and later published in 1813.</p>
+        <div class="book-info-section" style="display:flex;gap:28px;flex-wrap:wrap">
+            <div style="flex-shrink:0">
+                <img id="book-cover-img" src="https://placehold.co/150x200/fff7ed/b45309?text=Pride+Prejudice" alt="Pride and Prejudice" style="width:150px;height:210px;object-fit:cover;border-radius:8px;border:1px solid var(--border);box-shadow:var(--shadow-hover)" />
+            </div>
+            <div style="flex:1;min-width:250px">
+                <h2 class="form-legend">Pride and Prejudice</h2>
+                <p><strong class="td-primary">Author:</strong> <span id="book-author" class="td-muted">Jane Austen</span></p>
+                <p><strong class="td-primary">Category:</strong> <span id="book-category" class="category-badge">Romance</span></p>
+                <p><strong class="td-primary">Status:</strong> <span id="book-status" class="td-primary">Available</span></p>
+                <hr class="divider">
+                <p id="book-description" class="page-description">Pride and Prejudice is an 1813 romantic novel of manners written by Jane Austen.</p>
+            </div>
         </div>
-        <div style="margin-top: 24px;">
-            <button class="btn btn-primary" disabled>Borrow Book</button>
+        <div style="margin-top:24px">
+            <button id="borrow-btn" class="btn btn-primary" disabled>Borrow Book</button>
         </div>
     </main>
 

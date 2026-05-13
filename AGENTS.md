@@ -16,12 +16,12 @@ use CommitsIns.md guidelines for commit messages.
 
 ## Directory Structure
 ```
-├── admin/               # Admin pages (catalog, book-add, book-edit, manage)
+├── admin/               # Admin pages (catalog, book-add, book-edit, manage, admins)
 ├── user/                # User pages (dashboard, catalog, search, borrowed, login, signup)
 │   └── books/           # Individual book detail pages (book1.html - book7.html)
 ├── backend/             # Django backend (from backend-integration merge)
 ├── css/style.css        # Shared stylesheet
-├── js/admin.js          # Admin JS - CRUD, auth
+├── js/admin.js          # Admin JS - CRUD, auth, cover upload
 ├── js/user.js           # User JS - CRUD, auth, search, borrow, dashboard
 ├── scripts/             # Utility scripts
 │   └── update_stats.py
@@ -33,31 +33,43 @@ use CommitsIns.md guidelines for commit messages.
 ### Navigation
 - **Island-style nav bar**: pill-shaped, glass/blur effect, gradient active state
 - **User nav**: Home, Borrowed, Search, Logout (login/signup are standalone pages)
-- **Admin nav**: Books (catalog), Edit, Add, Manage tabs (all link to separate pages)
+- **Admin nav**: Books (catalog), Edit, Add, Manage tabs, Admins (superuser only)
 - Nav items use `.nav-item` + `.active` classes inside `.nav-island`
+- `.nav-item--hidden` class hides nav links (used for superuser-only Admins link)
 - Logout handled via `#logout-link` click handler
-- **admin/manage.html** is a self-contained tabbed page with its own inline CRUD (add/edit/delete) wired to localStorage — not dependent on admin.js for CRUD
+- **admin/manage.html** is a self-contained tabbed page with its own inline CRUD — not dependent on admin.js for CRUD
 
-### CSS
-- Single file: `css/style.css` (~100 lines)
+### CSS (~110 lines)
 - CSS custom properties for theming: `--header`, `--accent`, `--danger`, etc.
 - Card grid for dashboard: `.book-grid` + `.book-card`
+- `.form-section` with `.form-section-title` for grouped form fields
+- `.form-row` for side-by-side fields (2-col, responsive → 1-col)
 - Standalone pages (login/signup): `.standalone-page` class on body
 - Responsive breakpoint at 768px
 
 ### JavaScript
 - `loadDashboard()` renders borrowed + available book grids on dashboard.html
-- `loadBooks()` renders full book table on catalog.html
-- `loadBorrowedBooks()` renders borrowed table on borrowed.html
-- `borrowBook()` sets `dueDate` (14 days from borrow date) on the book object
+- `loadBooks()` renders book table with cover thumbnails on catalog.html
+- `loadBorrowedBooks()` renders borrowed table with covers on borrowed.html
+- `borrowBook()` sets `dueDate` (14 days from borrow date) + reloads page
+- `performSearch()` supports All/Title/Author/Category search + availability filter
+- `displaySearchResults()` renders cover thumbnails + empty state messages
+- `loadBookDetails()` populates detail page with cover img, all fields, borrow button
+- `renderBookRow()` / `renderCoverThumb()` / `renderEmptyRow()` — reusable table helpers
 - Seed data includes `coverUrl` for each book and `dueDate` for borrowed ones
 - Protected pages (dashboard.html, borrowed.html) redirect to login if unauthenticated
-- **admin.js**: `loadAdminBooks()` renders book table with Edit/Delete actions; `loadEditBookData()` populates edit form from query param `?id=`; `deleteBook(id)` removes from localStorage
-- **manage.html** (self-contained): `loadMgmtBooks()`, `mgmtAddBook()`, `mgmtEditBook(id)`, `mgmtUpdateBook()`, `mgmtDeleteBook(id)` all operate on localStorage directly
+- **admin.js**: `loadAdminBooks()` renders book table with Edit/Delete; `loadEditBookData()` prefills edit form from `?id=`; `deleteBook(id)` removes from localStorage; `previewCover()` handles file→base64 cover upload
+- **manage.html** (self-contained): `loadMgmtBooks()`, `mgmtAddBook()`, `mgmtEditBook(id)`, `mgmtUpdateBook()`, `mgmtDeleteBook(id)` — localStorage CRUD with cover upload
+
+### RBAC (Role-Based Access)
+- **User** (`isAdmin: false`): Can browse, search, borrow, view details
+- **Admin** (`isAdmin: true, isSuperuser: false`): Full book CRUD, no user management
+- **Superuser** (`isAdmin: true, isSuperuser: true`): Same as Admin + can create/remove admin accounts via `admin/admins.html`
+- Signup always creates regular users; only superuser can promote to admin
 
 ### Data Model
 - Books: `{ id, title, author, category, price, available, borrowedBy, dueDate, coverUrl, description }`
-- Users: `{ id, username, password, email, isAdmin, borrowedBooks[] }`
+- Users: `{ id, username, password, email, isAdmin, isSuperuser, borrowedBooks[] }`
 - Seed: 7 books with placeholder cover images, 2 default accounts (`admin` / `admin123`, `user1` / `pass1`)
 
 ### UX Flow
@@ -65,7 +77,8 @@ use CommitsIns.md guidelines for commit messages.
 2. After login, redirected to **dashboard** (dashboard.html) or **admin catalog** (catalog.html)
 3. Dashboard shows borrowed books (with cover, due date) and available books to borrow
 4. Users can borrow from dashboard or catalog listing page
-5. Logout returns to login page
+5. Catalog and search show cover thumbnails in table rows
+6. Logout returns to login page
 
 ## Commands
 - No build, lint, test, or typecheck commands exist
@@ -80,4 +93,5 @@ use CommitsIns.md guidelines for commit messages.
 - No linting or formatting standards
 - No test coverage
 - Client-side auth only; no real security
-- placehold.co URLs used for book covers (not real covers)
+- Book detail pages are static HTML with IDs — new books added via admin won't have a detail page (would need a generic template with query param routing)
+- Django templates in `library/templates/` are outdated copies of the frontend

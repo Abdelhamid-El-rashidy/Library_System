@@ -56,6 +56,7 @@ input[type="checkbox"]{width:18px;height:18px;accent-color:var(--accent);cursor:
 .td-muted{color:var(--text3)}
 .text-center{text-align:center}
 .category-badge{color:#b45309;background:#fffbeb;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:600;border:1px solid #fef3c7;display:inline-block;white-space:nowrap}
+.cover-thumb{width:40px;height:56px;object-fit:cover;border-radius:4px;display:block}
 .action-link{color:var(--accent-dark);font-size:13px;text-decoration:none;font-weight:700;margin-right:12px;transition:color var(--t)}
 .action-link:hover{color:var(--accent);text-decoration:underline}
 .action-link--danger{color:var(--danger);transition:color var(--t)}

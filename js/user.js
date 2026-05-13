@@ -76,36 +76,27 @@ function logout() {
     window.location.href = 'login.html';
 }
 
-function performSearch() {
-    const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-    const searchBy = document.getElementById('searchBy').value;
-    if (!searchTerm) { alert('Please enter a search term.'); return false; }
-    const books = JSON.parse(localStorage.getItem('books'));
-    let filteredBooks = books;
-    if (searchBy === 'Book') filteredBooks = books.filter(b => b.title.toLowerCase().includes(searchTerm));
-    else if (searchBy === 'Author') filteredBooks = books.filter(b => b.author.toLowerCase().includes(searchTerm));
-    else if (searchBy === 'Category') filteredBooks = books.filter(b => b.category.toLowerCase().includes(searchTerm));
-    displaySearchResults(filteredBooks);
-    return false;
+function renderCoverThumb(url, alt) {
+    const src = url || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book';
+    return '<img src="' + src + '" alt="' + alt + '" style="width:40px;height:56px;object-fit:cover;border-radius:4px;display:block" />';
 }
 
-function displaySearchResults(books) {
-    const tbody = document.querySelector('.data-table tbody');
-    tbody.innerHTML = '';
-    books.forEach(book => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td class="td-primary"><a href="books/book${book.id}.html" class="action-link">${book.title}</a></td>
-            <td class="td-muted">${book.author}</td>
-            <td><span class="category-badge">${book.category}</span></td>
-            <td class="td-primary">$${book.price.toFixed(2)}</td>
-            <td>${book.available ? '<span class="td-primary">Available</span> <button onclick="borrowBook(' + book.id + ')" class="btn btn-primary">Borrow</button>' : '<span class="warning-text">Borrowed</span>'}</td>`;
-        tbody.appendChild(row);
-    });
+function renderEmptyRow(colspan, message) {
+    return '<tr><td colspan="' + colspan + '" style="text-align:center;color:var(--text3);padding:40px 16px;font-size:14px">' + message + '</td></tr>';
+}
+
+function renderBookRow(book, showCover) {
+    const cover = showCover ? '<td style="vertical-align:middle">' + renderCoverThumb(book.coverUrl, book.title) + '</td>' : '';
+    return '<tr>' + cover + '<td class="td-primary"><a href="books/book' + book.id + '.html" class="action-link">' + book.title + '</a></td>' +
+        '<td class="td-muted">' + book.author + '</td>' +
+        '<td><span class="category-badge">' + book.category + '</span></td>' +
+        '<td class="td-primary">$' + book.price.toFixed(2) + '</td>' +
+        '<td>' + (book.available ? '<span class="td-primary">Available</span> <button onclick="borrowBook(' + book.id + ')" class="btn btn-primary" style="padding:6px 14px;font-size:11px">Borrow</button>' : '<span class="warning-text">Borrowed</span>') + '</td></tr>';
 }
 
 function borrowBook(bookId) {
     const user = getCurrentUser();
-    // if (!user) { alert('Please log in to borrow books.'); window.location.href = 'login.html'; return; }
+    if (!user) { alert('Please log in to borrow books.'); window.location.href = 'login.html'; return; }
     const books = JSON.parse(localStorage.getItem('books'));
     const book = books.find(b => b.id == bookId);
     if (!book.available) { alert('Book is not available.'); return; }
@@ -127,37 +118,80 @@ function borrowBook(bookId) {
 function loadBooks() {
     const books = JSON.parse(localStorage.getItem('books'));
     const tbody = document.querySelector('.data-table tbody');
-    if (tbody) {
-        tbody.innerHTML = '';
-        books.forEach(book => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td class="td-primary"><a href="books/book${book.id}.html" class="action-link">${book.title}</a></td>
-                <td class="td-muted">${book.author}</td>
-                <td><span class="category-badge">${book.category}</span></td>
-                <td class="td-primary">$${book.price.toFixed(2)}</td>
-                <td>${book.available ? '<span class="td-primary">Available</span> <button onclick="borrowBook(' + book.id + ')" class="btn btn-primary">Borrow</button>' : '<span class="warning-text">Borrowed</span>'}</td>`;
-            tbody.appendChild(row);
-        });
+    const count = document.getElementById('book-count');
+    if (!tbody) return;
+    if (count) count.textContent = books.length;
+    if (!books.length) {
+        tbody.innerHTML = renderEmptyRow(6, 'No books in the library yet.');
+        return;
     }
+    tbody.innerHTML = '';
+    books.forEach(book => {
+        tbody.innerHTML += renderBookRow(book, true);
+    });
 }
 
 function loadBorrowedBooks() {
     const user = getCurrentUser();
-    // if (!user) { window.location.href = 'login.html'; return; }
+    if (!user) { window.location.href = 'login.html'; return; }
     const books = JSON.parse(localStorage.getItem('books'));
     const borrowedBooks = books.filter(b => user.borrowedBooks.includes(b.id));
     const tbody = document.querySelector('.data-table tbody');
-    if (tbody) {
-        tbody.innerHTML = '';
-        borrowedBooks.forEach(book => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td class="td-primary"><a href="books/book${book.id}.html" class="action-link">${book.title}</a></td>
-                <td class="td-muted">${book.author}</td>
-                <td><span class="category-badge">${book.category}</span></td>
-                <td class="warning-text">${book.dueDate ? 'Due: ' + book.dueDate : 'Borrowed'}</td>`;
-            tbody.appendChild(row);
-        });
+    if (!tbody) return;
+    if (!borrowedBooks.length) {
+        tbody.innerHTML = renderEmptyRow(5, 'You have no borrowed books.');
+        return;
     }
+    tbody.innerHTML = '';
+    borrowedBooks.forEach(book => {
+        const cover = '<td style="vertical-align:middle">' + renderCoverThumb(book.coverUrl, book.title) + '</td>';
+        tbody.innerHTML += '<tr>' + cover + '<td class="td-primary"><a href="books/book' + book.id + '.html" class="action-link">' + book.title + '</a></td>' +
+            '<td class="td-muted">' + book.author + '</td>' +
+            '<td><span class="category-badge">' + book.category + '</span></td>' +
+            '<td class="warning-text">' + (book.dueDate ? 'Due: ' + book.dueDate : 'Borrowed') + '</td></tr>';
+    });
+}
+
+function performSearch() {
+    const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+    const searchBy = document.getElementById('searchBy').value;
+    const availability = document.getElementById('filterAvailability').value;
+    if (!searchTerm) { alert('Please enter a search term.'); return false; }
+    let books = JSON.parse(localStorage.getItem('books'));
+    if (searchBy === 'All') {
+        books = books.filter(b => b.title.toLowerCase().includes(searchTerm) || b.author.toLowerCase().includes(searchTerm) || b.category.toLowerCase().includes(searchTerm));
+    } else if (searchBy === 'Book') {
+        books = books.filter(b => b.title.toLowerCase().includes(searchTerm));
+    } else if (searchBy === 'Author') {
+        books = books.filter(b => b.author.toLowerCase().includes(searchTerm));
+    } else if (searchBy === 'Category') {
+        books = books.filter(b => b.category.toLowerCase().includes(searchTerm));
+    }
+    if (availability === 'available') books = books.filter(b => b.available);
+    else if (availability === 'borrowed') books = books.filter(b => !b.available);
+    displaySearchResults(books);
+    return false;
+}
+
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchBy').value = 'All';
+    document.getElementById('filterAvailability').value = 'all';
+    const tbody = document.querySelector('.data-table tbody');
+    if (tbody) tbody.innerHTML = renderEmptyRow(6, 'Use the search form above to find books.');
+}
+
+function displaySearchResults(books) {
+    const tbody = document.querySelector('.data-table tbody');
+    if (!tbody) return;
+    if (!books.length) {
+        tbody.innerHTML = renderEmptyRow(6, 'No books match your search.');
+        return;
+    }
+    tbody.innerHTML = '';
+    books.forEach(book => {
+        tbody.innerHTML += renderBookRow(book, true);
+    });
 }
 
 function loadDashboard() {
@@ -168,47 +202,55 @@ function loadDashboard() {
     const available = books.filter(b => b.available);
     const borrowedGrid = document.getElementById('borrowed-grid');
     const availableGrid = document.getElementById('available-grid');
+    const borrowedCount = document.getElementById('borrowed-count');
+    const availableCount = document.getElementById('available-count');
     if (!borrowedGrid || !availableGrid) return;
+    if (borrowedCount) borrowedCount.textContent = borrowed.length;
+    if (availableCount) availableCount.textContent = available.length;
     if (borrowed.length) {
-        borrowedGrid.innerHTML = borrowed.map(book => `
-            <div class="book-card">
-                <img src="${book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book'}" alt="${book.title}" loading="lazy">
-                <div class="book-card-body">
-                    <h3><a href="books/book${book.id}.html">${book.title}</a></h3>
-                    <p class="td-muted">${book.author}</p>
-                    <span class="due-badge">Due: ${book.dueDate || 'N/A'}</span>
-                </div>
-            </div>`).join('');
+        borrowedGrid.innerHTML = borrowed.map(book => '<div class="book-card"><img src="' + (book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book') + '" alt="' + book.title + '" loading="lazy"><div class="book-card-body"><h3><a href="books/book' + book.id + '.html">' + book.title + '</a></h3><p class="td-muted">' + book.author + '</p><span class="due-badge">Due: ' + (book.dueDate || 'N/A') + '</span></div></div>').join('');
     } else {
-        borrowedGrid.innerHTML = '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:40px">No borrowed books yet.</p>';
+        borrowedGrid.innerHTML = '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:40px">No borrowed books yet. Browse the catalog to borrow!</p>';
     }
-    availableGrid.innerHTML = available.map(book => `
-        <div class="book-card">
-            <img src="${book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book'}" alt="${book.title}" loading="lazy">
-            <div class="book-card-body">
-                <h3><a href="books/book${book.id}.html">${book.title}</a></h3>
-                <p class="td-muted">${book.author} &middot; <span class="category-badge">${book.category}</span></p>
-                <button onclick="borrowBook(${book.id})" class="btn btn-primary">Borrow</button>
-            </div>
-        </div>`).join('');
+    if (available.length) {
+        availableGrid.innerHTML = available.map(book => '<div class="book-card"><img src="' + (book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book') + '" alt="' + book.title + '" loading="lazy"><div class="book-card-body"><h3><a href="books/book' + book.id + '.html">' + book.title + '</a></h3><p class="td-muted">' + book.author + ' &middot; <span class="category-badge">' + book.category + '</span></p><button onclick="borrowBook(' + book.id + ')" class="btn btn-primary" style="padding:6px 14px;font-size:11px">Borrow</button></div></div>').join('');
+    } else {
+        availableGrid.innerHTML = '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:40px">No books available right now.</p>';
+    }
 }
 
 function loadBookDetails(bookId) {
     const books = JSON.parse(localStorage.getItem('books'));
     const book = books.find(b => b.id == bookId);
-    if (book) {
-        document.querySelector('.form-legend').textContent = book.title;
-        document.querySelector('.td-muted').textContent = book.author;
-        document.querySelector('.category-badge').textContent = book.category;
-        document.querySelector('.warning-text').textContent = book.available ? 'Available' : 'Borrowed';
-        document.querySelector('.page-description').textContent = book.description;
-        const borrowBtn = document.querySelector('.btn');
-        if (borrowBtn) {
-            borrowBtn.disabled = !book.available;
-            borrowBtn.textContent = book.available ? 'Borrow Book' : 'Book Not Available';
-            borrowBtn.className = book.available ? 'btn btn-primary' : 'btn btn-secondary';
-            if (book.available) borrowBtn.onclick = () => borrowBook(bookId);
-        }
+    if (!book) {
+        const container = document.querySelector('.content-card');
+        if (container) container.innerHTML = '<p style="text-align:center;padding:40px;color:var(--text3)">Book not found.</p>';
+        return;
+    }
+    const img = document.getElementById('book-cover-img');
+    if (img) {
+        img.src = book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book';
+        img.alt = book.title;
+    }
+    const legend = document.querySelector('.form-legend');
+    if (legend) legend.textContent = book.title;
+    const tdMuted = document.getElementById('book-author');
+    if (tdMuted) tdMuted.textContent = book.author;
+    const badge = document.getElementById('book-category');
+    if (badge) badge.textContent = book.category;
+    const status = document.getElementById('book-status');
+    if (status) {
+        status.textContent = book.available ? 'Available' : 'Borrowed';
+        status.className = book.available ? 'td-primary' : 'warning-text';
+    }
+    const desc = document.getElementById('book-description');
+    if (desc) desc.textContent = book.description;
+    const borrowBtn = document.getElementById('borrow-btn');
+    if (borrowBtn) {
+        borrowBtn.disabled = !book.available;
+        borrowBtn.textContent = book.available ? 'Borrow Book' : 'Book Not Available';
+        borrowBtn.className = book.available ? 'btn btn-primary' : 'btn btn-secondary';
+        if (book.available) borrowBtn.onclick = function() { borrowBook(bookId); };
     }
 }
 
@@ -216,7 +258,7 @@ function checkLoginStatus() {
     const user = getCurrentUser();
     const path = window.location.pathname;
     const isProtected = path.includes('dashboard.html') || path.includes('borrowed.html');
-    // if (!user && isProtected) window.location.href = 'login.html';
+    if (!user && isProtected) window.location.href = 'login.html';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -231,6 +273,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (signupForm) signupForm.onsubmit = validateSignup;
     const searchForm = document.querySelector('form');
     if (searchForm && document.getElementById('searchInput')) searchForm.onsubmit = performSearch;
+    const clearBtn = document.querySelector('button[type="reset"]');
+    if (clearBtn) clearBtn.onclick = clearSearch;
     if (window.location.pathname.includes('catalog.html')) loadBooks();
     if (window.location.pathname.includes('borrowed.html')) loadBorrowedBooks();
     if (window.location.pathname.includes('dashboard.html')) loadDashboard();
@@ -238,5 +282,5 @@ document.addEventListener('DOMContentLoaded', function() {
     const match = path.match(/book(\d+)\.html/);
     if (match) loadBookDetails(parseInt(match[1]));
     const logoutLink = document.getElementById('logout-link');
-    if (logoutLink) logoutLink.onclick = (e) => { e.preventDefault(); logout(); };
+    if (logoutLink) logoutLink.onclick = function(e) { e.preventDefault(); logout(); };
 });
