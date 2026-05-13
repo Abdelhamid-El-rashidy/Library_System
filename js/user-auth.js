@@ -1,5 +1,10 @@
 /* global getCurrentUser, initializeData, logout, handleScroll, apiFetch, syncFromApi, showAlert */
 
+function getLoginPath() {
+    var depth = window.location.pathname.split('/').filter(Boolean).length - 1;
+    return depth > 0 ? '../'.repeat(depth) + 'login.html' : 'login.html';
+}
+
 function validateLogin(e) {
     if (e) e.preventDefault();
     var username = document.getElementById('us').value.trim();
@@ -14,7 +19,7 @@ function validateLogin(e) {
             localStorage.setItem('refreshToken', data.refresh);
             localStorage.setItem('currentUser', data.user.id);
             localStorage.setItem('currentUserData', JSON.stringify(data.user));
-            window.location.href = data.user.is_admin ? '../admin/catalog.html' : 'dashboard.html';
+            window.location.href = data.user.is_admin ? 'admin/catalog.html' : 'user/dashboard.html';
         })
         .catch(function () {
             var users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -23,7 +28,7 @@ function validateLogin(e) {
             });
             if (user) {
                 localStorage.setItem('currentUser', user.id);
-                window.location.href = user.isAdmin ? '../admin/catalog.html' : 'dashboard.html';
+                window.location.href = user.isAdmin ? 'admin/catalog.html' : 'user/dashboard.html';
             } else {
                 showAlert('Invalid credentials.');
             }
@@ -62,7 +67,7 @@ function validateSignup(e) {
             localStorage.setItem('refreshToken', data.refresh);
             localStorage.setItem('currentUser', data.user.id);
             localStorage.setItem('currentUserData', JSON.stringify(data.user));
-            window.location.href = data.user.is_admin ? '../admin/catalog.html' : 'dashboard.html';
+            window.location.href = data.user.is_admin ? 'admin/catalog.html' : 'user/dashboard.html';
         })
         .catch(function () {
             var users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -86,7 +91,7 @@ function validateSignup(e) {
             localStorage.setItem('users', JSON.stringify(users));
             localStorage.setItem('currentUser', newUser.id);
             localStorage.setItem('currentUserData', JSON.stringify(newUser));
-            window.location.href = newUser.isAdmin ? '../admin/catalog.html' : 'dashboard.html';
+            window.location.href = newUser.isAdmin ? 'admin/catalog.html' : 'user/dashboard.html';
         });
     return false;
 }
@@ -95,7 +100,7 @@ function checkLoginStatus() {
     var user = getCurrentUser();
     var path = window.location.pathname;
     var isProtected = path.includes('dashboard.html') || path.includes('borrowed.html');
-    if (!user && isProtected) window.location.href = 'login.html';
+    if (!user && isProtected) window.location.href = getLoginPath();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -104,9 +109,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var user = getCurrentUser();
     var userInfo = document.getElementById('user-nav-info');
     if (userInfo) userInfo.innerHTML = user ? '<span class="nav-user-icon">👤</span>' + user.username : '';
-    var loginForm = document.querySelector('form[action="login"]');
+    var loginForm = document.getElementById('loginForm');
     if (loginForm) loginForm.addEventListener('submit', validateLogin);
-    var signupForm = document.querySelector('form[action="books.html"]');
+    var signupForm = document.getElementById('signupForm');
     if (signupForm) signupForm.addEventListener('submit', validateSignup);
     var logoutLink = document.getElementById('logout-link');
     if (logoutLink)
