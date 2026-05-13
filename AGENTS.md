@@ -16,7 +16,7 @@ use CommitsIns.md guidelines for commit messages.
 
 ## Directory Structure
 ```
-├── admin/               # Admin pages (catalog, book-add, book-edit, manage, admins)
+├── admin/               # Admin pages (catalog, book-add, book-edit, admins)
 ├── user/                # User pages (dashboard, catalog, search, borrowed, login, signup)
 │   └── books/           # Individual book detail pages (book1.html - book7.html)
 ├── backend/             # Django backend (from backend-integration merge)
@@ -33,11 +33,10 @@ use CommitsIns.md guidelines for commit messages.
 ### Navigation
 - **Island-style nav bar**: pill-shaped, glass/blur effect, gradient active state
 - **User nav**: Home, Borrowed, Search, Logout (login/signup are standalone pages)
-- **Admin nav**: Books (catalog), Edit, Add, Manage tabs, Admins (superuser only)
+- **Admin nav**: Books (catalog), Edit, Add, Admins (superuser only)
 - Nav items use `.nav-item` + `.active` classes inside `.nav-island`
 - `.nav-item--hidden` class hides nav links (used for superuser-only Admins link)
 - Logout handled via `#logout-link` click handler
-- **admin/manage.html** is a self-contained tabbed page with its own inline CRUD — not dependent on admin.js for CRUD
 
 ### CSS (~110 lines)
 - CSS custom properties for theming: `--header`, `--accent`, `--danger`, etc.
@@ -59,7 +58,7 @@ use CommitsIns.md guidelines for commit messages.
 - Seed data includes `coverUrl` for each book and `dueDate` for borrowed ones
 - Protected pages (dashboard.html, borrowed.html) redirect to login if unauthenticated
 - **admin.js**: `loadAdminBooks()` renders book table with Edit/Delete; `loadEditBookData()` prefills edit form from `?id=`; `deleteBook(id)` removes from localStorage; `previewCover()` handles file→base64 cover upload
-- **manage.html** (self-contained): `loadMgmtBooks()`, `mgmtAddBook()`, `mgmtEditBook(id)`, `mgmtUpdateBook()`, `mgmtDeleteBook(id)` — localStorage CRUD with cover upload
+- Catalog page renders all books with Edit/Delete actions via `loadAdminBooks()` and `deleteBook()`
 
 ### RBAC (Role-Based Access)
 - **User** (`isAdmin: false`): Can browse, search, borrow, view details

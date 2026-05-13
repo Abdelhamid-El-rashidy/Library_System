@@ -57,7 +57,6 @@ open index.html
 │   ├── catalog.html            # Book list with edit/delete
 │   ├── book-add.html           # Add new book form
 │   ├── book-edit.html          # Edit book form
-│   ├── manage.html             # All-in-one tabbed CRUD
 │   └── admins.html             # Admin account management (superuser only)
 ├── user/                       # User-facing pages
 │   ├── dashboard.html          # Borrowed + available books grid
