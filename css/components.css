@@ -148,6 +148,10 @@ input[type='checkbox'] {
     opacity: 0.5;
     cursor: not-allowed;
 }
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 11px;
+}
 
 .data-table {
     width: 100%;
@@ -261,6 +265,8 @@ input[type='checkbox'] {
     border-radius: var(--radius);
     overflow: hidden;
     transition: all var(--t);
+    display: flex;
+    flex-direction: column;
 }
 .book-card:hover {
     box-shadow: var(--shadow-hover);
@@ -272,9 +278,13 @@ input[type='checkbox'] {
     object-fit: cover;
     display: block;
     border-bottom: 1px solid var(--border2);
+    flex-shrink: 0;
 }
 .book-card-body {
     padding: 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 .book-card-body h3 {
     margin: 0 0 4px;
@@ -291,6 +301,12 @@ input[type='checkbox'] {
 .book-card-body p {
     margin: 0 0 10px;
     font-size: 13px;
+}
+.book-card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 6px;
+    padding-top: 8px;
 }
 
 .user-card {
