@@ -59,6 +59,24 @@ async function apiFetch(url, opts) {
     return data;
 }
 
+function normalizeBook(book) {
+    return {
+        id: book.id,
+        title: book.title,
+        author: book.author,
+        category: book.category,
+        available: book.available,
+        coverUrl: book.cover_url || book.coverUrl || '',
+        description: book.description || '',
+        borrowedBy: book.borrowed_by !== undefined ? book.borrowed_by : book.borrowedBy || null,
+        dueDate: book.due_date || book.dueDate || null
+    };
+}
+
+function normalizeBooks(books) {
+    return books.map(normalizeBook);
+}
+
 async function syncFromApi() {
     var token = getAuthToken();
     if (!token) return;
@@ -68,14 +86,14 @@ async function syncFromApi() {
             books = results[1];
         localStorage.setItem('currentUser', user.id);
         localStorage.setItem('currentUserData', JSON.stringify(user));
-        localStorage.setItem('books', JSON.stringify(books));
+        localStorage.setItem('books', JSON.stringify(normalizeBooks(books)));
     } catch {}
 }
 
 async function apiSyncBooks() {
     try {
         var books = await apiFetch('/books/');
-        localStorage.setItem('books', JSON.stringify(books));
+        localStorage.setItem('books', JSON.stringify(normalizeBooks(books)));
     } catch {}
 }
 
