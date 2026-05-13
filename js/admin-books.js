@@ -1,4 +1,4 @@
-/* global ITEMS_PER_PAGE, paginate, renderPagination, apiFetch, apiSyncBooks */
+/* global ITEMS_PER_PAGE, paginate, renderPagination, apiFetch, apiSyncBooks, showAlert, showConfirm */
 
 var adminCatalogPage = 1;
 
@@ -53,27 +53,28 @@ function goToAdminPage(page) {
 }
 
 function deleteBook(bookId) {
-    if (!confirm('Are you sure you want to delete this book? This cannot be undone.')) return;
-    apiFetch('/books/' + bookId + '/', { method: 'DELETE' })
-        .then(function () {
-            return apiSyncBooks();
-        })
-        .then(function () {
-            alert('Book deleted successfully.');
-            loadAdminBooks();
-        })
-        .catch(function () {
-            var books = JSON.parse(localStorage.getItem('books'));
-            var bookIndex = books.findIndex(function (b) {
-                return b.id == bookId;
-            });
-            if (bookIndex !== -1) {
-                books.splice(bookIndex, 1);
-                localStorage.setItem('books', JSON.stringify(books));
-                alert('Book deleted successfully.');
+    showConfirm('Are you sure you want to delete this book? This cannot be undone.', function () {
+        apiFetch('/books/' + bookId + '/', { method: 'DELETE' })
+            .then(function () {
+                return apiSyncBooks();
+            })
+            .then(function () {
+                showAlert('Book deleted successfully.');
                 loadAdminBooks();
-            }
-        });
+            })
+            .catch(function () {
+                var books = JSON.parse(localStorage.getItem('books'));
+                var bookIndex = books.findIndex(function (b) {
+                    return b.id == bookId;
+                });
+                if (bookIndex !== -1) {
+                    books.splice(bookIndex, 1);
+                    localStorage.setItem('books', JSON.stringify(books));
+                    showAlert('Book deleted successfully.');
+                    loadAdminBooks();
+                }
+            });
+    });
 }
 
 function validateAddBook(e) {
@@ -83,7 +84,7 @@ function validateAddBook(e) {
     var category = document.getElementById('category').value;
     var description = document.getElementById('description').value.trim();
     if (!title || !author || !category) {
-        alert('Title, author, and category are required.');
+        showAlert('Title, author, and category are required.');
         return false;
     }
     var coverData = document.getElementById('cover-data');
@@ -103,7 +104,7 @@ function validateAddBook(e) {
             return apiSyncBooks();
         })
         .then(function () {
-            alert('Book added successfully.');
+            showAlert('Book added successfully.');
             window.location.href = 'catalog.html';
         })
         .catch(function () {
@@ -126,7 +127,7 @@ function validateAddBook(e) {
             };
             books.push(newBook);
             localStorage.setItem('books', JSON.stringify(books));
-            alert('Book added successfully.');
+            showAlert('Book added successfully.');
             window.location.href = 'catalog.html';
         });
     return false;
@@ -162,7 +163,7 @@ function validateEditBook(e) {
     var urlParams = new URLSearchParams(window.location.search);
     var id = urlParams.get('id');
     if (!id) {
-        alert('No book selected.');
+        showAlert('No book selected.');
         return false;
     }
     var title = document.getElementById('title').value.trim();
@@ -170,7 +171,7 @@ function validateEditBook(e) {
     var category = document.getElementById('category').value;
     var description = document.getElementById('description').value.trim();
     if (!title || !author || !category) {
-        alert('Title, author, and category are required.');
+        showAlert('Title, author, and category are required.');
         return false;
     }
     var coverData = document.getElementById('cover-data');
@@ -194,7 +195,7 @@ function validateEditBook(e) {
             return apiSyncBooks();
         })
         .then(function () {
-            alert('Book updated successfully.');
+            showAlert('Book updated successfully.');
             window.location.href = 'catalog.html';
         })
         .catch(function () {
@@ -209,7 +210,7 @@ function validateEditBook(e) {
                 books[bookIndex].description = description || '';
                 if (coverData && coverData.value) books[bookIndex].coverUrl = coverData.value;
                 localStorage.setItem('books', JSON.stringify(books));
-                alert('Book updated successfully.');
+                showAlert('Book updated successfully.');
                 window.location.href = 'catalog.html';
             }
         });

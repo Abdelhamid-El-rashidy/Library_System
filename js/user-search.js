@@ -1,4 +1,4 @@
-/* global renderEmptyRow, renderBookRow, ITEMS_PER_PAGE, paginate, renderPagination */
+/* global renderEmptyRow, renderBookRow, ITEMS_PER_PAGE, paginate, renderPagination, showAlert */
 
 var lastSearchResults = [];
 var searchPage = 1;
@@ -8,7 +8,7 @@ function performSearch() {
     var searchBy = document.getElementById('searchBy').value;
     var availability = document.getElementById('filterAvailability').value;
     if (!searchTerm) {
-        alert('Please enter a search term.');
+        showAlert('Please enter a search term.');
         return false;
     }
     var books = JSON.parse(localStorage.getItem('books'));

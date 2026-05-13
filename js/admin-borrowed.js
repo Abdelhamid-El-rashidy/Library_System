@@ -1,4 +1,4 @@
-/* global apiFetch, ITEMS_PER_PAGE, paginate, renderPagination */
+/* global apiFetch, ITEMS_PER_PAGE, paginate, renderPagination, showAlert, showConfirm */
 
 var borrowedPage = 1;
 
@@ -26,7 +26,7 @@ function renderBorrowedTable(books) {
     if (countEl) countEl.textContent = books.length;
     if (!books.length) {
         tbody.innerHTML =
-            '<tr><td colspan="7" style="text-align:center;padding:40px 16px;color:var(--text3);font-size:14px">No books are currently borrowed.</td></tr>';
+            '<tr><td colspan="6" style="text-align:center;padding:40px 16px;color:var(--text3);font-size:14px">No books are currently borrowed.</td></tr>';
         if (paginationEl) paginationEl.innerHTML = '';
         return;
     }
@@ -69,26 +69,27 @@ function renderBorrowedTable(books) {
 }
 
 function adminReturnBook(bookId) {
-    if (!confirm('Mark this book as returned?')) return;
-    apiFetch('/books/' + bookId + '/return/', { method: 'POST' })
-        .then(function () {
-            alert('Book marked as returned.');
-            loadBorrowed();
-        })
-        .catch(function () {
-            var books = JSON.parse(localStorage.getItem('books') || '[]');
-            var book = books.find(function (b) {
-                return b.id == bookId;
-            });
-            if (book) {
-                book.available = true;
-                book.borrowedBy = null;
-                book.dueDate = null;
-                localStorage.setItem('books', JSON.stringify(books));
-                alert('Book marked as returned.');
+    showConfirm('Mark this book as returned?', function () {
+        apiFetch('/books/' + bookId + '/return/', { method: 'POST' })
+            .then(function () {
+                showAlert('Book marked as returned.');
                 loadBorrowed();
-            }
-        });
+            })
+            .catch(function () {
+                var books = JSON.parse(localStorage.getItem('books') || '[]');
+                var book = books.find(function (b) {
+                    return b.id == bookId;
+                });
+                if (book) {
+                    book.available = true;
+                    book.borrowedBy = null;
+                    book.dueDate = null;
+                    localStorage.setItem('books', JSON.stringify(books));
+                    showAlert('Book marked as returned.');
+                    loadBorrowed();
+                }
+            });
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function () {

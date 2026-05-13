@@ -106,7 +106,7 @@
 
         <script src="../js/shared.js"></script>
         <script>
-            /* global apiFetch, getCurrentUser, initializeData, logout */
+            /* global apiFetch, getCurrentUser, initializeData, logout, showAlert, showConfirm */
 
             function loadAdmins() {
                 apiFetch('/users/')
@@ -203,11 +203,11 @@
                 var password = document.getElementById('adm-password').value.trim();
                 var cpw = document.getElementById('adm-cpw').value.trim();
                 if (!username || !email || !password || !cpw) {
-                    alert('All fields are required.');
+                    showAlert('All fields are required.');
                     return;
                 }
                 if (password !== cpw) {
-                    alert('Passwords do not match.');
+                    showAlert('Passwords do not match.');
                     return;
                 }
                 apiFetch('/auth/signup/', {
@@ -223,35 +223,36 @@
                         return apiFetch('/users/' + data.user.id + '/toggle-admin/', { method: 'PATCH' });
                     })
                     .then(function () {
-                        alert('Admin account created: ' + username);
+                        showAlert('Admin account created: ' + username);
                         hideCreateForm();
                         loadAdmins();
                     })
                     .catch(function (err) {
-                        alert(err.message || 'Failed to create admin.');
+                        showAlert(err.message || 'Failed to create admin.');
                     });
             }
 
             function deleteAdmin(id) {
-                if (!confirm('Remove this admin account? They will lose all admin access.')) return;
-                apiFetch('/users/' + id + '/toggle-admin/', { method: 'PATCH' })
-                    .then(function () {
-                        alert('Admin removed.');
-                        loadAdmins();
-                    })
-                    .catch(function () {
-                        var users = JSON.parse(localStorage.getItem('users') || '[]');
-                        var idx = users.findIndex(function (u) {
-                            return u.id == id;
-                        });
-                        if (idx !== -1) {
-                            users[idx].isAdmin = false;
-                            users[idx].isSuperuser = false;
-                            localStorage.setItem('users', JSON.stringify(users));
-                            alert('Admin removed.');
+                showConfirm('Remove this admin account? They will lose all admin access.', function () {
+                    apiFetch('/users/' + id + '/toggle-admin/', { method: 'PATCH' })
+                        .then(function () {
+                            showAlert('Admin removed.');
                             loadAdmins();
-                        }
-                    });
+                        })
+                        .catch(function () {
+                            var users = JSON.parse(localStorage.getItem('users') || '[]');
+                            var idx = users.findIndex(function (u) {
+                                return u.id == id;
+                            });
+                            if (idx !== -1) {
+                                users[idx].isAdmin = false;
+                                users[idx].isSuperuser = false;
+                                localStorage.setItem('users', JSON.stringify(users));
+                                showAlert('Admin removed.');
+                                loadAdmins();
+                            }
+                        });
+                });
             }
 
             function checkSuperuserAccess() {

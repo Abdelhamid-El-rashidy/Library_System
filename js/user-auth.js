@@ -1,11 +1,11 @@
-/* global getCurrentUser, initializeData, logout, handleScroll, apiFetch, syncFromApi */
+/* global getCurrentUser, initializeData, logout, handleScroll, apiFetch, syncFromApi, showAlert */
 
 function validateLogin(e) {
     if (e) e.preventDefault();
     var username = document.getElementById('us').value.trim();
     var password = document.getElementById('pw').value.trim();
     if (!username || !password) {
-        alert('Username and password are required.');
+        showAlert('Username and password are required.');
         return false;
     }
     apiFetch('/auth/login/', { method: 'POST', body: JSON.stringify({ username: username, password: password }) })
@@ -25,7 +25,7 @@ function validateLogin(e) {
                 localStorage.setItem('currentUser', user.id);
                 window.location.href = user.isAdmin ? '../admin/catalog.html' : 'dashboard.html';
             } else {
-                alert('Invalid credentials.');
+                showAlert('Invalid credentials.');
             }
         });
     return false;
@@ -39,11 +39,11 @@ function validateSignup(e) {
     var email = document.getElementById('e').value.trim();
     var isAdmin = document.getElementById('is_admin') && document.getElementById('is_admin').checked;
     if (!username || !password || !confirmPassword || !email) {
-        alert('All fields are required.');
+        showAlert('All fields are required.');
         return false;
     }
     if (password !== confirmPassword) {
-        alert('Passwords do not match.');
+        showAlert('Passwords do not match.');
         return false;
     }
     var body = {
@@ -71,7 +71,7 @@ function validateSignup(e) {
                     return u.username === username || u.email === email;
                 })
             ) {
-                alert('Username or email already exists.');
+                showAlert('Username or email already exists.');
                 return;
             }
             var newUser = {

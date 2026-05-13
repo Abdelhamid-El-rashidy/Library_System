@@ -1,4 +1,4 @@
-/* global getCurrentUser, ITEMS_PER_PAGE, paginate, renderPagination, apiFetch, apiSyncBooks, normalizeBooks */
+/* global getCurrentUser, ITEMS_PER_PAGE, paginate, renderPagination, apiFetch, apiSyncBooks, normalizeBooks, showAlert, showConfirm */
 
 function renderCoverThumb(url, alt) {
     var src = url || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book';
@@ -52,7 +52,7 @@ function renderBookRow(book, showCover) {
 function borrowBook(bookId) {
     var user = getCurrentUser();
     if (!user) {
-        alert('Please log in to borrow books.');
+        showAlert('Please log in to borrow books.');
         window.location.href = 'login.html';
         return;
     }
@@ -69,7 +69,7 @@ function borrowBook(bookId) {
                 return b.id == bookId;
             });
             if (!book || !book.available) {
-                alert('Book is not available.');
+                showAlert('Book is not available.');
                 return;
             }
             var dueDate = new Date();
@@ -78,7 +78,7 @@ function borrowBook(bookId) {
             book.borrowedBy = user.id;
             book.dueDate = dueDate.toISOString().split('T')[0];
             localStorage.setItem('books', JSON.stringify(books));
-            alert('Book borrowed successfully. Due: ' + book.dueDate);
+            showAlert('Book borrowed successfully. Due: ' + book.dueDate);
             location.reload();
         });
 }
@@ -86,32 +86,32 @@ function borrowBook(bookId) {
 function returnBook(bookId) {
     var user = getCurrentUser();
     if (!user) {
-        alert('Please log in.');
+        showAlert('Please log in.');
         window.location.href = 'login.html';
         return;
     }
-    if (!confirm('Return this book?')) return;
-    apiFetch('/books/' + bookId + '/return/', { method: 'POST' })
-        .then(function () {
-            return apiSyncBooks();
-        })
-        .then(function () {
-            location.reload();
-        })
-        .catch(function () {
-            var books = JSON.parse(localStorage.getItem('books'));
-            var book = books.find(function (b) {
-                return b.id == bookId;
-            });
-            if (book) {
-                book.available = true;
-                book.borrowedBy = null;
-                book.dueDate = null;
-                localStorage.setItem('books', JSON.stringify(books));
-                alert('Book returned successfully.');
+    showConfirm('Return this book?', function () {
+        apiFetch('/books/' + bookId + '/return/', { method: 'POST' })
+            .then(function () {
+                return apiSyncBooks();
+            })
+            .then(function () {
                 location.reload();
-            }
-        });
+            })
+            .catch(function () {
+                var books = JSON.parse(localStorage.getItem('books'));
+                var book = books.find(function (b) {
+                    return b.id == bookId;
+                });
+                if (book) {
+                    book.available = true;
+                    book.borrowedBy = null;
+                    book.dueDate = null;
+                    localStorage.setItem('books', JSON.stringify(books));
+                    location.reload();
+                }
+            });
+    });
 }
 
 var catalogPage = 1;
