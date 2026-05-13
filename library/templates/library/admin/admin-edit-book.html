@@ -1,10 +1,11 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - Add New Book</title>
-    <link rel="stylesheet" href="../../css/admin.css" />
+    <title>Admin - Edit Book</title>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
   </head>
 
   <body>
@@ -18,14 +19,14 @@
             <td class="nav-cell">
               <a href="/dashboard/books/" class="nav-link">Books</a>
             </td>
-            <td class="nav-cell">
-              <a href="admin-edit-book.html" class="nav-link">Edit Book</a>
-            </td>
             <td class="nav-cell--active">
-              <a href="admin-add-book.html" class="nav-link--active">Add Book</a>
+              <a href="/dashboard/edit/" class="nav-link--active">Edit Book</a>
             </td>
             <td class="nav-cell">
-              <a class="nav-link" href="../../'/'">Logout</a>
+              <a href="/dashboard/add/" class="nav-link">Add Book</a>
+            </td>
+            <td class="nav-cell">
+              <a class="nav-link" href="/">Logout</a>
             </td>
           </tr>
         </table>
@@ -35,7 +36,10 @@
 
     <main>
       <div class="content-card">
-        <h1 class="page-title">Add New Book</h1>
+        <h1 class="page-title">Edit Book Details</h1>
+        <p class="page-description">
+          Update the information for this record below.
+        </p>
         <hr class="divider" />
 
         <form action="#" method="post">
@@ -45,26 +49,49 @@
             <label for="title">
               Title <em class="required">(required)</em>
             </label>
-            <input type="text" id="title" name="title" required />
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value="To Kill a Mockingbird"
+              required
+            />
           </p>
 
           <p>
             <label for="author">
               Author <em class="required">(required)</em>
             </label>
-            <input type="text" id="author" name="author" required />
+            <input
+              type="text"
+              id="author"
+              name="author"
+              value="Harper Lee"
+              required
+            />
           </p>
 
           <p>
             <label for="isbn">
               ISBN <em class="required">(required)</em>
             </label>
-            <input type="text" id="isbn" name="isbn" required />
+            <input
+              type="text"
+              id="isbn"
+              name="isbn"
+              value="978-0-06-112008-4"
+              required
+            />
           </p>
 
           <p>
             <label for="publisher">Publisher</label>
-            <input type="text" id="publisher" name="publisher" />
+            <input
+              type="text"
+              id="publisher"
+              name="publisher"
+              value="J. B. Lippincott &amp; Co."
+            />
           </p>
 
           <p>
@@ -75,6 +102,7 @@
               name="publication_year"
               min="1000"
               max="2099"
+              value="1960"
             />
           </p>
 
@@ -83,8 +111,8 @@
           <p>
             <label for="category">Category / Genre</label>
             <select id="category" name="category">
-              <option value="" selected>-- Select --</option>
-              <option value="fiction">Fiction</option>
+              <option value="">-- Select --</option>
+              <option value="fiction" selected>Fiction</option>
               <option value="non-fiction">Non-Fiction</option>
               <option value="science">Science</option>
               <option value="history">History</option>
@@ -107,7 +135,7 @@
 
           <p>
             <label for="pages">Number of Pages</label>
-            <input type="number" id="pages" name="pages" min="1" value="" />
+            <input type="number" id="pages" name="pages" min="1" value="281" />
           </p>
 
           <p>
@@ -119,7 +147,7 @@
               id="copies"
               name="copies"
               min="1"
-              value=""
+              value="5"
               required
             />
           </p>
@@ -128,7 +156,9 @@
 
           <p>
             <label for="description">Description / Summary</label>
-            <textarea id="description" name="description" rows="5"></textarea>
+            <textarea id="description" name="description" rows="5">
+A novel about racial injustice in the Deep South.</textarea
+            >
           </p>
 
           <p>
@@ -149,12 +179,12 @@
                   type="button"
                   value="Cancel"
                   class="btn btn-secondary"
-                  onclick="window.location.href='/dashboard/books/'"
+                  onclick="window.location.href = '/dashboard/books/'"
                 />
                 &nbsp;
                 <input
                   type="submit"
-                  value="Add Book"
+                  value="Save Changes"
                   class="btn btn-primary"
                 />
               </td>
@@ -167,6 +197,6 @@
     <footer>
       <p>&copy;2026 Bookify. All rights reserved.</p>
     </footer>
-    <script src="../../js/admin.js"></script>
+    <script src="{% static 'js/admin.js' %}"></script>
   </body>
 </html>

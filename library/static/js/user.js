@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Attach event listeners
-    const loginForm = document.querySelector('form[action="/dashboard/books/"]');
+    const loginForm = document.querySelector('form[action="admin-books.html"]');
     if (loginForm) {
         loginForm.onsubmit = validateLogin;
     }

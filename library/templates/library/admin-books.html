@@ -1,10 +1,11 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - Books Library</title>
-    <link rel="stylesheet" href="../../css/admin.css" />
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
   </head>
 
   <body>
@@ -19,13 +20,13 @@
               <a href="/dashboard/books/" class="nav-link--active">Books</a>
             </td>
             <td class="nav-cell">
-              <a href="admin-edit-book.html" class="nav-link">Edit Book</a>
+              <a href="/dashboard/edit/" class="nav-link">Edit Book</a>
             </td>
             <td class="nav-cell">
-              <a href="admin-add-book.html" class="nav-link">Add Book</a>
+              <a href="/dashboard/add/" class="nav-link">Add Book</a>
             </td>
             <td class="nav-cell">
-              <a class="nav-link" href="../../user/frontend/LogIn.html">Logout</a>
+              <a class="nav-link" href="/login/">Logout</a>
             </td>
           </tr>
         </table>
@@ -59,7 +60,7 @@
               <td class="td-muted">978-0-596-52068-7</td>
               <td><span class="category-badge">Programming</span></td>
               <td class="text-center">
-                <a href="admin-edit-book.html" class="action-link">Edit &rarr;</a>
+                <a href="/dashboard/edit/" class="action-link">Edit &rarr;</a>
               </td>
             </tr>
             <tr>
@@ -68,7 +69,7 @@
               <td class="td-muted">978-0-13-235088-4</td>
               <td><span class="category-badge">Programming</span></td>
               <td class="text-center">
-                <a href="admin-edit-book.html" class="action-link">Edit &rarr;</a>
+                <a href="/dashboard/edit/" class="action-link">Edit &rarr;</a>
               </td>
             </tr>
           </tbody>
@@ -81,6 +82,6 @@
     <footer>
       <p>&copy;2026 Bookify. All rights reserved.</p>
     </footer>
-    <script src="../../js/admin.js"></script>
+    <script src="{% static 'js/admin.js' %}"></script>
   </body>
 </html>
