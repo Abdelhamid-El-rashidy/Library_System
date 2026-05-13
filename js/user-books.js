@@ -187,6 +187,49 @@ function loadBorrowedBooks() {
     });
 }
 
+function daysRemaining(dueDate) {
+    var now = new Date();
+    now.setHours(0, 0, 0, 0);
+    var due = new Date(dueDate);
+    due.setHours(0, 0, 0, 0);
+    return Math.ceil((due - now) / 86400000);
+}
+
+function renderCard(book, isBorrowed) {
+    var imgSrc = book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book';
+    var statusBadge = isBorrowed
+        ? '<span class="card-status-badge card-status-badge--borrowed">Borrowed</span>'
+        : '<span class="card-status-badge card-status-badge--available">Available</span>';
+    var details = '<p class="card-meta">' + book.author + '<span class="sep">&middot;</span><span class="category-badge">' + book.category + '</span></p>';
+    var actionHtml;
+    if (isBorrowed) {
+        var days = daysRemaining(book.dueDate);
+        var dueClass = days <= 3 ? 'card-due--urgent' : 'card-due--normal';
+        var dueText = days > 0 ? days + ' day' + (days > 1 ? 's' : '') + ' left' : 'Overdue';
+        details += '<span class="card-due ' + dueClass + '">Due: ' + book.dueDate + ' &middot; ' + dueText + '</span>';
+        actionHtml = '<button onclick="returnBook(' + book.id + ')" class="btn btn-primary btn-sm">Return</button>';
+    } else {
+        actionHtml = '<button onclick="borrowBook(' + book.id + ')" class="btn btn-primary btn-sm">Borrow</button>';
+    }
+    return (
+        '<div class="book-card"><div class="book-card-img-wrap"><img src="' +
+        imgSrc +
+        '" alt="' +
+        book.title +
+        '" loading="lazy">' +
+        statusBadge +
+        '</div><div class="book-card-body"><h3><a href="detail.html?id=' +
+        book.id +
+        '">' +
+        book.title +
+        '</a></h3>' +
+        details +
+        '</div><div class="book-card-actions">' +
+        actionHtml +
+        '</div></div>'
+    );
+}
+
 function loadDashboard() {
     var user = getCurrentUser();
     if (!user) return;
@@ -208,56 +251,16 @@ function loadDashboard() {
     if (borrowedCount) borrowedCount.textContent = borrowed.length;
     if (availableCount) availableCount.textContent = available.length;
     if (borrowed.length) {
-        borrowedGrid.innerHTML = borrowed
-            .map(function (book) {
-                return (
-                    '<div class="book-card"><img src="' +
-                    (book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book') +
-                    '" alt="' +
-                    book.title +
-                    '" loading="lazy"><div class="book-card-body"><h3><a href="detail.html?id=' +
-                    book.id +
-                    '">' +
-                    book.title +
-                    '</a></h3><p class="td-muted">' +
-                    book.author +
-                    '</p><span class="due-badge">Due: ' +
-                    (book.dueDate || 'N/A') +
-                    '</span></div><div class="book-card-actions"><button onclick="returnBook(' +
-                    book.id +
-                    ')" class="btn btn-primary btn-sm">Return</button></div></div>'
-                );
-            })
-            .join('');
+        borrowedGrid.innerHTML = borrowed.map(function (b) { return renderCard(b, true); }).join('');
     } else {
         borrowedGrid.innerHTML =
-            '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:40px">No borrowed books yet. Browse the catalog to borrow!</p>';
+            '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:48px 16px;font-size:14px">No borrowed books yet. <a href="catalog.html" style="color:var(--accent-dark);font-weight:600">Browse the catalog</a> to borrow!</p>';
     }
     if (available.length) {
-        availableGrid.innerHTML = available
-            .map(function (book) {
-                return (
-                    '<div class="book-card"><img src="' +
-                    (book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book') +
-                    '" alt="' +
-                    book.title +
-                    '" loading="lazy"><div class="book-card-body"><h3><a href="detail.html?id=' +
-                    book.id +
-                    '">' +
-                    book.title +
-                    '</a></h3><p class="td-muted">' +
-                    book.author +
-                    ' &middot; <span class="category-badge">' +
-                    book.category +
-                    '</span></p><div class="book-card-actions"><button onclick="borrowBook(' +
-                    book.id +
-                    ')" class="btn btn-primary btn-sm">Borrow</button></div></div></div>'
-                );
-            })
-            .join('');
+        availableGrid.innerHTML = available.map(function (b) { return renderCard(b, false); }).join('');
     } else {
         availableGrid.innerHTML =
-            '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:40px">No books available right now.</p>';
+            '<p class="td-muted" style="grid-column:1/-1;text-align:center;padding:48px 16px;font-size:14px">No books available right now.</p>';
     }
 }
 
