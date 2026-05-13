@@ -317,3 +317,43 @@ function renderPagination(currentPage, totalPages, goToPageFn) {
     html += '</div>';
     return html;
 }
+
+function showAlert(message) {
+    var overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.innerHTML =
+        '<div class="modal-dialog"><div class="modal-icon">&#x1F4D6;</div><p class="modal-message">' +
+        message.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+        '</p><div class="modal-actions"><button class="btn btn-primary modal-ok">OK</button></div></div>';
+    document.body.appendChild(overlay);
+    overlay.querySelector('.modal-ok').onclick = function () {
+        overlay.remove();
+    };
+    overlay.onclick = function (e) {
+        if (e.target === overlay) overlay.remove();
+    };
+}
+
+function showConfirm(message, onConfirm, onCancel) {
+    var overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.innerHTML =
+        '<div class="modal-dialog"><div class="modal-icon">&#x2753;</div><p class="modal-message">' +
+        message.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+        '</p><div class="modal-actions"><button class="btn btn-secondary modal-cancel">Cancel</button><button class="btn btn-primary modal-confirm">Confirm</button></div></div>';
+    document.body.appendChild(overlay);
+    overlay.querySelector('.modal-confirm').onclick = function () {
+        overlay.remove();
+        if (onConfirm) onConfirm();
+    };
+    overlay.querySelector('.modal-cancel').onclick = function () {
+        overlay.remove();
+        if (onCancel) onCancel();
+    };
+    overlay.onclick = function (e) {
+        if (e.target === overlay) {
+            overlay.remove();
+            if (onCancel) onCancel();
+        }
+    };
+}
