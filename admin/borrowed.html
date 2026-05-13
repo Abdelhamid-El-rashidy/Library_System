@@ -3,20 +3,19 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Admin - Books Library</title>
+        <title>Admin - Borrowed Books</title>
         <link rel="stylesheet" href="../css/base.css" />
         <link rel="stylesheet" href="../css/layout.css" />
         <link rel="stylesheet" href="../css/components.css" />
         <link rel="stylesheet" href="../css/utilities.css" />
     </head>
-
     <body>
         <header>
             <nav class="nav-island">
                 <span class="nav-brand">Bookify</span>
                 <div class="nav-pages">
-                    <a href="catalog.html" class="nav-item active">Books</a>
-                    <a href="borrowed.html" class="nav-item">Borrowed</a>
+                    <a href="catalog.html" class="nav-item">Books</a>
+                    <a href="borrowed.html" class="nav-item active">Borrowed</a>
                     <a href="book-edit.html" class="nav-item">Edit</a>
                     <a href="book-add.html" class="nav-item">Add</a>
                     <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
@@ -30,27 +29,37 @@
 
         <main>
             <div class="content-card">
-                <h1 class="page-title">Books Library</h1>
-                <p class="page-description">Manage your collection — edit or remove books from the library.</p>
+                <h1 class="page-title">Borrowed Books</h1>
+                <p class="page-description">View all books currently borrowed from the library.</p>
                 <hr class="divider" />
 
                 <div class="section-title">
-                    Books Library
-                    <span class="count" id="admin-book-count">0</span>
+                    Active Borrows
+                    <span class="count" id="borrowed-count">0</span>
                 </div>
 
-                <div class="book-grid" id="admin-book-grid"></div>
-                <div id="admin-catalog-pagination"></div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Book</th>
+                            <th>Author</th>
+                            <th>Borrowed By</th>
+                            <th>Due Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="borrowed-tbody"></tbody>
+                </table>
+                <div id="borrowed-pagination"></div>
             </div>
         </main>
-
-        <br /><br />
 
         <footer>
             <p>&copy;2026 Bookify. All rights reserved.</p>
         </footer>
         <script src="../js/shared.js"></script>
         <script src="../js/admin-ui.js"></script>
-        <script src="../js/admin-books.js"></script>
+        <script src="../js/admin-borrowed.js"></script>
     </body>
 </html>
