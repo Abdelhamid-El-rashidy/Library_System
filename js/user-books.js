@@ -1,4 +1,4 @@
-/* global getCurrentUser, ITEMS_PER_PAGE, paginate, renderPagination, apiFetch, apiSyncBooks */
+/* global getCurrentUser, ITEMS_PER_PAGE, paginate, renderPagination, apiFetch, apiSyncBooks, normalizeBooks */
 
 function renderCoverThumb(url, alt) {
     var src = url || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book';
@@ -83,6 +83,37 @@ function borrowBook(bookId) {
         });
 }
 
+function returnBook(bookId) {
+    var user = getCurrentUser();
+    if (!user) {
+        alert('Please log in.');
+        window.location.href = 'login.html';
+        return;
+    }
+    if (!confirm('Return this book?')) return;
+    apiFetch('/books/' + bookId + '/return/', { method: 'POST' })
+        .then(function () {
+            return apiSyncBooks();
+        })
+        .then(function () {
+            location.reload();
+        })
+        .catch(function () {
+            var books = JSON.parse(localStorage.getItem('books'));
+            var book = books.find(function (b) {
+                return b.id == bookId;
+            });
+            if (book) {
+                book.available = true;
+                book.borrowedBy = null;
+                book.dueDate = null;
+                localStorage.setItem('books', JSON.stringify(books));
+                alert('Book returned successfully.');
+                location.reload();
+            }
+        });
+}
+
 var catalogPage = 1;
 
 function loadBooks(page) {
@@ -121,7 +152,7 @@ function loadBorrowedBooks() {
     var tbody = document.querySelector('.data-table tbody');
     if (!tbody) return;
     if (!borrowedBooks.length) {
-        tbody.innerHTML = renderEmptyRow(5, 'You have no borrowed books.');
+        tbody.innerHTML = renderEmptyRow(6, 'You have no borrowed books.');
         return;
     }
     tbody.innerHTML = '';
@@ -143,7 +174,11 @@ function loadBorrowedBooks() {
             '</span></td>' +
             '<td class="warning-text">' +
             (book.dueDate ? 'Due: ' + book.dueDate : 'Borrowed') +
-            '</td></tr>';
+            '</td>' +
+            '<td><button onclick="returnBook(' +
+            book.id +
+            ')" class="btn btn-primary" style="padding:6px 14px;font-size:11px">Return</button></td>' +
+            '</tr>';
     });
 }
 
@@ -183,7 +218,9 @@ function loadDashboard() {
                     book.author +
                     '</p><span class="due-badge">Due: ' +
                     (book.dueDate || 'N/A') +
-                    '</span></div></div>'
+                    '</span><br/><button onclick="returnBook(' +
+                    book.id +
+                    ')" class="btn btn-primary" style="padding:4px 12px;font-size:10px;margin-top:8px">Return</button></div></div>'
                 );
             })
             .join('');
