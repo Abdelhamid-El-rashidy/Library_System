@@ -53,7 +53,7 @@ function validateLogin() {
     if (user) {
         localStorage.setItem('currentUser', user.id);
         if (user.isAdmin) {
-            window.location.href = '/dashboard/books/';
+            window.location.href = '../admin/books.html';
         } else {
             window.location.href = 'books.html';
         }
@@ -101,7 +101,7 @@ function validateSignup() {
     localStorage.setItem('currentUser', newUser.id);
 
     if (isAdmin) {
-        window.location.href = '/dashboard/books/';
+        window.location.href = '../admin/books.html';
     } else {
         window.location.href = 'books.html';
     }
@@ -111,7 +111,7 @@ function validateSignup() {
 // Logout
 function logout() {
     localStorage.setItem('currentUser', null);
-    window.location.href = 'LogIn.html';
+    window.location.href = 'login.html';
 }
 
 // Search functionality
@@ -161,7 +161,7 @@ function borrowBook(bookId) {
     const user = getCurrentUser();
     if (!user) {
         alert('Please log in to borrow books.');
-        window.location.href = 'LogIn.html';
+        window.location.href = 'login.html';
         return;
     }
 
@@ -211,7 +211,7 @@ function loadBooks() {
 function loadBorrowedBooks() {
     const user = getCurrentUser();
     if (!user) {
-        window.location.href = 'LogIn.html';
+        window.location.href = 'login.html';
         return;
     }
 
@@ -262,7 +262,7 @@ function loadBookDetails(bookId) {
 function checkLoginStatus() {
     const user = getCurrentUser();
     if (!user && window.location.pathname.includes('borrowed.html')) {
-        window.location.href = 'LogIn.html';
+        window.location.href = 'login.html';
     }
 }
 
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Attach event listeners
-    const loginForm = document.querySelector('form[action="/dashboard/books/"]');
+    const loginForm = document.querySelector('form[action="login"]');
     if (loginForm) {
         loginForm.onsubmit = validateLogin;
     }

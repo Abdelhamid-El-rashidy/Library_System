@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyc
+
+# Django
+db.sqlite3
+media/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+aeb.html
+aab.html
+ab.html

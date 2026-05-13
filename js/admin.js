@@ -37,14 +37,14 @@ function getCurrentUser() {
 function checkAdmin() {
     const user = getCurrentUser();
     if (!user || !user.isAdmin) {
-        window.location.href = '../'/'';
+        window.location.href = '../user/index.html';
     }
 }
 
 // Logout
 function logout() {
     localStorage.setItem('currentUser', null);
-    window.location.href = '../user/frontend/LogIn.html';
+    window.location.href = '../user/login.html';
 }
 
 // Load books for admin
@@ -60,7 +60,7 @@ function loadAdminBooks() {
                 <td class="td-muted">${book.author}</td>
                 <td class="td-primary">${book.id}</td>
                 <td><span class="category-badge">${book.category}</span></td>
-                <td class="text-center"><a href="admin-edit-book.html?id=${book.id}" class="action-link">Edit</a></td>
+                <td class="text-center"><a href="book-edit.html?id=${book.id}" class="action-link">Edit</a></td>
             `;
             tbody.appendChild(row);
         });
@@ -100,7 +100,7 @@ function validateAddBook() {
     localStorage.setItem('books', JSON.stringify(books));
 
     alert('Book added successfully.');
-    window.location.href = '/dashboard/books/';
+    window.location.href = 'books.html';
     return false;
 }
 
@@ -118,7 +118,7 @@ function getCurrentUser() {
 function checkAdmin() {
     const user = getCurrentUser();
     if (!user || !user.isAdmin) {
-        window.location.href = '../'/'';
+        window.location.href = '../user/index.html';
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -159,7 +159,7 @@ function validateEditBook() {
         books[bookIndex].price = parseFloat(price);
         localStorage.setItem('books', JSON.stringify(books));
         alert('Book updated successfully.');
-        window.location.href = '/dashboard/books/';
+        window.location.href = 'books.html';
     }
     return false;
 }
@@ -192,21 +192,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Load data
-    if (window.location.pathname.includes('/dashboard/books/')) {
+    if (window.location.pathname.includes('books.html')) {
         loadAdminBooks();
     }
 
-    if (window.location.pathname.includes('admin-edit-book.html')) {
+    if (window.location.pathname.includes('book-edit.html')) {
         loadEditBook();
     }
 
     // Attach event listeners
     const addBookForm = document.querySelector('form');
-    if (addBookForm && window.location.pathname.includes('admin-add-book.html')) {
+    if (addBookForm && window.location.pathname.includes('book-add.html')) {
         addBookForm.onsubmit = validateAddBook;
     }
 
-    if (addBookForm && window.location.pathname.includes('admin-edit-book.html')) {
+    if (addBookForm && window.location.pathname.includes('book-edit.html')) {
         addBookForm.onsubmit = validateEditBook;
     }
 
