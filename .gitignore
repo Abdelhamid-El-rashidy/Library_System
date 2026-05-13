@@ -12,6 +12,9 @@ media/
 .DS_Store
 Thumbs.db
 
+# Dependencies
+node_modules/
+
 # Temp files
 aeb.html
 aab.html
