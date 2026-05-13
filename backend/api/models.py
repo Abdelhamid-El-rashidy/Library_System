@@ -6,7 +6,6 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     category = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     available = models.BooleanField(default=True)
     cover_url = models.URLField(max_length=500, blank=True, default='')
     description = models.TextField(blank=True, default='')

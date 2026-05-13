@@ -13,6 +13,8 @@ urlpatterns = [
     path('auth/refresh/', views.refresh_view, name='api-refresh'),
     path('books/<int:pk>/borrow/', views.borrow_book, name='api-borrow'),
     path('books/<int:pk>/return/', views.return_book, name='api-return'),
+    path('borrowed/', views.borrowed_list_view, name='api-borrowed-list'),
+    path('my-borrowed/', views.my_borrowed_view, name='api-my-borrowed'),
     path('users/<int:pk>/toggle-admin/', views.toggle_admin, name='api-toggle-admin'),
     path('', include(router.urls)),
 ]

@@ -126,6 +126,27 @@ def return_book(request, pk):
     return Response(BookSerializer(book).data)
 
 
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def borrowed_list_view(request):
+    if not request.user.is_staff:
+        return Response(
+            {'error': 'Admin access required.'},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+    books = Book.objects.filter(available=False).order_by('-updated_at')
+    serializer = BookSerializer(books, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def my_borrowed_view(request):
+    books = Book.objects.filter(borrowed_by=request.user).order_by('-updated_at')
+    serializer = BookSerializer(books, many=True)
+    return Response(serializer.data)
+
+
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def refresh_view(request):
