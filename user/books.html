@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bookify - Our Books</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+
+  <body>
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td class="nav-cell"><a class="nav-link" title="Home Page" href="index.html">Home</a></td>
+                    <td class="nav-cell nav-cell--active"><a class="nav-link nav-link--active" title="Available Books" href="books.html">Books</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Search" href="search.html">Search</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="borrowed.html">Borrowed</a></td>
+                    <td class="nav-cell"><a class="nav-link" title="Log Out" href="index.html">Logout</a></td>
+                </tr>
+            </table>
+        </nav>
+        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
+    </header>
+
+    <main class="content-card">
+      <h1 class="page-title">Bookify</h1>
+      <h2 class="page-subtitle">Our Library Collection</h2>
+      
+      <p class="page-description">
+        <b>Welcome to our Online Library!</b><br />
+        We offer a wide variety of books across all genres, including Fiction,
+        Fantasy, Dystopian, Science, History, and much more.<br />
+        Browse our collection below and find your next great read!
+      </p>
+
+      <hr class="divider" />
+
+      <table class="data-table">
+        <caption>
+          List Of Our Books
+        </caption>
+        <thead>
+          <tr>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Availability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-primary"><a href="books/book1.html" class="action-link">The Great Gatsby</a></td>
+            <td class="td-muted">F. Scott Fitzgerald</td>
+            <td><span class="category-badge">Fiction</span></td>
+            <td class="td-primary">$10.99</td>
+            <td class="td-primary">Available</td>
+          </tr>
+          <tr>
+            <td class="td-primary"><a href="books/book2.html" class="action-link">To Kill a Mockingbird</a></td>
+            <td class="td-muted">Harper Lee</td>
+            <td><span class="category-badge">Fiction</span></td>
+            <td class="td-primary">$12.99</td>
+            <td class="warning-text">Borrowed</td>
+          </tr>
+          <tr>
+            <td class="td-primary"><a href="books/book3.html" class="action-link">1984</a></td>
+            <td class="td-muted">George Orwell</td>
+            <td><span class="category-badge">Dystopian</span></td>
+            <td class="td-primary">$15.99</td>
+            <td class="td-primary">Available</td>
+          </tr>
+          <tr>
+            <td class="td-primary"><a href="books/book4.html" class="action-link">The Catcher in the Rye</a></td>
+            <td class="td-muted">J.D. Salinger</td>
+            <td><span class="category-badge">Fiction</span></td>
+            <td class="td-primary">$14.99</td>
+            <td class="td-primary">Available</td>
+          </tr>
+          <tr>
+            <td class="td-primary"><a href="books/book5.html" class="action-link">The Hobbit</a></td>
+            <td class="td-muted">J.R.R. Tolkien</td>
+            <td><span class="category-badge">Fantasy</span></td>
+            <td class="td-primary">$16.99</td>
+            <td class="warning-text">Borrowed</td>
+          </tr>
+          <tr>
+            <td class="td-primary"><a href="books/book6.html" class="action-link">Pride and Prejudice</a></td>
+            <td class="td-muted">Jane Austen</td>
+            <td><span class="category-badge">Romance</span></td>
+            <td class="td-primary">$13.99</td>
+            <td class="td-primary">Available</td>
+          </tr>
+          <tr>
+            <td class="td-primary"><a href="books/book7.html" class="action-link">The Lord of the Rings</a></td>
+            <td class="td-muted">J.R.R. Tolkien</td>
+            <td><span class="category-badge">Fantasy</span></td>
+            <td class="td-primary">$18.99</td>
+            <td class="td-primary">Available</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <footer>
+      <p>© 2026 Bookify. All rights reserved.</p>
+    </footer>
+    <script src="../js/user.js"></script>
+  </body>
+</html>

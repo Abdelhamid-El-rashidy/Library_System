@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Book Details</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../../css/admin.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <table>
+          <tr>
+            <td class="nav-cell"><a class="nav-link" title="Home Page" href="../index.html">Home</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Available Books" href="../books.html">Books</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Search" href="../search.html">Search</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="../borrowed.html">Borrowed</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Log Out" href="../index.html">Logout</a></td>
+          </tr>
+        </table>
+      </nav>
+        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
+    </header>
+
+    <main class="content-card">
+      <h1 class="page-title">Book Details</h1>
+      
+      <div class="book-info-section">
+        <h2 class="form-legend">To Kill a Mockingbird</h2>
+
+        <p><strong class="td-primary">Author:</strong> <span class="td-muted">Harper Lee</span></p>
+        <p><strong class="td-primary">Category:</strong> <span class="category-badge">Fiction</span></p>
+        <p><strong class="td-primary">Status:</strong> <span class="warning-text">Borrowed</span></p>
+
+        <hr class="divider">
+
+        <p class="page-description">
+          To Kill a Mockingbird is a 1960 Southern Gothic novel by American author
+          Harper Lee. It became instantly successful after its release; in the
+          United States, it is widely read in high schools and middle schools.
+        </p>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <button class="btn btn-secondary" disabled>Book Not Available</button>
+      </div>
+    </main>
+
+    <footer>
+      <p>© 2026 Bookify. All rights reserved.</p>
+    </footer>
+    <script src="../../js/user.js"></script>
+  </body>
+</html>

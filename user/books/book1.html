@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Book Details</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../../css/admin.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <table>
+          <tr>
+            <td class="nav-cell"><a class="nav-link" title="Home Page" href="../index.html">Home</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Available Books" href="../books.html">Books</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Search" href="../search.html">Search</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Borrowed books" href="../borrowed.html">Borrowed</a></td>
+            <td class="nav-cell"><a class="nav-link" title="Log Out" href="../index.html">Logout</a></td>
+          </tr>
+        </table>
+      </nav>
+        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
+    </header>
+
+    <main class="content-card">
+        <h1 class="page-title">Book Details</h1>
+
+        <div class="book-info-section">
+            <h2 class="form-legend">The Great Gatsby</h2>
+
+            <p><strong class="td-primary">Author:</strong> <span class="td-muted">F. Scott Fitzgerald</span></p>
+            <p><strong class="td-primary">Category:</strong> <span class="category-badge">Fiction</span></p>
+            <p><strong class="td-primary">Status:</strong> <span class="warning-text">Available</span></p>
+
+            <hr class="divider">
+
+            <p class="page-description">
+              The Great Gatsby is a 1925 tragedy novel by American writer F. Scott
+              Fitzgerald. Set in the Jazz Age on Long Island, near New York City, the
+              novel depicts first-person narrator Nick Carraway's interactions with
+              Jay Gatsby, a mysterious millionaire obsessed with reuniting with his
+              former lover, Daisy Buchanan.
+            </p>
+          </div>
+        <div style="margin-top: 24px;">
+            <button class="btn btn-primary" disabled>Borrow Book</button>
+          </div>
+    </main>
+
+    <script src="../../js/user.js"></script>
+  </body>
+    <footer>
+      <p>© 2026 Bookify. All rights reserved.</p>
+    </footer>
+</html>

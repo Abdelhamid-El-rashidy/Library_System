@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Edit Book</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <table>
+          <tr>
+            <td class="nav-cell">
+              <a href="books.html" class="nav-link">Dashboard</a>
+            </td>
+            <td class="nav-cell">
+              <a href="books.html" class="nav-link">Books</a>
+            </td>
+            <td class="nav-cell--active">
+              <a href="book-edit.html" class="nav-link--active">Edit Book</a>
+            </td>
+            <td class="nav-cell">
+              <a href="book-add.html" class="nav-link">Add Book</a>
+            </td>
+            <td class="nav-cell">
+              <a class="nav-link" href="../user/index.html">Logout</a>
+            </td>
+          </tr>
+        </table>
+      </nav>
+        <div id="user-info" style="text-align: center; padding: 10px; background-color: #f9fafb;"></div>
+    </header>
+
+    <main>
+      <div class="content-card">
+        <h1 class="page-title">Edit Book Details</h1>
+        <p class="page-description">
+          Update the information for this record below.
+        </p>
+        <hr class="divider" />
+
+        <form action="#" method="post">
+          <span class="form-legend">Book Details</span>
+
+          <p>
+            <label for="title">
+              Title <em class="required">(required)</em>
+            </label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value="To Kill a Mockingbird"
+              required
+            />
+          </p>
+
+          <p>
+            <label for="author">
+              Author <em class="required">(required)</em>
+            </label>
+            <input
+              type="text"
+              id="author"
+              name="author"
+              value="Harper Lee"
+              required
+            />
+          </p>
+
+          <p>
+            <label for="isbn">
+              ISBN <em class="required">(required)</em>
+            </label>
+            <input
+              type="text"
+              id="isbn"
+              name="isbn"
+              value="978-0-06-112008-4"
+              required
+            />
+          </p>
+
+          <p>
+            <label for="publisher">Publisher</label>
+            <input
+              type="text"
+              id="publisher"
+              name="publisher"
+              value="J. B. Lippincott &amp; Co."
+            />
+          </p>
+
+          <p>
+            <label for="publication_year">Publication Year</label>
+            <input
+              type="number"
+              id="publication_year"
+              name="publication_year"
+              min="1000"
+              max="2099"
+              value="1960"
+            />
+          </p>
+
+          <span class="form-legend">Additional Information</span>
+
+          <p>
+            <label for="category">Category / Genre</label>
+            <select id="category" name="category">
+              <option value="">-- Select --</option>
+              <option value="fiction" selected>Fiction</option>
+              <option value="non-fiction">Non-Fiction</option>
+              <option value="science">Science</option>
+              <option value="history">History</option>
+              <option value="technology">Technology</option>
+              <option value="philosophy">Philosophy</option>
+              <option value="biography">Biography</option>
+              <option value="other">Other</option>
+            </select>
+          </p>
+
+          <p>
+            <label for="language">Language</label>
+            <select id="language" name="language">
+              <option value="english" selected>English</option>
+              <option value="arabic">Arabic</option>
+              <option value="french">French</option>
+              <option value="other">Other</option>
+            </select>
+          </p>
+
+          <p>
+            <label for="pages">Number of Pages</label>
+            <input type="number" id="pages" name="pages" min="1" value="281" />
+          </p>
+
+          <p>
+            <label for="copies">
+              Number of Copies <em class="required">(required)</em>
+            </label>
+            <input
+              type="number"
+              id="copies"
+              name="copies"
+              min="1"
+              value="5"
+              required
+            />
+          </p>
+
+          <span class="form-legend">Description &amp; Media</span>
+
+          <p>
+            <label for="description">Description / Summary</label>
+            <textarea id="description" name="description" rows="5">
+A novel about racial injustice in the Deep South.</textarea
+            >
+          </p>
+
+          <p>
+            <label for="cover_image_url">Cover Image URL</label>
+            <input
+              type="url"
+              id="cover_image_url"
+              name="cover_image_url"
+              placeholder="https://example.com/cover.jpg"
+            />
+          </p>
+
+          <br />
+          <table width="100%">
+            <tr>
+              <td align="right">
+                <input
+                  type="button"
+                  value="Cancel"
+                  class="btn btn-secondary"
+                  onclick="window.location.href = 'books.html'"
+                />
+                &nbsp;
+                <input
+                  type="submit"
+                  value="Save Changes"
+                  class="btn btn-primary"
+                />
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy;2026 Bookify. All rights reserved.</p>
+    </footer>
+    <script src="../js/admin.js"></script>
+  </body>
+</html>
