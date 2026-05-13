@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Book Details - Bookify</title>
+        <link rel="stylesheet" href="../css/base.css" />
+        <link rel="stylesheet" href="../css/layout.css" />
+        <link rel="stylesheet" href="../css/components.css" />
+        <link rel="stylesheet" href="../css/utilities.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="nav-island">
+                <span class="nav-brand">Bookify</span>
+                <div class="nav-pages">
+                    <a href="dashboard.html" class="nav-item">Home</a>
+                    <a href="borrowed.html" class="nav-item">Borrowed</a>
+                    <a href="search.html" class="nav-item">Search</a>
+                </div>
+                <span id="user-nav-info"></span>
+                <a href="login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
+            </nav>
+        </header>
+
+        <main class="content-card">
+            <h1 class="page-title">Book Details</h1>
+            <div class="book-info-section" style="display: flex; gap: 28px; flex-wrap: wrap">
+                <div style="flex-shrink: 0">
+                    <div class="skeleton" style="width: 150px; height: 210px; border-radius: 8px"></div>
+                    <img
+                        id="book-cover-img"
+                        src=""
+                        alt=""
+                        style="
+                            width: 150px;
+                            height: 210px;
+                            object-fit: cover;
+                            border-radius: 8px;
+                            border: 1px solid var(--border);
+                            box-shadow: var(--shadow-hover);
+                            display: none;
+                        "
+                    />
+                </div>
+                <div style="flex: 1; min-width: 250px">
+                    <h2 class="form-legend">
+                        <span
+                            class="skeleton"
+                            style="width: 240px; height: 28px; display: inline-block; vertical-align: middle"
+                        ></span>
+                    </h2>
+                    <p>
+                        <strong class="td-primary">Author:</strong>
+                        <span id="book-author"
+                            ><span
+                                class="skeleton"
+                                style="width: 160px; height: 16px; display: inline-block; vertical-align: middle"
+                            ></span
+                        ></span>
+                    </p>
+                    <p>
+                        <strong class="td-primary">Category:</strong>
+                        <span id="book-category"
+                            ><span
+                                class="skeleton"
+                                style="width: 80px; height: 16px; display: inline-block; vertical-align: middle"
+                            ></span
+                        ></span>
+                    </p>
+                    <p>
+                        <strong class="td-primary">Status:</strong>
+                        <span id="book-status"
+                            ><span
+                                class="skeleton"
+                                style="width: 100px; height: 16px; display: inline-block; vertical-align: middle"
+                            ></span
+                        ></span>
+                    </p>
+                    <hr class="divider" />
+                    <p id="book-description">
+                        <span
+                            class="skeleton"
+                            style="
+                                width: 100%;
+                                height: 14px;
+                                display: inline-block;
+                                vertical-align: middle;
+                                margin-bottom: 8px;
+                            "
+                        ></span
+                        ><span
+                            class="skeleton"
+                            style="width: 80%; height: 14px; display: inline-block; vertical-align: middle"
+                        ></span>
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top: 24px">
+                <button id="borrow-btn" class="btn btn-primary" disabled>
+                    <span
+                        class="skeleton"
+                        style="width: 120px; height: 14px; display: inline-block; vertical-align: middle"
+                    ></span>
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Bookify. All rights reserved.</p>
+        </footer>
+        <script src="../js/shared.js"></script>
+        <script src="../js/user-auth.js"></script>
+        <script src="../js/user-books.js"></script>
+    </body>
+</html>

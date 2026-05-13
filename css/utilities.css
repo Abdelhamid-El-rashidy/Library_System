@@ -1,0 +1,78 @@
+.td-primary {
+    font-weight: 500;
+}
+.td-muted {
+    color: var(--text3);
+}
+.text-center {
+    text-align: center;
+}
+.warning-text {
+    color: var(--danger);
+    font-weight: 700;
+    font-size: 13px;
+}
+.action-link {
+    color: var(--accent-dark);
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-right: 12px;
+    transition: color var(--t);
+}
+.action-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+.action-link--danger {
+    color: var(--danger);
+    transition: color var(--t);
+}
+.action-link--danger:hover {
+    color: #b91c1c;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px 12px;
+    }
+    .nav-island {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 4px 10px;
+        gap: 2px;
+    }
+    .nav-item {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    #user-nav-info {
+        display: none;
+    }
+    .content-card {
+        padding: 20px 18px;
+    }
+    .page-title {
+        font-size: 22px;
+    }
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 14px;
+    }
+    .book-card img {
+        height: 150px;
+    }
+    .data-table th,
+    .data-table td {
+        padding: 10px 10px;
+        font-size: 13px;
+    }
+    .btn {
+        padding: 10px 18px;
+        font-size: 11px;
+    }
+    .form-section {
+        padding: 16px;
+    }
+}
