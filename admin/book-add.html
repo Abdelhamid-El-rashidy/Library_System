@@ -6,7 +6,6 @@
     <title>Admin - Add New Book</title>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
-
   <body>
     <header>
         <nav class="nav-island">
@@ -14,7 +13,8 @@
             <a href="book-edit.html" class="nav-item">Edit</a>
             <a href="book-add.html" class="nav-item active">Add</a>
             <a href="manage.html" class="nav-item">Manage</a>
-            <span id="user-nav-info" style="border-left:1px solid rgba(255,255,255,.1);padding:0 12px;margin-left:8px"></span>
+            <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
+            <span id="user-nav-info"></span>
             <a href="../user/login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
         </nav>
     </header>
@@ -22,130 +22,68 @@
     <main>
       <div class="content-card">
         <h1 class="page-title">Add New Book</h1>
+        <p class="page-description">Fill in the details below to add a book to the collection.</p>
         <hr class="divider" />
 
         <form action="#" method="post">
-          <span class="form-legend">Book Details</span>
+          <div class="form-section">
+            <h3 class="form-section-title">Book Details</h3>
 
-          <p>
-            <label for="title">
-              Title <em class="required">(required)</em>
-            </label>
-            <input type="text" id="title" name="title" required />
-          </p>
+            <div class="form-field">
+              <label for="title">Title <span class="required">*</span></label>
+              <input type="text" id="title" name="title" required placeholder="Enter book title" />
+            </div>
 
-          <p>
-            <label for="author">
-              Author <em class="required">(required)</em>
-            </label>
-            <input type="text" id="author" name="author" required />
-          </p>
+            <div class="form-field">
+              <label for="author">Author <span class="required">*</span></label>
+              <input type="text" id="author" name="author" required placeholder="Enter author name" />
+            </div>
 
-          <p>
-            <label for="isbn">
-              ISBN <em class="required">(required)</em>
-            </label>
-            <input type="text" id="isbn" name="isbn" required />
-          </p>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="isbn">ISBN</label>
+                <input type="text" id="isbn" name="isbn" placeholder="e.g. 978-0-00-000000-0" />
+              </div>
+              <div class="form-field">
+                <label for="category">Category <span class="required">*</span></label>
+                <select id="category" name="category">
+                  <option value="">-- Select --</option>
+                  <option value="Fiction">Fiction</option>
+                  <option value="Non-Fiction">Non-Fiction</option>
+                  <option value="Dystopian">Dystopian</option>
+                  <option value="Fantasy">Fantasy</option>
+                  <option value="Romance">Romance</option>
+                  <option value="Science">Science</option>
+                  <option value="History">History</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Programming">Programming</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
-          <p>
-            <label for="publisher">Publisher</label>
-            <input type="text" id="publisher" name="publisher" />
-          </p>
+          <div class="form-section">
+            <h3 class="form-section-title">Additional Information</h3>
 
-          <p>
-            <label for="publication_year">Publication Year</label>
-            <input
-              type="number"
-              id="publication_year"
-              name="publication_year"
-              min="1000"
-              max="2099"
-            />
-          </p>
+            <div class="form-field">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" rows="5" placeholder="Enter a brief summary of the book..."></textarea>
+            </div>
 
-          <span class="form-legend">Additional Information</span>
+            <div class="form-field">
+              <label for="cover-file">Cover Photo</label>
+              <input type="file" id="cover-file" accept="image/*" onchange="previewCover(this)" />
+              <div id="cover-preview" style="margin-top:8px"></div>
+              <input type="hidden" id="cover-data" />
+              <p style="color:var(--text3);font-size:12px;margin:6px 0 0">Upload a cover image, or leave empty for a placeholder.</p>
+            </div>
+          </div>
 
-          <p>
-            <label for="category">Category / Genre</label>
-            <select id="category" name="category">
-              <option value="" selected>-- Select --</option>
-              <option value="fiction">Fiction</option>
-              <option value="non-fiction">Non-Fiction</option>
-              <option value="science">Science</option>
-              <option value="history">History</option>
-              <option value="technology">Technology</option>
-              <option value="philosophy">Philosophy</option>
-              <option value="biography">Biography</option>
-              <option value="other">Other</option>
-            </select>
-          </p>
-
-          <p>
-            <label for="language">Language</label>
-            <select id="language" name="language">
-              <option value="english" selected>English</option>
-              <option value="arabic">Arabic</option>
-              <option value="french">French</option>
-              <option value="other">Other</option>
-            </select>
-          </p>
-
-          <p>
-            <label for="pages">Number of Pages</label>
-            <input type="number" id="pages" name="pages" min="1" value="" />
-          </p>
-
-          <p>
-            <label for="copies">
-              Number of Copies <em class="required">(required)</em>
-            </label>
-            <input
-              type="number"
-              id="copies"
-              name="copies"
-              min="1"
-              value=""
-              required
-            />
-          </p>
-
-          <span class="form-legend">Description &amp; Media</span>
-
-          <p>
-            <label for="description">Description / Summary</label>
-            <textarea id="description" name="description" rows="5"></textarea>
-          </p>
-
-          <p>
-            <label for="cover_image_url">Cover Image URL</label>
-            <input
-              type="url"
-              id="cover_image_url"
-              name="cover_image_url"
-              placeholder="https://example.com/cover.jpg"
-            />
-          </p>
-
-          <br />
-          <table width="100%">
-            <tr>
-              <td align="right">
-                <input
-                  type="button"
-                  value="Cancel"
-                  class="btn btn-secondary"
-                  onclick="window.location.href = 'catalog.html'"
-                />
-                &nbsp;
-                <input
-                  type="submit"
-                  value="Add Book"
-                  class="btn btn-primary"
-                />
-              </td>
-            </tr>
-          </table>
+          <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='catalog.html'">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add Book</button>
+          </div>
         </form>
       </div>
     </main>

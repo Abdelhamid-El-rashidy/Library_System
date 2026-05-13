@@ -13,14 +13,14 @@ function initializeData() {
     }
     if (!localStorage.getItem('users')) {
         const users = [
-            { id: 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, borrowedBooks: [] },
-            { id: 2, username: 'user1', password: 'pass1', email: 'user1@example.com', isAdmin: false, borrowedBooks: [2, 5] }
+            { id: 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, isSuperuser: true, borrowedBooks: [] },
+            { id: 2, username: 'user1', password: 'pass1', email: 'user1@example.com', isAdmin: false, isSuperuser: false, borrowedBooks: [2, 5] }
         ];
         localStorage.setItem('users', JSON.stringify(users));
     } else {
         const users = JSON.parse(localStorage.getItem('users'));
         if (!users.some(u => u.username === 'admin')) {
-            users.push({ id: users.length + 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, borrowedBooks: [] });
+            users.push({ id: users.length + 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, isSuperuser: true, borrowedBooks: [] });
             localStorage.setItem('users', JSON.stringify(users));
         }
     }
@@ -59,16 +59,15 @@ function validateSignup() {
     const password = document.getElementById('pw').value.trim();
     const confirmPassword = document.getElementById('cpw').value.trim();
     const email = document.getElementById('e').value.trim();
-    const isAdmin = document.getElementById('ia').checked;
     if (!username || !password || !confirmPassword || !email) { alert('All fields are required.'); return false; }
     if (password !== confirmPassword) { alert('Passwords do not match.'); return false; }
     const users = JSON.parse(localStorage.getItem('users'));
     if (users.some(u => u.username === username || u.email === email)) { alert('Username or email already exists.'); return false; }
-    const newUser = { id: users.length + 1, username, password, email, isAdmin, borrowedBooks: [] };
+    const newUser = { id: users.length + 1, username, password, email, isAdmin: false, isSuperuser: false, borrowedBooks: [] };
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('currentUser', newUser.id);
-    window.location.href = isAdmin ? '../admin/catalog.html' : 'dashboard.html';
+    window.location.href = 'dashboard.html';
     return false;
 }
 

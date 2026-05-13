@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Manage Admins</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header>
+        <nav class="nav-island">
+            <a href="catalog.html" class="nav-item">Books</a>
+            <a href="book-edit.html" class="nav-item">Edit</a>
+            <a href="book-add.html" class="nav-item">Add</a>
+            <a href="manage.html" class="nav-item">Manage</a>
+            <a href="admins.html" class="nav-item active nav-item--hidden" id="nav-admins">Admins</a>
+            <span id="user-nav-info"></span>
+            <a href="../user/login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+      <div class="content-card">
+        <h1 class="page-title">Admin Management</h1>
+        <p class="page-description">Create and manage administrator accounts. Only superusers can access this page.</p>
+        <hr class="divider" />
+
+        <div id="superuser-warning" style="display:none;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:20px;margin-bottom:24px;text-align:center">
+          <p style="color:var(--danger);font-weight:700;margin:0">Access Denied</p>
+          <p style="color:var(--text2);font-size:14px;margin:8px 0 0">Only superusers can manage admin accounts.</p>
+        </div>
+
+        <div id="admin-content">
+          <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="showCreateForm()">+ New Admin</button>
+          </div>
+
+          <div id="create-form" style="display:none">
+            <div class="form-section">
+              <h3 class="form-section-title">Create Admin Account</h3>
+
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="adm-username">Username <span class="required">*</span></label>
+                  <input type="text" id="adm-username" required placeholder="Enter username" />
+                </div>
+                <div class="form-field">
+                  <label for="adm-email">Email <span class="required">*</span></label>
+                  <input type="email" id="adm-email" required placeholder="admin@example.com" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="adm-password">Password <span class="required">*</span></label>
+                  <input type="password" id="adm-password" required placeholder="Create a password" />
+                </div>
+                <div class="form-field">
+                  <label for="adm-cpw">Confirm Password <span class="required">*</span></label>
+                  <input type="password" id="adm-cpw" required placeholder="Repeat password" />
+                </div>
+              </div>
+
+              <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+                <button type="button" class="btn btn-secondary" onclick="hideCreateForm()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="createAdmin()">Create Admin</button>
+              </div>
+            </div>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-list"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy;2026 Bookify. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function loadAdmins() {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const admins = users.filter(u => u.isAdmin);
+        const tbody = document.getElementById('admin-list');
+        tbody.innerHTML = '';
+        admins.forEach(u => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="td-primary">${u.username}</td>
+            <td class="td-muted">${u.email}</td>
+            <td><span class="category-badge">${u.isSuperuser ? 'Superuser' : 'Admin'}</span></td>
+            <td class="text-center">${u.isSuperuser ? '<span style="color:var(--text3);font-size:12px">—</span>' : '<a href="#" class="action-link--danger" onclick="deleteAdmin(' + u.id + ')">Remove</a>'}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function showCreateForm() {
+        document.getElementById('create-form').style.display = 'block';
+      }
+
+      function hideCreateForm() {
+        document.getElementById('create-form').style.display = 'none';
+        document.getElementById('adm-username').value = '';
+        document.getElementById('adm-email').value = '';
+        document.getElementById('adm-password').value = '';
+        document.getElementById('adm-cpw').value = '';
+      }
+
+      function createAdmin() {
+        const username = document.getElementById('adm-username').value.trim();
+        const email = document.getElementById('adm-email').value.trim();
+        const password = document.getElementById('adm-password').value.trim();
+        const cpw = document.getElementById('adm-cpw').value.trim();
+        if (!username || !email || !password || !cpw) { alert('All fields are required.'); return; }
+        if (password !== cpw) { alert('Passwords do not match.'); return; }
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.some(u => u.username === username || u.email === email)) { alert('Username or email already exists.'); return; }
+        const newAdmin = {
+          id: users.length ? Math.max(...users.map(u => u.id)) + 1 : 1,
+          username, password, email,
+          isAdmin: true, isSuperuser: false,
+          borrowedBooks: []
+        };
+        users.push(newAdmin);
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Admin account created: ' + username);
+        hideCreateForm();
+        loadAdmins();
+      }
+
+      function deleteAdmin(id) {
+        if (!confirm('Remove this admin account? They will lose all admin access.')) return;
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const idx = users.findIndex(u => u.id == id);
+        if (idx !== -1) {
+          users[idx].isAdmin = false;
+          users[idx].isSuperuser = false;
+          localStorage.setItem('users', JSON.stringify(users));
+          alert('Admin removed.');
+          loadAdmins();
+        }
+      }
+
+      function checkSuperuserAccess() {
+        const user = JSON.parse(localStorage.getItem('users'))?.find(u => u.id == localStorage.getItem('currentUser'));
+        const content = document.getElementById('admin-content');
+        const warning = document.getElementById('superuser-warning');
+        if (!user || !user.isSuperuser) {
+          content.style.display = 'none';
+          warning.style.display = 'block';
+        } else {
+          content.style.display = 'block';
+          warning.style.display = 'none';
+        }
+        const link = document.getElementById('nav-admins');
+        if (link && user && user.isSuperuser) {
+          link.classList.remove('nav-item--hidden');
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof initializeData === 'function') initializeData();
+        const userInfo = document.getElementById('user-nav-info');
+        const user = JSON.parse(localStorage.getItem('users'))?.find(u => u.id == localStorage.getItem('currentUser'));
+        if (userInfo) userInfo.textContent = user ? 'Admin: ' + user.username : 'Admin Panel';
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) logoutLink.onclick = (e) => { e.preventDefault(); logout(); };
+        checkSuperuserAccess();
+        loadAdmins();
+      });
+    </script>
+    <script src="../js/admin.js"></script>
+  </body>
+</html>

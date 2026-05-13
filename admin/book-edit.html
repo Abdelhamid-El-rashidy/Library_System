@@ -13,7 +13,8 @@
             <a href="book-edit.html" class="nav-item active">Edit</a>
             <a href="book-add.html" class="nav-item">Add</a>
             <a href="manage.html" class="nav-item">Manage</a>
-            <span id="user-nav-info" style="border-left:1px solid rgba(255,255,255,.1);padding:0 12px;margin-left:8px"></span>
+            <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
+            <span id="user-nav-info"></span>
             <a href="../user/login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
         </nav>
     </header>
@@ -25,50 +26,60 @@
         <hr class="divider" />
 
         <form action="#" method="post">
-          <span class="form-legend">Book Details</span>
+          <div class="form-section">
+            <h3 class="form-section-title">Book Details</h3>
 
-          <label for="title">Title <em class="required">(required)</em></label>
-          <input type="text" id="title" name="title" required />
+            <div class="form-field">
+              <label for="title">Title <span class="required">*</span></label>
+              <input type="text" id="title" name="title" required />
+            </div>
 
-          <label for="author">Author <em class="required">(required)</em></label>
-          <input type="text" id="author" name="author" required />
+            <div class="form-field">
+              <label for="author">Author <span class="required">*</span></label>
+              <input type="text" id="author" name="author" required />
+            </div>
 
-          <label for="isbn">Book ID</label>
-          <input type="text" id="isbn" name="isbn" readonly style="background:#f1f5f9;color:#64748b" />
+            <div class="form-row">
+              <div class="form-field">
+                <label for="isbn">Book ID</label>
+                <input type="text" id="isbn" name="isbn" readonly />
+              </div>
+              <div class="form-field">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                  <option value="">-- Select --</option>
+                  <option value="Fiction">Fiction</option>
+                  <option value="Non-Fiction">Non-Fiction</option>
+                  <option value="Dystopian">Dystopian</option>
+                  <option value="Fantasy">Fantasy</option>
+                  <option value="Romance">Romance</option>
+                  <option value="Science">Science</option>
+                  <option value="History">History</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Programming">Programming</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
 
-          <label for="category">Category / Genre</label>
-          <select id="category" name="category">
-            <option value="">-- Select --</option>
-            <option value="Fiction">Fiction</option>
-            <option value="Non-Fiction">Non-Fiction</option>
-            <option value="Dystopian">Dystopian</option>
-            <option value="Fantasy">Fantasy</option>
-            <option value="Romance">Romance</option>
-            <option value="Science">Science</option>
-            <option value="History">History</option>
-            <option value="Technology">Technology</option>
-            <option value="Programming">Programming</option>
-            <option value="Other">Other</option>
-          </select>
+            <div class="form-field">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" rows="5"></textarea>
+            </div>
 
-          <label for="price">Price ($)</label>
-          <input type="number" id="price" name="price" step="0.01" min="0" />
+            <div class="form-field">
+              <label for="cover-file">Cover Photo</label>
+              <input type="file" id="cover-file" accept="image/*" onchange="previewCover(this)" />
+              <div id="cover-preview" style="margin-top:8px"></div>
+              <input type="hidden" id="cover-data" />
+              <p style="color:var(--text3);font-size:12px;margin:6px 0 0">Upload a new cover image, or leave empty to keep the current one.</p>
+            </div>
+          </div>
 
-          <span class="form-legend">Description &amp; Media</span>
-
-          <label for="description">Description / Summary</label>
-          <textarea id="description" name="description" rows="5"></textarea>
-
-          <br />
-          <table width="100%">
-            <tr>
-              <td align="right">
-                <button type="button" class="btn btn-secondary" onclick="window.location.href='catalog.html'">Cancel</button>
-                &nbsp;
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-              </td>
-            </tr>
-          </table>
+          <div style="display:flex;gap:10px;justify-content:flex-end">
+            <button type="button" class="btn btn-secondary" onclick="window.location.href='catalog.html'">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
         </form>
       </div>
     </main>

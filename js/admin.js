@@ -13,14 +13,14 @@ function initializeData() {
     }
     if (!localStorage.getItem('users')) {
         const users = [
-            { id: 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, borrowedBooks: [] },
-            { id: 2, username: 'user1', password: 'pass1', email: 'user1@example.com', isAdmin: false, borrowedBooks: [2, 5] }
+            { id: 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, isSuperuser: true, borrowedBooks: [] },
+            { id: 2, username: 'user1', password: 'pass1', email: 'user1@example.com', isAdmin: false, isSuperuser: false, borrowedBooks: [2, 5] }
         ];
         localStorage.setItem('users', JSON.stringify(users));
     } else {
         const users = JSON.parse(localStorage.getItem('users'));
         if (!users.some(u => u.username === 'admin')) {
-            users.push({ id: users.length + 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, borrowedBooks: [] });
+            users.push({ id: users.length + 1, username: 'admin', password: 'admin123', email: 'admin@bookify.com', isAdmin: true, isSuperuser: true, borrowedBooks: [] });
             localStorage.setItem('users', JSON.stringify(users));
         }
     }
@@ -45,6 +45,23 @@ function checkAdmin() {
 function logout() {
     localStorage.setItem('currentUser', null);
     window.location.href = '../user/login.html';
+}
+
+function previewCover(input) {
+    const preview = document.getElementById('cover-preview');
+    const hidden = document.getElementById('cover-data');
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const dataUrl = e.target.result;
+            if (hidden) hidden.value = dataUrl;
+            if (preview) preview.innerHTML = '<img src="' + dataUrl + '" style="max-width:120px;max-height:160px;border-radius:6px;border:1px solid var(--border);object-fit:cover" />';
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        if (hidden) hidden.value = '';
+        if (preview) preview.innerHTML = '';
+    }
 }
 
 function loadAdminBooks() {
@@ -90,6 +107,8 @@ function validateAddBook() {
         alert('Title, author, and category are required.');
         return false;
     }
+    const coverData = document.getElementById('cover-data');
+    const coverUrl = coverData && coverData.value ? coverData.value : 'https://placehold.co/150x200/e2e8f0/64748b?text=' + encodeURIComponent(title);
     const books = JSON.parse(localStorage.getItem('books'));
     const newBook = {
         id: books.length ? Math.max(...books.map(b => b.id)) + 1 : 1,
@@ -100,7 +119,7 @@ function validateAddBook() {
         available: true,
         borrowedBy: null,
         description: description || '',
-        coverUrl: 'https://placehold.co/150x200/e2e8f0/64748b?text=' + encodeURIComponent(title)
+        coverUrl: coverUrl
     };
     books.push(newBook);
     localStorage.setItem('books', JSON.stringify(books));
@@ -122,6 +141,10 @@ function loadEditBookData() {
         document.getElementById('category').value = book.category.toLowerCase();
         document.getElementById('description').value = book.description || '';
         document.getElementById('price').value = book.price || 0;
+        const preview = document.getElementById('cover-preview');
+        if (preview && book.coverUrl && !book.coverUrl.includes('placehold.co')) {
+            preview.innerHTML = '<img src="' + book.coverUrl + '" style="max-width:120px;max-height:160px;border-radius:6px;border:1px solid var(--border);object-fit:cover" />';
+        }
     }
 }
 
@@ -146,6 +169,8 @@ function validateEditBook() {
         books[bookIndex].category = category;
         books[bookIndex].description = description || '';
         books[bookIndex].price = price ? parseFloat(price) : 0;
+        const coverData = document.getElementById('cover-data');
+        if (coverData && coverData.value) books[bookIndex].coverUrl = coverData.value;
         localStorage.setItem('books', JSON.stringify(books));
         alert('Book updated successfully.');
         window.location.href = 'catalog.html';
@@ -168,6 +193,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const user = getCurrentUser();
     const userInfo = document.getElementById('user-nav-info');
     if (userInfo) userInfo.textContent = user ? 'Admin: ' + user.username : 'Admin Panel';
+
+    const adminsLink = document.getElementById('nav-admins');
+    if (adminsLink && user && user.isSuperuser) {
+        adminsLink.classList.remove('nav-item--hidden');
+    }
 
     if (window.location.pathname.includes('catalog.html')) { loadAdminBooks(); }
     if (window.location.pathname.includes('book-edit.html')) { loadEditBookData(); }
