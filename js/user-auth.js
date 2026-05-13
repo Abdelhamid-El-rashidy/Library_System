@@ -98,7 +98,11 @@ function validateSignup(e) {
 
 function checkLoginStatus() {
     var user = getCurrentUser();
-    if (!user) window.location.href = getLoginPath();
+    if (!user) {
+        var path = window.location.pathname;
+        if (path.includes('login.html') || path.includes('signup.html')) return;
+        window.location.href = getLoginPath();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
