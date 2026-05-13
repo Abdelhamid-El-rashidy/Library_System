@@ -43,17 +43,22 @@ function renderBookRow(book, showCover) {
         (book.available
             ? '<span class="td-primary">Available</span> <button onclick="borrowBook(' +
               book.id +
-              ')" class="btn btn-primary" style="padding:6px 14px;font-size:11px">Borrow</button>'
+              ')" class="btn btn-primary btn-sm">Borrow</button>'
             : '<span class="warning-text">Borrowed</span>') +
         '</td></tr>'
     );
+}
+
+function getLoginPath() {
+    var depth = window.location.pathname.split('/').filter(Boolean).length - 1;
+    return depth > 0 ? '../'.repeat(depth) + 'login.html' : 'login.html';
 }
 
 function borrowBook(bookId) {
     var user = getCurrentUser();
     if (!user) {
         showAlert('Please log in to borrow books.');
-        window.location.href = 'login.html';
+        window.location.href = getLoginPath();
         return;
     }
     apiFetch('/books/' + bookId + '/borrow/', { method: 'POST' })
@@ -87,7 +92,7 @@ function returnBook(bookId) {
     var user = getCurrentUser();
     if (!user) {
         showAlert('Please log in.');
-        window.location.href = 'login.html';
+        window.location.href = getLoginPath();
         return;
     }
     showConfirm('Return this book?', function () {
@@ -142,7 +147,7 @@ function loadBooks(page) {
 function loadBorrowedBooks() {
     var user = getCurrentUser();
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = getLoginPath();
         return;
     }
     var books = JSON.parse(localStorage.getItem('books'));
@@ -177,7 +182,7 @@ function loadBorrowedBooks() {
             '</td>' +
             '<td><button onclick="returnBook(' +
             book.id +
-            ')" class="btn btn-primary" style="padding:6px 14px;font-size:11px">Return</button></td>' +
+            ')" class="btn btn-primary btn-sm">Return</button></td>' +
             '</tr>';
     });
 }
@@ -218,9 +223,9 @@ function loadDashboard() {
                     book.author +
                     '</p><span class="due-badge">Due: ' +
                     (book.dueDate || 'N/A') +
-                    '</span><br/><button onclick="returnBook(' +
+                    '</span></div><div class="book-card-actions"><button onclick="returnBook(' +
                     book.id +
-                    ')" class="btn btn-primary" style="padding:4px 12px;font-size:10px;margin-top:8px">Return</button></div></div>'
+                    ')" class="btn btn-primary btn-sm">Return</button></div></div>'
                 );
             })
             .join('');
@@ -244,9 +249,9 @@ function loadDashboard() {
                     book.author +
                     ' &middot; <span class="category-badge">' +
                     book.category +
-                    '</span></p><button onclick="borrowBook(' +
+                    '</span></p><div class="book-card-actions"><button onclick="borrowBook(' +
                     book.id +
-                    ')" class="btn btn-primary" style="padding:6px 14px;font-size:11px">Borrow</button></div></div>'
+                    ')" class="btn btn-primary btn-sm">Borrow</button></div></div></div>'
                 );
             })
             .join('');
