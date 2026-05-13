@@ -6,19 +6,50 @@
         <title>Bookify - Your Modern Library</title>
         <link rel="stylesheet" href="css/style.css" />
         <style>
+            html { scroll-behavior: smooth; }
             .landing {
                 min-height: 100vh;
                 background: linear-gradient(135deg, #0f172a, #1e293b);
                 display: flex;
                 flex-direction: column;
+                position: relative;
+                overflow-x: hidden;
+            }
+            .landing::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(217,119,6,0.08), transparent),
+                            radial-gradient(ellipse 50% 40% at 80% 60%, rgba(251,191,36,0.04), transparent),
+                            radial-gradient(ellipse 40% 50% at 20% 80%, rgba(217,119,6,0.04), transparent);
+                pointer-events: none;
+                z-index: 0;
+                animation: bgShift 20s ease-in-out infinite alternate;
+            }
+            @keyframes bgShift {
+                0% { transform: translate(0, 0) scale(1); }
+                50% { transform: translate(2%, -1%) scale(1.05); }
+                100% { transform: translate(-1%, 1%) scale(1.02); }
             }
             .landing header {
-                background: 0 0;
+                background: transparent;
                 border: none;
-                position: static;
-                padding: 24px 40px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+                padding: 16px 40px;
+                display: flex;
                 flex-direction: row;
                 justify-content: space-between;
+                align-items: center;
+                transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
+            }
+            .landing header.is-scrolled {
+                background: rgba(15,23,42,0.85);
+                backdrop-filter: blur(16px);
+                padding: 12px 40px;
             }
             .landing .logo {
                 font-size: 22px;
@@ -37,7 +68,7 @@
                 text-decoration: none;
                 padding: 8px 20px;
                 border-radius: var(--radius-pill);
-                transition: all var(--t);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
             .landing .nav-cta .login-link {
                 color: var(--text3);
@@ -50,8 +81,8 @@
                 color: #fff;
             }
             .landing .nav-cta .signup-link:hover {
-                box-shadow: 0 4px 16px rgba(217, 119, 6, 0.4);
-                transform: translateY(-1px);
+                box-shadow: 0 4px 20px rgba(217, 119, 6, 0.45);
+                transform: translateY(-2px) scale(1.02);
             }
             .hero {
                 flex: 1;
@@ -60,7 +91,9 @@
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                padding: 40px 24px;
+                padding: 120px 24px 60px;
+                position: relative;
+                z-index: 1;
             }
             .hero h1 {
                 font-size: clamp(40px, 8vw, 72px);
@@ -69,12 +102,17 @@
                 margin: 0;
                 letter-spacing: -0.04em;
                 line-height: 1.05;
+                animation: fadeUp 0.8s ease-out;
             }
             .hero h1 span {
-                background: linear-gradient(135deg, var(--accent), var(--accent-light, #fbbf24));
+                background: linear-gradient(135deg, var(--accent), #fbbf24);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
+            }
+            @keyframes fadeUp {
+                from { opacity: 0; transform: translateY(24px); }
+                to { opacity: 1; transform: translateY(0); }
             }
             .hero p {
                 font-size: clamp(16px, 2.5vw, 22px);
@@ -82,91 +120,396 @@
                 max-width: 600px;
                 margin: 20px 0 36px;
                 line-height: 1.6;
+                animation: fadeUp 0.8s ease-out 0.15s both;
             }
             .hero-actions {
                 display: flex;
                 gap: 16px;
                 flex-wrap: wrap;
                 justify-content: center;
+                animation: fadeUp 0.8s ease-out 0.3s both;
             }
             .hero-actions .btn {
                 padding: 14px 36px;
                 font-size: 15px;
                 border-radius: var(--radius-pill);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .hero-actions .btn:hover {
+                transform: translateY(-2px) scale(1.02);
+            }
+            .hero-actions .btn-primary:hover {
+                box-shadow: 0 6px 24px rgba(217, 119, 6, 0.4);
             }
             .hero-actions .btn-secondary {
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.08);
                 color: #fff;
                 border: 1px solid rgba(255, 255, 255, 0.15);
             }
             .hero-actions .btn-secondary:hover {
-                background: rgba(255, 255, 255, 0.15);
+                background: rgba(255, 255, 255, 0.14);
                 border-color: rgba(255, 255, 255, 0.25);
+                box-shadow: 0 6px 24px rgba(255, 255, 255, 0.08);
             }
             .features {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 24px;
+                gap: 20px;
                 max-width: 900px;
                 width: 100%;
-                margin-top: 60px;
+                margin-top: 64px;
+                animation: fadeUp 0.8s ease-out 0.45s both;
             }
             .feature-card {
                 background: rgba(255, 255, 255, 0.04);
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 border-radius: var(--radius);
-                padding: 28px 24px;
+                padding: 32px 24px;
                 text-align: center;
-                transition: all var(--t);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: default;
+                position: relative;
+                overflow: hidden;
+            }
+            .feature-card::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                background: linear-gradient(135deg, rgba(217,119,6,0.06), transparent);
+                opacity: 0;
+                transition: opacity 0.4s;
             }
             .feature-card:hover {
                 background: rgba(255, 255, 255, 0.07);
-                transform: translateY(-4px);
+                border-color: rgba(217, 119, 6, 0.2);
+                transform: translateY(-6px);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
             }
+            .feature-card:hover::after { opacity: 1; }
             .feature-card .icon {
-                font-size: 36px;
-                margin-bottom: 12px;
+                width: 48px;
+                height: 48px;
+                margin: 0 auto 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 12px;
+                background: rgba(217, 119, 6, 0.1);
+                position: relative;
+                z-index: 1;
+                transition: transform 0.4s, background 0.4s;
+            }
+            .feature-card:hover .icon {
+                transform: scale(1.1);
+                background: rgba(217, 119, 6, 0.18);
+            }
+            .feature-card .icon svg {
+                width: 24px;
+                height: 24px;
             }
             .feature-card h3 {
                 color: #fff;
                 font-size: 16px;
                 font-weight: 700;
                 margin: 0 0 8px;
+                position: relative;
+                z-index: 1;
             }
             .feature-card p {
                 color: var(--text3);
                 font-size: 13px;
                 margin: 0;
                 line-height: 1.5;
+                position: relative;
+                z-index: 1;
+            }
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            }
+            .reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .reveal-delay-1 { transition-delay: 0.1s; }
+            .reveal-delay-2 { transition-delay: 0.2s; }
+            .reveal-delay-3 { transition-delay: 0.3s; }
+            .reveal-delay-4 { transition-delay: 0.4s; }
+            .section-dark {
+                padding: 100px 24px;
+                max-width: 1100px;
+                margin: 0 auto;
+                width: 100%;
+                position: relative;
+                z-index: 1;
+            }
+            .section-dark h2 {
+                font-size: clamp(28px, 4vw, 40px);
+                font-weight: 800;
+                color: #fff;
+                text-align: center;
+                margin: 0 0 12px;
+                letter-spacing: -0.03em;
+            }
+            .section-dark .subtitle {
+                text-align: center;
+                color: var(--text3);
+                font-size: 16px;
+                margin: 0 0 48px;
+            }
+            .steps {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 32px;
+                counter-reset: step;
+            }
+            .step-card {
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: var(--radius);
+                padding: 36px 28px 32px;
+                text-align: center;
+                position: relative;
+                counter-increment: step;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: default;
+            }
+            .step-card:hover {
+                background: rgba(255, 255, 255, 0.07);
+                border-color: rgba(217, 119, 6, 0.2);
+                transform: translateY(-4px);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            }
+            .step-card::before {
+                content: counter(step);
+                position: absolute;
+                top: -14px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 28px;
+                height: 28px;
+                background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+                color: #fff;
+                font-size: 13px;
+                font-weight: 800;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+                transition: transform 0.4s;
+            }
+            .step-card:hover::before { transform: translateX(-50%) scale(1.15); }
+            .step-card .icon {
+                width: 48px;
+                height: 48px;
+                margin: 0 auto 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.06);
+                transition: transform 0.4s, background 0.4s;
+            }
+            .step-card:hover .icon {
+                transform: scale(1.1);
+                background: rgba(217, 119, 6, 0.12);
+            }
+            .step-card .icon svg {
+                width: 24px;
+                height: 24px;
+            }
+            .step-card h3 {
+                color: #fff;
+                font-size: 18px;
+                font-weight: 700;
+                margin: 0 0 8px;
+            }
+            .step-card p {
+                color: var(--text3);
+                font-size: 14px;
+                margin: 0;
+                line-height: 1.6;
+            }
+            .roles-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 24px;
+            }
+            .role-card {
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: var(--radius);
+                padding: 32px 28px;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: default;
+            }
+            .role-card:hover {
+                background: rgba(255, 255, 255, 0.07);
+                border-color: rgba(217, 119, 6, 0.2);
+                transform: translateY(-5px);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            }
+            .role-card .role-badge {
+                display: inline-block;
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                padding: 4px 12px;
+                border-radius: 9999px;
+                margin-bottom: 12px;
+            }
+            .role-card .role-badge.user {
+                background: rgba(59, 130, 246, 0.15);
+                color: #60a5fa;
+            }
+            .role-card .role-badge.admin {
+                background: rgba(245, 158, 11, 0.15);
+                color: var(--accent);
+            }
+            .role-card .role-badge.superuser {
+                background: rgba(239, 68, 68, 0.15);
+                color: #f87171;
+            }
+            .role-card h3 {
+                color: #fff;
+                font-size: 18px;
+                font-weight: 700;
+                margin: 0 0 8px;
+            }
+            .role-card p {
+                color: var(--text3);
+                font-size: 13px;
+                margin: 0 0 16px;
+                line-height: 1.5;
+            }
+            .role-card ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .role-card ul li {
+                color: var(--text3);
+                font-size: 13px;
+                padding: 5px 0;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .role-card ul li::before {
+                content: "✓";
+                color: #22c55e;
+                font-weight: 700;
+            }
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 32px;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .stat {
+                text-align: center;
+                padding: 24px 16px;
+                border-radius: var(--radius);
+                transition: background 0.4s;
+            }
+            .stat:hover {
+                background: rgba(255, 255, 255, 0.03);
+            }
+            .stat .number {
+                font-size: clamp(40px, 5vw, 54px);
+                font-weight: 900;
+                background: linear-gradient(135deg, var(--accent), #fbbf24);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                line-height: 1;
+            }
+            .stat .label {
+                font-size: 14px;
+                color: var(--text3);
+                margin-top: 8px;
+            }
+            .cta-section {
+                text-align: center;
+                padding: 100px 24px;
+                border-top: 1px solid rgba(255, 255, 255, 0.06);
+                position: relative;
+                z-index: 1;
+            }
+            .cta-section h2 {
+                font-size: clamp(24px, 4vw, 36px);
+                font-weight: 800;
+                color: #fff;
+                margin: 0 0 16px;
+            }
+            .cta-section p {
+                color: var(--text3);
+                font-size: 16px;
+                margin: 0 0 36px;
             }
             .landing footer {
-                background: 0 0;
+                background: rgba(0, 0, 0, 0.2);
                 border-top: 1px solid rgba(255, 255, 255, 0.06);
                 margin-top: 0;
-                padding: 24px 40px;
+                padding: 32px 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 12px;
+                position: relative;
+                z-index: 1;
+            }
+            .landing footer p {
+                margin: 0;
+                color: var(--text3);
+                font-size: 12px;
+            }
+            .landing footer .footer-links {
+                display: flex;
+                gap: 20px;
+            }
+            .landing footer .footer-links a {
+                color: var(--text3);
+                text-decoration: none;
+                font-size: 12px;
+                transition: color 0.3s;
+            }
+            .landing footer .footer-links a:hover {
+                color: #fff;
             }
             @media (max-width: 640px) {
                 .landing header {
                     padding: 16px 20px;
-                    flex-direction: column;
-                    gap: 12px;
                 }
                 .hero {
-                    padding: 24px 16px;
+                    padding: 100px 16px 40px;
                 }
                 .features {
                     grid-template-columns: 1fr;
                     margin-top: 40px;
                 }
+                .section-dark {
+                    padding: 60px 16px;
+                }
+                .landing footer {
+                    flex-direction: column;
+                    text-align: center;
+                }
             }
         </style>
     </head>
     <body class="landing">
-        <header>
+        <header id="landing-header">
             <span class="logo">Bookify</span>
             <div class="nav-cta">
-                <a href="user/login.html" class="login-link">Sign In</a>
-                <a href="user/signup.html" class="signup-link">Get Started</a>
+                <a href="login.html" class="login-link">Sign In</a>
+                <a href="signup.html" class="signup-link">Get Started</a>
             </div>
         </header>
 
@@ -177,30 +520,169 @@
                 fingertips with a clean, modern interface.
             </p>
             <div class="hero-actions">
-                <a href="user/signup.html" class="btn btn-primary">Join Bookify</a>
-                <a href="user/login.html" class="btn btn-secondary">Sign In</a>
+                <a href="signup.html" class="btn btn-primary">Join Bookify</a>
+                <a href="login.html" class="btn btn-secondary">Sign In</a>
             </div>
             <div class="features">
                 <div class="feature-card">
-                    <div class="icon">📖</div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 19.5z"/><path d="M8 2v20"/><path d="M12 6h4"/><path d="M12 10h4"/><path d="M12 14h4"/></svg>
+                    </div>
                     <h3>Browse Books</h3>
                     <p>Explore a growing collection across every genre.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">📤</div>
-                    <h3>Borrow & Return</h3>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+                    </div>
+                    <h3>Borrow &amp; Return</h3>
                     <p>Check out books and track your due dates.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">🔍</div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    </div>
                     <h3>Smart Search</h3>
                     <p>Find books by title, author, or category instantly.</p>
                 </div>
+                <div class="feature-card">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Role-Based Access</h3>
+                    <p>Tailored experiences for users, admins, and superusers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-dark reveal" id="how-it-works">
+            <h2>How It Works</h2>
+            <p class="subtitle">Get started in three simple steps.</p>
+            <div class="steps">
+                <div class="step-card reveal reveal-delay-1">
+                    <span class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    <h3>Create an Account</h3>
+                    <p>Sign up as a reader or an admin. Your account gives you access to the full library experience.</p>
+                </div>
+                <div class="step-card reveal reveal-delay-2">
+                    <span class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </span>
+                    <h3>Browse &amp; Search</h3>
+                    <p>Explore our catalog by title, author, or category. Use smart filters to find exactly what you need.</p>
+                </div>
+                <div class="step-card reveal reveal-delay-3">
+                    <span class="icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 19.5z"/><path d="M12 6v7"/><path d="M9 10l3 3 3-3"/></svg>
+                    </span>
+                    <h3>Borrow &amp; Enjoy</h3>
+                    <p>Check out books with one click, track due dates, and return when you're done. It's that easy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-dark reveal" id="roles">
+            <h2>Role-Based Access</h2>
+            <p class="subtitle">Every user gets the right tools for their needs.</p>
+            <div class="roles-cards">
+                <div class="role-card reveal reveal-delay-1">
+                    <span class="role-badge user">Reader</span>
+                    <h3>Regular User</h3>
+                    <p>Browse, search, borrow, and return books. Track your borrowed items and due dates from your personal dashboard.</p>
+                    <ul>
+                        <li>Browse full catalog</li>
+                        <li>Search by title, author, category</li>
+                        <li>Borrow books for 14 days</li>
+                        <li>Track due dates</li>
+                        <li>Return borrowed books</li>
+                    </ul>
+                </div>
+                <div class="role-card reveal reveal-delay-2">
+                    <span class="role-badge admin">Admin</span>
+                    <h3>Administrator</h3>
+                    <p>Manage the library collection. Add, edit, and remove books. Upload cover images and oversee all borrowed books.</p>
+                    <ul>
+                        <li>All Reader permissions</li>
+                        <li>Add new books</li>
+                        <li>Edit existing books</li>
+                        <li>Delete books</li>
+                        <li>View all borrowed books</li>
+                        <li>Mark any book as returned</li>
+                    </ul>
+                </div>
+                <div class="role-card reveal reveal-delay-3">
+                    <span class="role-badge superuser">Superuser</span>
+                    <h3>Superuser</h3>
+                    <p>Full system control. Everything an admin can do, plus the ability to create and remove administrator accounts.</p>
+                    <ul>
+                        <li>All Administrator permissions</li>
+                        <li>Create admin accounts</li>
+                        <li>Remove admin accounts</li>
+                        <li>Full system oversight</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-dark reveal" id="numbers">
+            <h2>Bookify in Numbers</h2>
+            <p class="subtitle">A growing community of readers and administrators.</p>
+            <div class="stats">
+                <div class="stat reveal reveal-delay-1">
+                    <div class="number" data-target="7">7+</div>
+                    <div class="label">Books in Catalog</div>
+                </div>
+                <div class="stat reveal reveal-delay-2">
+                    <div class="number" data-target="3">3</div>
+                    <div class="label">User Roles</div>
+                </div>
+                <div class="stat reveal reveal-delay-3">
+                    <div class="number" data-target="14">14</div>
+                    <div class="label">Day Borrow Period</div>
+                </div>
+                <div class="stat reveal reveal-delay-4">
+                    <div class="number" data-target="100">100%</div>
+                    <div class="label">Client-Side Speed</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section reveal">
+            <h2>Ready to Get Started?</h2>
+            <p>Join Bookify today and transform the way you experience your library.</p>
+            <div class="hero-actions">
+                <a href="signup.html" class="btn btn-primary">Create Your Account</a>
+                <a href="login.html" class="btn btn-secondary">Sign In</a>
             </div>
         </section>
 
         <footer>
             <p>&copy; 2026 Bookify. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="login.html">Sign In</a>
+                <a href="signup.html">Sign Up</a>
+            </div>
         </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var header = document.getElementById('landing-header');
+                window.addEventListener('scroll', function () {
+                    header.classList.toggle('is-scrolled', window.scrollY > 40);
+                }, { passive: true });
+
+                var revealEls = document.querySelectorAll('.reveal');
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.15 });
+                revealEls.forEach(function (el) { observer.observe(el); });
+            });
+        </script>
     </body>
 </html>
