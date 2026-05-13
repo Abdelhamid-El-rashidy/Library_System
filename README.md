@@ -23,13 +23,13 @@ A modern, full-featured library management system with role-based access control
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | HTML5, CSS3, Vanilla JS (ES6) |
-| Styling | CSS custom properties, glassmorphism, flexbox/grid |
-| Persistence | localStorage (client-side) |
-| Backend (inactive) | Django (`backend/` directory) |
-| CI | GitHub Actions (README stats auto-update) |
+| Layer              | Technology                                         |
+| ------------------ | -------------------------------------------------- |
+| Frontend           | HTML5, CSS3, Vanilla JS (ES6)                      |
+| Styling            | CSS custom properties, glassmorphism, flexbox/grid |
+| Persistence        | localStorage (client-side)                         |
+| Backend (inactive) | Django (`backend/` directory)                      |
+| CI                 | GitHub Actions (README stats auto-update)          |
 
 ## Getting Started
 
@@ -43,10 +43,10 @@ open index.html
 
 ### Default Accounts
 
-| Role | Username | Password |
-|------|----------|----------|
-| Superuser | `admin` | `admin123` |
-| Regular User | `user1` | `pass1` |
+| Role         | Username | Password   |
+| ------------ | -------- | ---------- |
+| Superuser    | `admin`  | `admin123` |
+| Regular User | `user1`  | `pass1`    |
 
 > **Note:** Data is stored in `localStorage`. Clearing browser storage resets the database to seed data. The default admin account is re-created automatically if missing.
 
@@ -80,12 +80,12 @@ open index.html
 
 ## Role-Based Access
 
-| Permission | User | Admin | Superuser |
-|-----------|------|-------|-----------|
-| Browse & search books | ✓ | ✓ | ✓ |
-| Borrow books | ✓ | ✓ | ✓ |
-| Add / Edit / Delete books | — | ✓ | ✓ |
-| Manage admin accounts | — | — | ✓ |
+| Permission                | User | Admin | Superuser |
+| ------------------------- | ---- | ----- | --------- |
+| Browse & search books     | ✓    | ✓     | ✓         |
+| Borrow books              | ✓    | ✓     | ✓         |
+| Add / Edit / Delete books | —    | ✓     | ✓         |
+| Manage admin accounts     | —    | —     | ✓         |
 
 - **Signup** always creates a regular user (`isAdmin: false`)
 - Only a **superuser** can create admin accounts via the **Admins** tab in the admin panel
@@ -115,23 +115,6 @@ refactor: extract reusable table row renderers
 style: refine nav glassmorphism and form spacing
 docs: update API documentation
 ```
-
-## Contributors
-
-<!-- STATS_START -->
-```mermaid
-pie showData
-    title Project Commits
-    "Muhammad Fouad" : 58
-    "Ali" : 12
-    "Mohamed Haitham" : 11
-    "Ziad Gabriel" : 10
-    "Abdelhamid Ahmed" : 6
-    "Saifeddine29" : 4
-```
-<!-- STATS_END -->
-
-*Contributor chart auto-updates via GitHub Actions on each push to `main`.*
 
 ## License
 

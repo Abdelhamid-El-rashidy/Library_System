@@ -1,48 +1,56 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookify - Our Books</title>
-    <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body>
-    <header>
-        <nav class="nav-island">
-            <span class="nav-brand">Bookify</span>
-            <div class="nav-pages">
-                <a href="dashboard.html" class="nav-item">Home</a>
-                <a href="borrowed.html" class="nav-item">Borrowed</a>
-                <a href="search.html" class="nav-item">Search</a>
-            </div>
-            <span id="user-nav-info"></span>
-            <a href="login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
-        </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bookify - Our Books</title>
+        <link rel="stylesheet" href="../css/base.css" />
+        <link rel="stylesheet" href="../css/layout.css" />
+        <link rel="stylesheet" href="../css/components.css" />
+        <link rel="stylesheet" href="../css/utilities.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="nav-island">
+                <span class="nav-brand">Bookify</span>
+                <div class="nav-pages">
+                    <a href="dashboard.html" class="nav-item">Home</a>
+                    <a href="borrowed.html" class="nav-item">Borrowed</a>
+                    <a href="search.html" class="nav-item">Search</a>
+                </div>
+                <span id="user-nav-info"></span>
+                <a href="login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
+            </nav>
+        </header>
 
-    <main class="content-card">
-        <h1 class="page-title">Bookify</h1>
-        <h2 class="page-subtitle">Our Library Collection</h2>
-        <p class="page-description">Browse our collection below and find your next great read!</p>
-        <hr class="divider" />
-        <div style="margin-bottom:12px;font-size:13px;color:var(--text3)"><span id="book-count">0</span> books total</div>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th style="width:50px">Cover</th>
-                    <th>Book Name</th>
-                    <th>Author</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Availability</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </main>
-    <footer>
-        <p>&copy; 2026 Bookify. All rights reserved.</p>
-    </footer>
-    <script src="../js/user.js"></script>
-</body>
+        <main class="content-card">
+            <h1 class="page-title">Bookify</h1>
+            <h2 class="page-subtitle">Our Library Collection</h2>
+            <p class="page-description">Browse our collection below and find your next great read!</p>
+            <hr class="divider" />
+            <div style="margin-bottom: 12px; font-size: 13px; color: var(--text3)">
+                <span id="book-count">0</span> books total
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px">Cover</th>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="catalog-pagination"></div>
+        </main>
+        <footer>
+            <p>&copy; 2026 Bookify. All rights reserved.</p>
+        </footer>
+        <script src="../js/shared.js"></script>
+        <script src="../js/user-auth.js"></script>
+        <script src="../js/user-books.js"></script>
+    </body>
 </html>

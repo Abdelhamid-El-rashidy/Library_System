@@ -1,104 +1,118 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - Add New Book</title>
-    <link rel="stylesheet" href="../css/style.css" />
-  </head>
-  <body>
-    <header>
-        <nav class="nav-island">
-            <span class="nav-brand">Bookify</span>
-            <div class="nav-pages">
-                <a href="catalog.html" class="nav-item">Books</a>
-                <a href="book-edit.html" class="nav-item">Edit</a>
-                <a href="book-add.html" class="nav-item active">Add</a>
-                <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
-            </div>
-            <span id="user-nav-info"></span>
-            <a href="../user/login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
-        </nav>
-    </header>
-
-    <main>
-      <div class="content-card">
-        <h1 class="page-title">Add New Book</h1>
-        <p class="page-description">Fill in the details below to add a book to the collection.</p>
-        <hr class="divider" />
-
-        <form action="#" method="post">
-          <div class="form-section">
-            <h3 class="form-section-title">Book Details</h3>
-
-            <div class="form-field">
-              <label for="title">Title <span class="required">*</span></label>
-              <input type="text" id="title" name="title" required placeholder="Enter book title" />
-            </div>
-
-            <div class="form-field">
-              <label for="author">Author <span class="required">*</span></label>
-              <input type="text" id="author" name="author" required placeholder="Enter author name" />
-            </div>
-
-            <div class="form-row">
-              <div class="form-field">
-                <label for="category">Category <span class="required">*</span></label>
-                <select id="category" name="category">
-                  <option value="">-- Select --</option>
-                  <option value="Fiction">Fiction</option>
-                  <option value="Non-Fiction">Non-Fiction</option>
-                  <option value="Dystopian">Dystopian</option>
-                  <option value="Fantasy">Fantasy</option>
-                  <option value="Romance">Romance</option>
-                  <option value="Science">Science</option>
-                  <option value="History">History</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Programming">Programming</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="price">Price</label>
-                <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" />
-              </div>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <h3 class="form-section-title">Additional Information</h3>
-
-            <div class="form-field">
-              <label for="description">Description</label>
-              <textarea id="description" name="description" rows="5" placeholder="Enter a brief summary of the book..."></textarea>
-            </div>
-
-            <div class="form-field">
-              <label for="cover-file">Cover Photo</label>
-              <div class="cover-upload-area">
-                <div class="cover-preview" id="cover-preview">
-                  <div class="cover-placeholder">No cover selected</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Admin - Add New Book</title>
+        <link rel="stylesheet" href="../css/base.css" />
+        <link rel="stylesheet" href="../css/layout.css" />
+        <link rel="stylesheet" href="../css/components.css" />
+        <link rel="stylesheet" href="../css/utilities.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="nav-island">
+                <span class="nav-brand">Bookify</span>
+                <div class="nav-pages">
+                    <a href="catalog.html" class="nav-item">Books</a>
+                    <a href="book-edit.html" class="nav-item">Edit</a>
+                    <a href="book-add.html" class="nav-item active">Add</a>
+                    <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
                 </div>
-                <div class="cover-upload-controls">
-                  <input type="file" id="cover-file" accept="image/*" onchange="previewCover(this)" />
-                  <input type="hidden" id="cover-data" />
-                  <p class="cover-hint">Upload a cover image, or leave empty for a placeholder.</p>
-                </div>
-              </div>
+                <span id="user-nav-info"></span>
+                <a href="../user/login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout"
+                    >⏻</a
+                >
+            </nav>
+        </header>
+
+        <main>
+            <div class="content-card">
+                <h1 class="page-title">Add New Book</h1>
+                <p class="page-description">Fill in the details below to add a book to the collection.</p>
+                <hr class="divider" />
+
+                <form action="#" method="post">
+                    <div class="form-section">
+                        <h3 class="form-section-title">Book Details</h3>
+
+                        <div class="form-field">
+                            <label for="title">Title <span class="required">*</span></label>
+                            <input type="text" id="title" name="title" required placeholder="Enter book title" />
+                        </div>
+
+                        <div class="form-field">
+                            <label for="author">Author <span class="required">*</span></label>
+                            <input type="text" id="author" name="author" required placeholder="Enter author name" />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="category">Category <span class="required">*</span></label>
+                                <select id="category" name="category">
+                                    <option value="">-- Select --</option>
+                                    <option value="Fiction">Fiction</option>
+                                    <option value="Non-Fiction">Non-Fiction</option>
+                                    <option value="Dystopian">Dystopian</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Science">Science</option>
+                                    <option value="History">History</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Programming">Programming</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="price">Price</label>
+                                <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">Additional Information</h3>
+
+                        <div class="form-field">
+                            <label for="description">Description</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                rows="5"
+                                placeholder="Enter a brief summary of the book..."
+                            ></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="cover-file">Cover Photo</label>
+                            <div class="cover-upload-area">
+                                <div class="cover-preview" id="cover-preview">
+                                    <div class="cover-placeholder">No cover selected</div>
+                                </div>
+                                <div class="cover-upload-controls">
+                                    <input type="file" id="cover-file" accept="image/*" onchange="previewCover(this)" />
+                                    <input type="hidden" id="cover-data" />
+                                    <p class="cover-hint">Upload a cover image, or leave empty for a placeholder.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; justify-content: flex-end">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href = 'catalog.html'">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">Add Book</button>
+                    </div>
+                </form>
             </div>
-          </div>
+        </main>
 
-          <div style="display:flex;gap:10px;justify-content:flex-end">
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='catalog.html'">Cancel</button>
-            <button type="submit" class="btn btn-primary">Add Book</button>
-          </div>
-        </form>
-      </div>
-    </main>
-
-    <footer>
-      <p>&copy;2026 Bookify. All rights reserved.</p>
-    </footer>
-    <script src="../js/admin.js"></script>
-  </body>
+        <footer>
+            <p>&copy;2026 Bookify. All rights reserved.</p>
+        </footer>
+        <script src="../js/shared.js"></script>
+        <script src="../js/admin-ui.js"></script>
+        <script src="../js/admin-books.js"></script>
+    </body>
 </html>

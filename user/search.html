@@ -1,86 +1,104 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookify - Search</title>
-    <link rel="stylesheet" href="../css/style.css" />
-</head>
-<body>
-    <header>
-        <nav class="nav-island">
-            <span class="nav-brand">Bookify</span>
-            <div class="nav-pages">
-                <a href="dashboard.html" class="nav-item">Home</a>
-                <a href="borrowed.html" class="nav-item">Borrowed</a>
-                <a href="search.html" class="nav-item active">Search</a>
-            </div>
-            <span id="user-nav-info"></span>
-            <a href="login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
-        </nav>
-    </header>
-
-    <main class="content-card">
-        <h1 class="page-title">Bookify</h1>
-        <h2 class="page-subtitle">Search Books</h2>
-        <p class="page-description">Enter your search term below and select the search type.</p>
-        <hr class="divider">
-        <form>
-            <div class="form-section">
-                <h3 class="form-section-title">Filter Collection</h3>
-
-                <div class="form-field">
-                    <label for="searchInput">Search <span class="required">*</span></label>
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Enter search term..." required autofocus>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bookify - Search</title>
+        <link rel="stylesheet" href="../css/base.css" />
+        <link rel="stylesheet" href="../css/layout.css" />
+        <link rel="stylesheet" href="../css/components.css" />
+        <link rel="stylesheet" href="../css/utilities.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="nav-island">
+                <span class="nav-brand">Bookify</span>
+                <div class="nav-pages">
+                    <a href="dashboard.html" class="nav-item">Home</a>
+                    <a href="borrowed.html" class="nav-item">Borrowed</a>
+                    <a href="search.html" class="nav-item active">Search</a>
                 </div>
+                <span id="user-nav-info"></span>
+                <a href="login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
+            </nav>
+        </header>
 
-                <div class="form-row">
+        <main class="content-card">
+            <h1 class="page-title">Bookify</h1>
+            <h2 class="page-subtitle">Search Books</h2>
+            <p class="page-description">Enter your search term below and select the search type.</p>
+            <hr class="divider" />
+            <form>
+                <div class="form-section">
+                    <h3 class="form-section-title">Filter Collection</h3>
+
                     <div class="form-field">
-                        <label for="searchBy">Search By:</label>
-                        <select id="searchBy" name="searchBy">
-                            <option value="All">All Fields</option>
-                            <option value="Book">Book Name</option>
-                            <option value="Author">Author</option>
-                            <option value="Category">Category</option>
-                        </select>
+                        <label for="searchInput">Search <span class="required">*</span></label>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            name="searchInput"
+                            placeholder="Enter search term..."
+                            required
+                            autofocus
+                        />
                     </div>
-                    <div class="form-field">
-                        <label for="filterAvailability">Availability:</label>
-                        <select id="filterAvailability" name="availability">
-                            <option value="all">All Books</option>
-                            <option value="available">Available Only</option>
-                            <option value="borrowed">Borrowed Only</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div style="display:flex;gap:10px;margin-top:8px">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                    <button type="reset" class="btn btn-secondary">Clear</button>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="searchBy">Search By:</label>
+                            <select id="searchBy" name="searchBy">
+                                <option value="All">All Fields</option>
+                                <option value="Book">Book Name</option>
+                                <option value="Author">Author</option>
+                                <option value="Category">Category</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="filterAvailability">Availability:</label>
+                            <select id="filterAvailability" name="availability">
+                                <option value="all">All Books</option>
+                                <option value="available">Available Only</option>
+                                <option value="borrowed">Borrowed Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 8px">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="reset" class="btn btn-secondary">Clear</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-        <hr class="divider">
-        <h3 class="page-subtitle" style="margin-bottom:12px">Search Results</h3>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th style="width:50px">Cover</th>
-                    <th>Book Name</th>
-                    <th>Author</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Availability</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td colspan="6" style="text-align:center;color:var(--text3);padding:24px;font-size:14px">Use the search form above to find books.</td></tr>
-            </tbody>
-        </table>
-    </main>
-    <footer>
-        <p>&copy; 2026 Bookify. All rights reserved.</p>
-    </footer>
-    <script src="../js/user.js"></script>
-</body>
+            </form>
+            <hr class="divider" />
+            <h3 class="page-subtitle" style="margin-bottom: 12px">Search Results</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px">Cover</th>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: var(--text3); padding: 24px; font-size: 14px">
+                            Use the search form above to find books.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="search-pagination"></div>
+        </main>
+        <footer>
+            <p>&copy; 2026 Bookify. All rights reserved.</p>
+        </footer>
+        <script src="../js/shared.js"></script>
+        <script src="../js/user-auth.js"></script>
+        <script src="../js/user-books.js"></script>
+        <script src="../js/user-search.js"></script>
+    </body>
 </html>
