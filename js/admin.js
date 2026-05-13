@@ -55,35 +55,32 @@ function previewCover(input) {
         reader.onload = function(e) {
             const dataUrl = e.target.result;
             if (hidden) hidden.value = dataUrl;
-            if (preview) preview.innerHTML = '<img src="' + dataUrl + '" style="max-width:120px;max-height:160px;border-radius:6px;border:1px solid var(--border);object-fit:cover" />';
+            if (preview) preview.innerHTML = '<img src="' + dataUrl + '" alt="Cover preview" />';
         };
         reader.readAsDataURL(input.files[0]);
     } else {
         if (hidden) hidden.value = '';
-        if (preview) preview.innerHTML = '';
+        if (preview) preview.innerHTML = '<div class="cover-placeholder">No cover selected</div>';
     }
 }
 
 function loadAdminBooks() {
     const books = JSON.parse(localStorage.getItem('books'));
-    const tbody = document.querySelector('.data-table tbody');
-    if (tbody) {
-        tbody.innerHTML = '';
-        books.forEach(book => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td class="td-primary">${book.title}</td>
-                <td class="td-muted">${book.author}</td>
-                <td class="td-primary">${book.id}</td>
-                <td><span class="category-badge">${book.category}</span></td>
-                <td class="text-center">
-                    <a href="book-edit.html?id=${book.id}" class="action-link">Edit</a>
-                    <a href="#" class="action-link--danger" onclick="deleteBook(${book.id})">Delete</a>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
+    const grid = document.getElementById('admin-book-grid');
+    const count = document.getElementById('admin-book-count');
+    if (!grid) return;
+    if (count) count.textContent = books.length;
+    grid.innerHTML = '';
+    if (!books.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text3)"><div style="font-size:40px;margin-bottom:12px">📚</div><p style="font-size:16px;font-weight:600;margin:0 0 4px">No books yet</p><p style="font-size:14px;margin:0">Add your first book to get started.</p></div>';
+        return;
     }
+    books.forEach(book => {
+        const card = document.createElement('div');
+        card.className = 'book-card';
+        card.innerHTML = '<img src="' + (book.coverUrl || 'https://placehold.co/150x200/e2e8f0/64748b?text=Book') + '" alt="' + book.title + '" loading="lazy"><div class="book-card-body"><h3>' + book.title + '</h3><p class="td-muted">' + book.author + '</p><p style="margin:4px 0 10px"><span class="category-badge">' + book.category + '</span> <span class="' + (book.available ? 'td-primary' : 'warning-text') + '" style="font-size:12px;margin-left:6px">' + (book.available ? 'Available' : 'Borrowed') + '</span></p><div style="display:flex;gap:6px"><a href="book-edit.html?id=' + book.id + '" class="btn btn-primary" style="padding:6px 14px;font-size:11px;flex:1;justify-content:center">Edit</a><a href="#" class="btn btn-danger" style="padding:6px 14px;font-size:11px;flex:1;justify-content:center" onclick="deleteBook(' + book.id + ')">Delete</a></div></div>';
+        grid.appendChild(card);
+    });
 }
 
 function deleteBook(bookId) {
@@ -102,6 +99,7 @@ function validateAddBook() {
     const title = document.getElementById('title').value.trim();
     const author = document.getElementById('author').value.trim();
     const category = document.getElementById('category').value;
+    const price = document.getElementById('price').value.trim();
     const description = document.getElementById('description').value.trim();
     if (!title || !author || !category) {
         alert('Title, author, and category are required.');
@@ -115,7 +113,7 @@ function validateAddBook() {
         title,
         author,
         category,
-        price: 0,
+        price: price ? parseFloat(price) : 0,
         available: true,
         borrowedBy: null,
         description: description || '',
@@ -138,12 +136,16 @@ function loadEditBookData() {
         document.getElementById('title').value = book.title;
         document.getElementById('author').value = book.author;
         document.getElementById('isbn').value = book.id;
-        document.getElementById('category').value = book.category.toLowerCase();
+        document.getElementById('category').value = book.category;
         document.getElementById('description').value = book.description || '';
         document.getElementById('price').value = book.price || 0;
         const preview = document.getElementById('cover-preview');
-        if (preview && book.coverUrl && !book.coverUrl.includes('placehold.co')) {
-            preview.innerHTML = '<img src="' + book.coverUrl + '" style="max-width:120px;max-height:160px;border-radius:6px;border:1px solid var(--border);object-fit:cover" />';
+        if (preview) {
+            if (book.coverUrl && !book.coverUrl.includes('placehold.co')) {
+                preview.innerHTML = '<img src="' + book.coverUrl + '" alt="Current cover" />';
+            } else {
+                preview.innerHTML = '<div class="cover-placeholder">No cover</div>';
+            }
         }
     }
 }
@@ -187,12 +189,17 @@ function showTab(tabName) {
     if (event && event.target) event.target.classList.add('active');
 }
 
+function handleScroll() {
+    const header = document.querySelector('header');
+    if (header) header.classList.toggle('is-scrolled', window.scrollY > 40);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeData();
     checkAdmin();
     const user = getCurrentUser();
     const userInfo = document.getElementById('user-nav-info');
-    if (userInfo) userInfo.textContent = user ? 'Admin: ' + user.username : 'Admin Panel';
+    if (userInfo) userInfo.innerHTML = user ? '<span class="nav-user-icon">👤</span>' + user.username : 'Admin Panel';
 
     const adminsLink = document.getElementById('nav-admins');
     if (adminsLink && user && user.isSuperuser) {
@@ -213,4 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) logoutLink.onclick = (e) => { e.preventDefault(); logout(); };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
 });

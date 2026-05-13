@@ -261,12 +261,17 @@ function checkLoginStatus() {
     if (!user && isProtected) window.location.href = 'login.html';
 }
 
+function handleScroll() {
+    const header = document.querySelector('header');
+    if (header) header.classList.toggle('is-scrolled', window.scrollY > 40);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeData();
     checkLoginStatus();
     const user = getCurrentUser();
     const userInfo = document.getElementById('user-nav-info');
-    if (userInfo) userInfo.textContent = user ? user.username : '';
+    if (userInfo) userInfo.innerHTML = user ? '<span class="nav-user-icon">👤</span>' + user.username : '';
     const loginForm = document.querySelector('form[action="login"]');
     if (loginForm) loginForm.onsubmit = validateLogin;
     const signupForm = document.querySelector('form[action="books.html"]');
@@ -283,4 +288,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (match) loadBookDetails(parseInt(match[1]));
     const logoutLink = document.getElementById('logout-link');
     if (logoutLink) logoutLink.onclick = function(e) { e.preventDefault(); logout(); };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
 });
