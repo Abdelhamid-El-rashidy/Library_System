@@ -1,0 +1,303 @@
+/* ===========================
+   Admin Panel — Shared Styles
+   =========================== */
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+/* ---------- Header / Navigation ---------- */
+header {
+  background-color: #111827;
+  border-bottom: 1px solid #1f2937;
+}
+
+nav table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+nav tr {
+  text-align: center;
+}
+
+/* Generic nav cell */
+.nav-cell {
+
+}
+
+/* Active nav cell gets the amber underline */
+.nav-cell--active {
+  border-bottom: 3px solid #f59e0b;
+}
+
+/* nav link — default (inactive) */
+.nav-link {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* nav link — active page */
+.nav-link--active {
+  color: #f59e0b;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Tab Navigation (admin-book-management) ---------- */
+.tab-button {
+  background-color: #111827;
+  color: #9ca3af;
+  border: none;
+  padding: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+}
+
+.tab-button.active {
+  color: #d97706;
+  border-bottom: 3px solid #f59e0b;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ---------- Content Card ---------- */
+.content-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  width: 90%;
+  margin: 32px auto 0;
+  padding: 40px;
+}
+
+/* ---------- Page Headings ---------- */
+.page-title {
+  color: #111827;
+  margin-top: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.page-subtitle {
+  color: #4b5563;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.page-description {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ---------- Divider ---------- */
+.divider {
+  border: 0;
+  border-top: 1px solid #f3f4f6;
+  margin: 32px 0;
+}
+
+/* ---------- Form Legend ---------- */
+.form-legend {
+  font-size: 18px;
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: block;
+}
+
+/* ---------- Form Controls ---------- */
+label {
+  display: block;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #111827;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin-bottom: 16px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Required field marker */
+.required {
+  color: #ef4444;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.btn-primary {
+  background-color: #d97706;
+  color: #ffffff;
+  padding: 12px 32px;
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* ---------- Data Table ---------- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.data-table thead tr {
+  background-color: #fff7ed;
+}
+
+.data-table th {
+  color: #92400e;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 2px solid #fed7aa;
+}
+
+.data-table td {
+  font-size: 14px;
+}
+
+.td-primary {
+  color: #374151;
+}
+
+.td-muted {
+  color: #6b7280;
+}
+
+/* ---------- Utility ---------- */
+.text-center {
+  text-align: center;
+}
+
+/* ---------- Category Badge ---------- */
+.category-badge {
+  color: #b45309;
+  background-color: #fff7ed;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #ffedd5;
+}
+
+/* ---------- Action Links ---------- */
+.action-link {
+  color: #d97706;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.action-link--danger {
+  color: #dc2626;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+/* ---------- Warning / Delete Details ---------- */
+.warning-text {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.delete-details-box {
+  display: none;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.delete-details-box h3 {
+  color: #dc2626;
+  margin-top: 0;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 48px 0;
+  background-color: #111827;
+  color: #9ca3af;
+  text-align: center;
+  font-size: 12px;
+}
+
+footer p {
+  margin: 0;
+}

@@ -1,10 +1,11 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - Add New Book</title>
-    <link rel="stylesheet" href="../../css/admin.css" />
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
   </head>
 
   <body>
@@ -19,13 +20,13 @@
               <a href="/dashboard/books/" class="nav-link">Books</a>
             </td>
             <td class="nav-cell">
-              <a href="admin-edit-book.html" class="nav-link">Edit Book</a>
+              <a href="/dashboard/edit/" class="nav-link">Edit Book</a>
             </td>
             <td class="nav-cell--active">
-              <a href="admin-add-book.html" class="nav-link--active">Add Book</a>
+              <a href="/dashboard/add/" class="nav-link--active">Add Book</a>
             </td>
             <td class="nav-cell">
-              <a class="nav-link" href="../../'/'">Logout</a>
+              <a class="nav-link" href="/">Logout</a>
             </td>
           </tr>
         </table>
@@ -149,7 +150,7 @@
                   type="button"
                   value="Cancel"
                   class="btn btn-secondary"
-                  onclick="window.location.href='/dashboard/books/'"
+                  onclick="window.location.href = '/dashboard/books/'"
                 />
                 &nbsp;
                 <input
@@ -167,6 +168,6 @@
     <footer>
       <p>&copy;2026 Bookify. All rights reserved.</p>
     </footer>
-    <script src="../../js/admin.js"></script>
+    <script src="{% static 'js/admin.js' %}"></script>
   </body>
 </html>
