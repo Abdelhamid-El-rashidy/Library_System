@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookify - Your Modern Library</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .landing{min-height:100vh;background:linear-gradient(135deg,#0f172a,#1e293b);display:flex;flex-direction:column}
+        .landing header{background:0 0;border:none;position:static;padding:24px 40px;flex-direction:row;justify-content:space-between}
+        .landing .logo{font-size:22px;font-weight:800;color:var(--accent);letter-spacing:-.03em}
+        .landing .nav-cta{display:flex;gap:12px;align-items:center}
+        .landing .nav-cta a{font-size:14px;font-weight:600;text-decoration:none;padding:8px 20px;border-radius:var(--radius-pill);transition:all var(--t)}
+        .landing .nav-cta .login-link{color:var(--text3)}
+        .landing .nav-cta .login-link:hover{color:#fff}
+        .landing .nav-cta .signup-link{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff}
+        .landing .nav-cta .signup-link:hover{box-shadow:0 4px 16px rgba(217,119,6,.4);transform:translateY(-1px)}
+        .hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+        .hero h1{font-size:clamp(40px,8vw,72px);font-weight:900;color:#fff;margin:0;letter-spacing:-.04em;line-height:1.05}
+        .hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-light,#fbbf24));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero p{font-size:clamp(16px,2.5vw,22px);color:var(--text3);max-width:600px;margin:20px 0 36px;line-height:1.6}
+        .hero-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+        .hero-actions .btn{padding:14px 36px;font-size:15px;border-radius:var(--radius-pill)}
+        .hero-actions .btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
+        .hero-actions .btn-secondary:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25)}
+        .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:900px;width:100%;margin-top:60px}
+        .feature-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:28px 24px;text-align:center;transition:all var(--t)}
+        .feature-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}
+        .feature-card .icon{font-size:36px;margin-bottom:12px}
+        .feature-card h3{color:#fff;font-size:16px;font-weight:700;margin:0 0 8px}
+        .feature-card p{color:var(--text3);font-size:13px;margin:0;line-height:1.5}
+        .landing footer{background:0 0;border-top:1px solid rgba(255,255,255,.06);margin-top:0;padding:24px 40px}
+        @media(max-width:640px){
+            .landing header{padding:16px 20px;flex-direction:column;gap:12px}
+            .hero{padding:24px 16px}
+            .features{grid-template-columns:1fr;margin-top:40px}
+        }
+    </style>
+</head>
+<body class="landing">
+    <header>
+        <span class="logo">Bookify</span>
+        <div class="nav-cta">
+            <a href="user/login.html" class="login-link">Sign In</a>
+            <a href="user/signup.html" class="signup-link">Get Started</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Your Library,<br><span>Reimagined</span></h1>
+        <p>Discover, borrow, and manage books effortlessly. Bookify brings the library experience to your fingertips with a clean, modern interface.</p>
+        <div class="hero-actions">
+            <a href="user/signup.html" class="btn btn-primary">Join Bookify</a>
+            <a href="user/login.html" class="btn btn-secondary">Sign In</a>
+        </div>
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon">📖</div>
+                <h3>Browse Books</h3>
+                <p>Explore a growing collection across every genre.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📤</div>
+                <h3>Borrow & Return</h3>
+                <p>Check out books and track your due dates.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔍</div>
+                <h3>Smart Search</h3>
+                <p>Find books by title, author, or category instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Bookify. All rights reserved.</p>
+    </footer>
+</body>
+</html>
