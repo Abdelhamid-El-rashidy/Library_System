@@ -1,8 +1,15 @@
 /* global getCurrentUser, initializeData, logout, handleScroll */
 
+function getLoginPath() {
+    var depth = window.location.pathname.split('/').filter(Boolean).length - 1;
+    return depth > 0 ? '../'.repeat(depth) + 'login.html' : 'login.html';
+}
+
 function checkAdmin() {
     const user = getCurrentUser();
-    if (!user || !user.isAdmin) {
+    if (!user) {
+        window.location.href = getLoginPath();
+    } else if (!user.isAdmin) {
         window.location.href = '../user/dashboard.html';
     }
 }

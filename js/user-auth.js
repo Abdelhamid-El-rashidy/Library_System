@@ -98,9 +98,7 @@ function validateSignup(e) {
 
 function checkLoginStatus() {
     var user = getCurrentUser();
-    var path = window.location.pathname;
-    var isProtected = path.includes('dashboard.html') || path.includes('borrowed.html');
-    if (!user && isProtected) window.location.href = getLoginPath();
+    if (!user) window.location.href = getLoginPath();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
