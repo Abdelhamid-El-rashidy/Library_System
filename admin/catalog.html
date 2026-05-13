@@ -10,36 +10,32 @@
   <body>
     <header>
         <nav class="nav-island">
-            <a href="catalog.html" class="nav-item active">Books</a>
-            <a href="book-edit.html" class="nav-item">Edit</a>
-            <a href="book-add.html" class="nav-item">Add</a>
-            <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
+            <span class="nav-brand">Bookify</span>
+            <div class="nav-pages">
+                <a href="catalog.html" class="nav-item active">Books</a>
+                <a href="book-edit.html" class="nav-item">Edit</a>
+                <a href="book-add.html" class="nav-item">Add</a>
+                <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
+            </div>
             <span id="user-nav-info"></span>
-            <a href="../user/login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
+            <a href="../user/login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
         </nav>
     </header>
 
     <main>
       <div class="content-card">
         <h1 class="page-title">Books Library</h1>
-        <h2 class="page-subtitle">Step 1 — Select a Book to Edit</h2>
         <p class="page-description">
-          Manage your collection by selecting a record below.
+          Manage your collection — edit or remove books from the library.
         </p>
         <hr class="divider" />
 
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>ID</th>
-              <th>Category</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <div class="section-title">
+          Books Library
+          <span class="count" id="admin-book-count">0</span>
+        </div>
+
+        <div class="book-grid" id="admin-book-grid"></div>
       </div>
     </main>
 

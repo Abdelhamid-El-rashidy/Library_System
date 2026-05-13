@@ -9,12 +9,15 @@
   <body>
     <header>
         <nav class="nav-island">
-            <a href="catalog.html" class="nav-item">Books</a>
-            <a href="book-edit.html" class="nav-item">Edit</a>
-            <a href="book-add.html" class="nav-item active">Add</a>
-            <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
+            <span class="nav-brand">Bookify</span>
+            <div class="nav-pages">
+                <a href="catalog.html" class="nav-item">Books</a>
+                <a href="book-edit.html" class="nav-item">Edit</a>
+                <a href="book-add.html" class="nav-item active">Add</a>
+                <a href="admins.html" class="nav-item nav-item--hidden" id="nav-admins">Admins</a>
+            </div>
             <span id="user-nav-info"></span>
-            <a href="../user/login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
+            <a href="../user/login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
         </nav>
     </header>
 
@@ -40,10 +43,6 @@
 
             <div class="form-row">
               <div class="form-field">
-                <label for="isbn">ISBN</label>
-                <input type="text" id="isbn" name="isbn" placeholder="e.g. 978-0-00-000000-0" />
-              </div>
-              <div class="form-field">
                 <label for="category">Category <span class="required">*</span></label>
                 <select id="category" name="category">
                   <option value="">-- Select --</option>
@@ -59,6 +58,10 @@
                   <option value="Other">Other</option>
                 </select>
               </div>
+              <div class="form-field">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" />
+              </div>
             </div>
           </div>
 
@@ -72,10 +75,16 @@
 
             <div class="form-field">
               <label for="cover-file">Cover Photo</label>
-              <input type="file" id="cover-file" accept="image/*" onchange="previewCover(this)" />
-              <div id="cover-preview" style="margin-top:8px"></div>
-              <input type="hidden" id="cover-data" />
-              <p style="color:var(--text3);font-size:12px;margin:6px 0 0">Upload a cover image, or leave empty for a placeholder.</p>
+              <div class="cover-upload-area">
+                <div class="cover-preview" id="cover-preview">
+                  <div class="cover-placeholder">No cover selected</div>
+                </div>
+                <div class="cover-upload-controls">
+                  <input type="file" id="cover-file" accept="image/*" onchange="previewCover(this)" />
+                  <input type="hidden" id="cover-data" />
+                  <p class="cover-hint">Upload a cover image, or leave empty for a placeholder.</p>
+                </div>
+              </div>
             </div>
           </div>
 
