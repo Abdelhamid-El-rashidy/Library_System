@@ -38,7 +38,7 @@ function getCurrentUser() {
 function checkAdmin() {
     const user = getCurrentUser();
     if (!user || !user.isAdmin) {
-        window.location.href = '../user/index.html';
+        window.location.href = '../user/dashboard.html';
     }
 }
 
@@ -105,7 +105,7 @@ function validateAddBook() {
     books.push(newBook);
     localStorage.setItem('books', JSON.stringify(books));
     alert('Book added successfully.');
-    window.location.href = 'books.html';
+    window.location.href = 'catalog.html';
     return false;
 }
 
@@ -148,7 +148,7 @@ function validateEditBook() {
         books[bookIndex].price = price ? parseFloat(price) : 0;
         localStorage.setItem('books', JSON.stringify(books));
         alert('Book updated successfully.');
-        window.location.href = 'books.html';
+        window.location.href = 'catalog.html';
     }
     return false;
 }
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const userInfo = document.getElementById('user-nav-info');
     if (userInfo) userInfo.textContent = user ? 'Admin: ' + user.username : 'Admin Panel';
 
-    if (window.location.pathname.includes('books.html')) { loadAdminBooks(); }
+    if (window.location.pathname.includes('catalog.html')) { loadAdminBooks(); }
     if (window.location.pathname.includes('book-edit.html')) { loadEditBookData(); }
 
     const form = document.querySelector('form');

@@ -46,7 +46,7 @@ function validateLogin() {
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
         localStorage.setItem('currentUser', user.id);
-        window.location.href = user.isAdmin ? '../admin/books.html' : 'index.html';
+        window.location.href = user.isAdmin ? '../admin/catalog.html' : 'dashboard.html';
         return false;
     } else {
         alert('Invalid credentials.');
@@ -68,7 +68,7 @@ function validateSignup() {
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('currentUser', newUser.id);
-    window.location.href = isAdmin ? '../admin/books.html' : 'index.html';
+    window.location.href = isAdmin ? '../admin/catalog.html' : 'dashboard.html';
     return false;
 }
 
@@ -216,7 +216,7 @@ function loadBookDetails(bookId) {
 function checkLoginStatus() {
     const user = getCurrentUser();
     const path = window.location.pathname;
-    const isProtected = path.includes('index.html') || path.includes('borrowed.html');
+    const isProtected = path.includes('dashboard.html') || path.includes('borrowed.html');
     // if (!user && isProtected) window.location.href = 'login.html';
 }
 
@@ -232,9 +232,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (signupForm) signupForm.onsubmit = validateSignup;
     const searchForm = document.querySelector('form');
     if (searchForm && document.getElementById('searchInput')) searchForm.onsubmit = performSearch;
-    if (window.location.pathname.includes('books.html') && !window.location.pathname.includes('book')) loadBooks();
+    if (window.location.pathname.includes('catalog.html')) loadBooks();
     if (window.location.pathname.includes('borrowed.html')) loadBorrowedBooks();
-    if (window.location.pathname.includes('index.html')) loadDashboard();
+    if (window.location.pathname.includes('dashboard.html')) loadDashboard();
     const path = window.location.pathname;
     const match = path.match(/book(\d+)\.html/);
     if (match) loadBookDetails(parseInt(match[1]));
