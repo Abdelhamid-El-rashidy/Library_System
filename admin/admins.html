@@ -9,12 +9,15 @@
   <body>
     <header>
         <nav class="nav-island">
-            <a href="catalog.html" class="nav-item">Books</a>
-            <a href="book-edit.html" class="nav-item">Edit</a>
-            <a href="book-add.html" class="nav-item">Add</a>
-            <a href="admins.html" class="nav-item active nav-item--hidden" id="nav-admins">Admins</a>
+            <span class="nav-brand">Bookify</span>
+            <div class="nav-pages">
+                <a href="catalog.html" class="nav-item">Books</a>
+                <a href="book-edit.html" class="nav-item">Edit</a>
+                <a href="book-add.html" class="nav-item">Add</a>
+                <a href="admins.html" class="nav-item active nav-item--hidden" id="nav-admins">Admins</a>
+            </div>
             <span id="user-nav-info"></span>
-            <a href="../user/login.html" class="nav-item nav-logout" id="logout-link">Logout</a>
+            <a href="../user/login.html" class="nav-item nav-logout nav-logout-icon" id="logout-link" title="Logout">⏻</a>
         </nav>
     </header>
 
@@ -67,17 +70,7 @@
             </div>
           </div>
 
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th class="text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="admin-list"></tbody>
-          </table>
+          <div class="user-grid" id="admin-list"></div>
         </div>
       </div>
     </main>
@@ -90,17 +83,18 @@
       function loadAdmins() {
         const users = JSON.parse(localStorage.getItem('users')) || [];
         const admins = users.filter(u => u.isAdmin);
-        const tbody = document.getElementById('admin-list');
-        tbody.innerHTML = '';
+        const grid = document.getElementById('admin-list');
+        grid.innerHTML = '';
         admins.forEach(u => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td class="td-primary">${u.username}</td>
-            <td class="td-muted">${u.email}</td>
-            <td><span class="category-badge">${u.isSuperuser ? 'Superuser' : 'Admin'}</span></td>
-            <td class="text-center">${u.isSuperuser ? '<span style="color:var(--text3);font-size:12px">—</span>' : '<a href="#" class="action-link--danger" onclick="deleteAdmin(' + u.id + ')">Remove</a>'}</td>
-          `;
-          tbody.appendChild(tr);
+          const initial = u.username.charAt(0).toUpperCase();
+          const avatarClass = u.isSuperuser ? 'user-avatar--superuser' : 'user-avatar--admin';
+          const roleClass = u.isSuperuser ? 'user-role--superuser' : 'user-role--admin';
+          const roleLabel = u.isSuperuser ? 'Superuser' : 'Admin';
+          const actions = u.isSuperuser ? '' : '<a href="#" class="btn btn-danger" style="padding:6px 14px;font-size:11px" onclick="deleteAdmin(' + u.id + ')">Remove</a>';
+          const card = document.createElement('div');
+          card.className = 'user-card';
+          card.innerHTML = '<div class="user-avatar ' + avatarClass + '">' + initial + '</div><div class="user-info"><h3>' + u.username + '</h3><p>' + u.email + '</p><span class="user-role ' + roleClass + '">' + roleLabel + '</span></div>' + (actions ? '<div>' + actions + '</div>' : '');
+          grid.appendChild(card);
         });
       }
 
@@ -172,7 +166,7 @@
         if (typeof initializeData === 'function') initializeData();
         const userInfo = document.getElementById('user-nav-info');
         const user = JSON.parse(localStorage.getItem('users'))?.find(u => u.id == localStorage.getItem('currentUser'));
-        if (userInfo) userInfo.textContent = user ? 'Admin: ' + user.username : 'Admin Panel';
+        if (userInfo) userInfo.innerHTML = user ? '<span class="nav-user-icon">👤</span>' + user.username : 'Admin Panel';
         const logoutLink = document.getElementById('logout-link');
         if (logoutLink) logoutLink.onclick = (e) => { e.preventDefault(); logout(); };
         checkSuperuserAccess();
