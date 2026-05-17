@@ -1,4 +1,4 @@
-/* global getCurrentUser, initializeData, logout, handleScroll */
+/* global getCurrentUser, initializeData, logout, handleScroll, apiSyncBooks */
 
 function getLoginPath() {
     var depth = window.location.pathname.split('/').filter(Boolean).length - 1;
@@ -16,6 +16,7 @@ function checkAdmin() {
 
 document.addEventListener('DOMContentLoaded', function () {
     initializeData();
+    apiSyncBooks();
     checkAdmin();
     const user = getCurrentUser();
     const userInfo = document.getElementById('user-nav-info');

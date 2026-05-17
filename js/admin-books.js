@@ -2,7 +2,8 @@
 
 var adminCatalogPage = 1;
 
-function loadAdminBooks(page) {
+async function loadAdminBooks(page) {
+    await apiSyncBooks();
     if (page) adminCatalogPage = page;
     var books = JSON.parse(localStorage.getItem('books') || '[]');
     var grid = document.getElementById('admin-book-grid');
@@ -133,7 +134,8 @@ function validateAddBook(e) {
     return false;
 }
 
-function loadEditBookData() {
+async function loadEditBookData() {
+    await apiSyncBooks();
     var urlParams = new URLSearchParams(window.location.search);
     var id = urlParams.get('id');
     if (!id) return;
@@ -217,9 +219,9 @@ function validateEditBook(e) {
     return false;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname.includes('catalog.html')) loadAdminBooks();
-    if (window.location.pathname.includes('book-edit.html')) loadEditBookData();
+document.addEventListener('DOMContentLoaded', async function () {
+    if (window.location.pathname.includes('catalog.html')) await loadAdminBooks();
+    if (window.location.pathname.includes('book-edit.html')) await loadEditBookData();
     var form = document.querySelector('form');
     if (form) {
         if (window.location.pathname.includes('book-add.html')) {
