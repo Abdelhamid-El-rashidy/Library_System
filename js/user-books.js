@@ -133,7 +133,8 @@ function returnBook(bookId) {
 
 var catalogPage = 1;
 
-function loadBooks(page) {
+async function loadBooks(page) {
+    await apiSyncBooks();
     if (page) catalogPage = page;
     var user = getCurrentUser();
     var books = JSON.parse(localStorage.getItem('books') || '[]');
@@ -157,7 +158,8 @@ function loadBooks(page) {
     if (paginationEl) paginationEl.innerHTML = renderPagination(catalogPage, totalPages, 'loadBooks');
 }
 
-function loadBorrowedBooks() {
+async function loadBorrowedBooks() {
+    await apiSyncBooks();
     var user = getCurrentUser();
     if (!user) {
         window.location.href = getLoginPath();
@@ -256,7 +258,8 @@ function renderCard(book, isBorrowed, isAdmin) {
     );
 }
 
-function loadDashboard() {
+async function loadDashboard() {
+    await apiSyncBooks();
     var user = getCurrentUser();
     if (!user) return;
     if (user.isAdmin) {
@@ -294,7 +297,8 @@ function loadDashboard() {
     }
 }
 
-function loadBookDetails(bookId) {
+async function loadBookDetails(bookId) {
+    await apiSyncBooks();
     var books = JSON.parse(localStorage.getItem('books') || '[]');
     var book = books.find(function (b) {
         return b.id == bookId;
@@ -362,17 +366,17 @@ function loadBookDetails(bookId) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.pathname.includes('catalog.html')) loadBooks();
-    if (window.location.pathname.includes('borrowed.html')) loadBorrowedBooks();
-    if (window.location.pathname.includes('dashboard.html')) loadDashboard();
+document.addEventListener('DOMContentLoaded', async function () {
+    if (window.location.pathname.includes('catalog.html')) await loadBooks();
+    if (window.location.pathname.includes('borrowed.html')) await loadBorrowedBooks();
+    if (window.location.pathname.includes('dashboard.html')) await loadDashboard();
     var urlParams = new URLSearchParams(window.location.search);
     var detailId = urlParams.get('id');
     if (detailId) {
-        loadBookDetails(parseInt(detailId));
+        await loadBookDetails(parseInt(detailId));
         return;
     }
     var path = window.location.pathname;
     var match = path.match(/book(\d+)\.html/);
-    if (match) loadBookDetails(parseInt(match[1]));
+    if (match) await loadBookDetails(parseInt(match[1]));
 });
