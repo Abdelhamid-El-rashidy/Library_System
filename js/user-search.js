@@ -11,7 +11,7 @@ function performSearch() {
         showAlert('Please enter a search term.');
         return false;
     }
-    var books = JSON.parse(localStorage.getItem('books'));
+    var books = JSON.parse(localStorage.getItem('books') || '[]');
     if (searchBy === 'All') {
         books = books.filter(function (b) {
             return (

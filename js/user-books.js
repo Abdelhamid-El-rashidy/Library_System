@@ -77,7 +77,7 @@ function borrowBook(bookId) {
             location.reload();
         })
         .catch(function () {
-            var books = JSON.parse(localStorage.getItem('books'));
+            var books = JSON.parse(localStorage.getItem('books') || '[]');
             var book = books.find(function (b) {
                 return b.id == bookId;
             });
@@ -116,7 +116,7 @@ function returnBook(bookId) {
                 location.reload();
             })
             .catch(function () {
-                var books = JSON.parse(localStorage.getItem('books'));
+                var books = JSON.parse(localStorage.getItem('books') || '[]');
                 var book = books.find(function (b) {
                     return b.id == bookId;
                 });
@@ -136,7 +136,7 @@ var catalogPage = 1;
 function loadBooks(page) {
     if (page) catalogPage = page;
     var user = getCurrentUser();
-    var books = JSON.parse(localStorage.getItem('books'));
+    var books = JSON.parse(localStorage.getItem('books') || '[]');
     var tbody = document.querySelector('.data-table tbody');
     var paginationEl = document.getElementById('catalog-pagination');
     var count = document.getElementById('book-count');
@@ -168,7 +168,7 @@ function loadBorrowedBooks() {
         if (tbody) tbody.innerHTML = renderEmptyRow(6, 'Admins have no borrowed books.');
         return;
     }
-    var books = JSON.parse(localStorage.getItem('books'));
+    var books = JSON.parse(localStorage.getItem('books') || '[]');
     var borrowedBooks = books.filter(function (b) {
         return b.borrowedBy == user.id;
     });
@@ -263,7 +263,7 @@ function loadDashboard() {
         window.location.href = '../admin/catalog.html';
         return;
     }
-    var books = JSON.parse(localStorage.getItem('books'));
+    var books = JSON.parse(localStorage.getItem('books') || '[]');
     var borrowed = books.filter(function (b) {
         return b.borrowedBy == user.id;
     });
@@ -295,7 +295,7 @@ function loadDashboard() {
 }
 
 function loadBookDetails(bookId) {
-    var books = JSON.parse(localStorage.getItem('books'));
+    var books = JSON.parse(localStorage.getItem('books') || '[]');
     var book = books.find(function (b) {
         return b.id == bookId;
     });

@@ -4,7 +4,7 @@ var adminCatalogPage = 1;
 
 function loadAdminBooks(page) {
     if (page) adminCatalogPage = page;
-    var books = JSON.parse(localStorage.getItem('books'));
+    var books = JSON.parse(localStorage.getItem('books') || '[]');
     var grid = document.getElementById('admin-book-grid');
     var count = document.getElementById('admin-book-count');
     var paginationEl = document.getElementById('admin-catalog-pagination');
@@ -63,7 +63,7 @@ function deleteBook(bookId) {
                 loadAdminBooks();
             })
             .catch(function () {
-                var books = JSON.parse(localStorage.getItem('books'));
+                var books = JSON.parse(localStorage.getItem('books') || '[]');
                 var bookIndex = books.findIndex(function (b) {
                     return b.id == bookId;
                 });
@@ -108,7 +108,7 @@ function validateAddBook(e) {
             window.location.href = 'catalog.html';
         })
         .catch(function () {
-            var books = JSON.parse(localStorage.getItem('books'));
+            var books = JSON.parse(localStorage.getItem('books') || '[]');
             var newBook = {
                 id: books.length
                     ? Math.max.apply(
@@ -137,7 +137,7 @@ function loadEditBookData() {
     var urlParams = new URLSearchParams(window.location.search);
     var id = urlParams.get('id');
     if (!id) return;
-    var books = JSON.parse(localStorage.getItem('books'));
+    var books = JSON.parse(localStorage.getItem('books') || '[]');
     var book = books.find(function (b) {
         return b.id == id;
     });
@@ -199,7 +199,7 @@ function validateEditBook(e) {
             window.location.href = 'catalog.html';
         })
         .catch(function () {
-            var books = JSON.parse(localStorage.getItem('books'));
+            var books = JSON.parse(localStorage.getItem('books') || '[]');
             var bookIndex = books.findIndex(function (b) {
                 return b.id == id;
             });
